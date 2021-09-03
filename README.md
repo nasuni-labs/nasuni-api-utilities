@@ -46,10 +46,9 @@ PowerShell NMC API Scripts for working with shares.
 
 ## Create a Share
 Uses PowerShell to create a share by referencing an existing Volume, Edge Appliance, and Path. Useful as an example of how shares can be created using PowerShell.
-
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, ShareName, Path
 **Compatibility**: Nasuni 8.0 or higher required
-Optional Inputs: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
+**Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
 **Name**: CreateShare.ps1
 
 ## Export or Import All Shares and Settings to CSV
