@@ -372,96 +372,36 @@ This script gives you an example using the message ID to look up the status of a
 **Name**: GetMessage.ps1
 
 ## Export Edge Appliance Volume Settings to CSV
-This script exports all Edge Appliance settings that are applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud to cloud migration. The script exports the following settings and logs them to the listed file name: \
+This script exports all Edge Appliance settings that are applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud to cloud migration. The script exports the following settings and logs them to the listed file name:
 
 | Setting | File Name | Description | CSV Columns |
 | ------- | --------- | ----------- | ----------- |
 | CIFS Shares | CifsShares.csv | All CIFS shares listed in the NMC | shareid, Volume_GUID, filer_serial_number, share_name, path, comment, readonly, browseable, authAuthall, authRo_users, authRw_users, authDeny_users, authRo_groups, authRw_groups, authDeny_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt, shared_links_enabled, link_force_password, link_allow_rw, external_share_url, link_expire_limit, link_authAuthall, link_authAllow_groups_ro, link_authAllow_groups_rw, link_authDeny_groups, link_authAllow_users_ro, link_authAllow_users_rw, link_authDeny_users |
 | NFS Exports | NfsExports.csv | All NFS exports listed in the NMC | exportId, Volume_GUID, filer_serial_number, export_name, path, comment, readonly, allowed_hosts, access_mode, perf_mode, sec_options, nfs_host_options |
-
-
-# FTP Directories
-
-FtpDirectories.csv
-
-All FTP shares listed in the NMC
-
-FtpId, Volume_GUID, filer_serial_number, ftp_name, path, comment, readonly, visibility, ip_restrictions, allowed_users, allowed_groups, allow_anonymous, anonymous_only, Permissions_on_new_files, hide_ownership, use_temporary_files_during_upload
-
-Snapshot and Sync Schedule
-
-SnapAndSyncSchedule.csv
-
-List of the configured snapshot and sync schedule for all volumes and Edge Appliances
-
-VolumeName, FilerName, VolumeGuid, FilerSerialNumber, SnapSchedMon, SnapSchedTue, SnapSchedWed, SnapSchedThu, SnapSchedFri, SnapSchedSat, SnapSchedSun, SnapSchedAllday, SnapSchedStart, SnapSchedStop, SnapSchedFrequency, SyncSchedMon, SyncSchedTue, SyncSchedWed, SyncSchedThu, SyncSchedFri, SyncSchedSat, SyncSchedSun, SyncSchedAllday, SyncSchedStart, SyncSchedStop, SyncSchedFrequency, SyncSchedAutocacheAllowed, SyncSchedAutocacheMinFileSize
-
-Volume Auditing
-
-VolumeAuditing.csv
-
-List of volume auditing settings for all volumes and Edge Appliances
-
-VolumeName, FilerName, VolumeGuid, FilerSerialNumber, AuditingEnabled, Create, Delete, Rename, Close, Security, Metadata, Write, Read, PruneAuditLogs, DaysToKeep, ExcludeByDefault, IncludeTakesPriority, IncludePatterns, ExcludePatterns, SyslogExportEnabled
-
-Folder Quotas and Rules
-
-FolderQuotas.csv
-
-List of all folder quotas and rules for all volumes and Edge Appliances
-
-Quota ID, VolumeGuid, FilerSerial, Path, Quota Type, Quota Limit, Quota Usage, Email
-
-Auto Cache Folders
-
-AutoCacheFolders.csv
-
-List of auto cache folders for all volumes and Edge Appliances
-
-volume_guid, filer_serial_number, path, auto cache mode
-
-Pinned Folders
-
-PinnedFolders.csv
-
-List of pinned folders for all volumes and Edge Appliances
-
-volume_guid, filer_serial_number, path, pinning mode
-
-File Alert Service
-
-FileAlertService.csv
-
-List of file alert service entries for all volumes and Edge Appliances
-
-VolumeName, FilerName, Volume GUID, FilerSerialNumber, File Alerts Enabled, File Alert Patterns
-
-Snapshot Directory Access
-
-SnapshotDirAccess.csv
-
-List of the snapshot directory access configuration for all volumes and Edge Appliances
-
-VolumeName, FilerName, Volume GUID, FilerSerialNumber, Snapshot Access Enabled
-
+| FTP Directories | FtpDirectories.csv | All FTP shares listed in the NMC | FtpId, Volume_GUID, filer_serial_number, ftp_name, path, comment, readonly, visibility, ip_restrictions, allowed_users, allowed_groups, allow_anonymous, anonymous_only, Permissions_on_new_files, hide_ownership, use_temporary_files_during_upload |
+| Snapshot and Sync Schedule | SnapAndSyncSchedule.csv | List of the configured snapshot and sync schedule for all volumes and Edge Appliances | VolumeName, FilerName, VolumeGuid, FilerSerialNumber, SnapSchedMon, SnapSchedTue, SnapSchedWed, SnapSchedThu, SnapSchedFri, SnapSchedSat, SnapSchedSun, SnapSchedAllday, SnapSchedStart, SnapSchedStop, SnapSchedFrequency, SyncSchedMon, SyncSchedTue, SyncSchedWed, SyncSchedThu, SyncSchedFri, SyncSchedSat, SyncSchedSun, SyncSchedAllday, SyncSchedStart, SyncSchedStop, SyncSchedFrequency, SyncSchedAutocacheAllowed, SyncSchedAutocacheMinFileSize |
+| Volume Auditing | VolumeAuditing.csv | List of volume auditing settings for all volumes and Edge Appliances | VolumeName, FilerName, VolumeGuid, FilerSerialNumber, AuditingEnabled, Create, Delete, Rename, Close, Security, Metadata, Write, Read, PruneAuditLogs, DaysToKeep, ExcludeByDefault, IncludeTakesPriority, IncludePatterns, ExcludePatterns, SyslogExportEnabled |
+| Folder Quotas and Rules | FolderQuotas.csv | List of all folder quotas and rules for all volumes and Edge Appliances | Quota ID, VolumeGuid, FilerSerial, Path, Quota Type, Quota Limit, Quota Usage, Email |
+| Auto Cache Folders | AutoCacheFolders.csv | List of auto cache folders for all volumes and Edge Appliances | volume_guid, filer_serial_number, path, auto cache mode |
+| Pinned Folders | PinnedFolders.csv | List of pinned folders for all volumes and Edge Appliances | volume_guid, filer_serial_number, path, pinning mode |
+| File Alert Service | FileAlertService.csv | List of file alert service entries for all volumes and Edge Appliances | VolumeName, FilerName, Volume GUID, FilerSerialNumber, File Alerts Enabled, File Alert Patterns |
+| Snapshot Directory Access | SnapshotDirAccess.csv | List of the snapshot directory access configuration for all volumes and Edge Appliances | VolumeName, FilerName, Volume GUID, FilerSerialNumber, Snapshot Access Enabled |
 **Required Inputs**: NMC hostname, username, password, reportDirectory (where to save the CSV files), limit (limit to use for each API endpoint).
 **Compatibility**: Nasuni 7.10 or higher required
 **Name**: ExportEaVolumeSettings.ps1
 
 ## Export NMC Notifications to CSV
-Exports NMC Notifications to CSV.
-
-**NMC API Endpoints Used**:
-* list notifications - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-notifications
-**Required Inputs**: NMC hostname, username, password, ReportFileName, limit (number of notifications to return)
-**Compatibility**: Nasuni 8.0 or higher required
+Exports NMC Notifications to CSV.\
+**NMC API Endpoints Used**: ist notifications - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-notifications \
+**Required Inputs**: NMC hostname, username, password, ReportFileName, limit (number of notifications to return)\
+**Compatibility**: Nasuni 8.0 or higher required\
 **Name**: ExportNotificationsToCSV.ps1
 
 # Volumes
-PowerShell NMC API Scripts for working with volumes.
+PowerShell NMC API Scripts for working with volumes. 
 
 ## Create a Volume
-Uses PowerShell to create a volume.
+Uses PowerShell to create a volume.\
 **Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_id, provider_name, shortname, location, permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive
 Fields and values:
 
