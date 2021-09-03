@@ -62,6 +62,26 @@ Uses PowerShell to export a list of all shares and configured share settings to 
 These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.\
 **Compatibility**: Nasuni 8.0 or higher required
 
+### Step 1 - Create Shares From CSV
+**Required Inputs**: CSV (Volume_GUID, Filer_Serial, ShareName, Comment), hostname, username, password, csvPath, hide_unreadable, fruit_enabled (macOS support)\
+**Optional Inputs**: Other share properties (would require script modification)\
+**Name**: CreateSharesFromCSV.ps1, CreateSharesFromCSV-sample.csv
+
+### Step 2 - Export Shares to CSV (optional)
+Exports all shares for the provided volume_guid and filer_serial to CSV. This could be modified to include all shares for a volume (regardless of filer) or all shares managed by the NMC. A more comprehensive example is available here: ExportAllSharesToCSV.ps1.\
+**Required Inputs**:  hostname, username, password, reportFile, filer_serial, volume_guid\
+**CSV Output**: shareid, Volume_GUID, filer_serial, share_name, path, comment, block_files, fruit_enabled, authall, ro_users, ro_groups, rw_users, rw_groups\
+**Name**: ExportSharesToCSV.ps1
+
+### Step 3 - Set Share Permissions (optional)
+All share properties, including share permissions, can be set upon share creation. If a customer chooses to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
+
+Reads share information from a CSV file and use the input to update share permissions for each share. If more than one user or group is present for a section, separate them with spaces. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
+
+**Required Inputs**:  hostname, username, password, csvPath\
+**Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
+
+
 ## Set All Shares on an Edge Appliance to Read Only
 This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share so that the shares are set to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
 **Required Inputs**: NMC hostname, username, password, Filer Serial\
