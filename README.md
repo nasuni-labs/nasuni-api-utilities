@@ -270,7 +270,7 @@ Customers can use this script to monitor all Edge Appliances connected to a volu
 **Email Content**: Email contains Edge Appliance name(s) and amount of unprotected data for the Edge Appliance.\
 **Name**: VolumeUnprotectedDataAlert.ps1
 
-# Export All Shares and Path Info, Including Sizes to CSV
+## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares and with full path info, including current sizes, and exports the results to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
 **Compatibility**: Nasuni 8.5 or higher required\
@@ -372,7 +372,7 @@ This script gives you an example using the message ID to look up the status of a
 **Name**: GetMessage.ps1
 
 ## Export Edge Appliance Volume Settings to CSV
-This script exports all Edge Appliance settings that are applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud to cloud migration. The script exports the following settings and logs them to the listed file name: 
+This script exports all Edge Appliance settings that are applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud to cloud migration. The script exports the following settings and logs them to the listed file name: \
 | Setting | File Name | Description | CSV Columns |
 | CIFS Shares | CifsShares.csv | All CIFS shares listed in the NMC | shareid, Volume_GUID, filer_serial_number, share_name, path, comment, readonly, browseable, authAuthall, authRo_users, authRw_users, authDeny_users, authRo_groups, authRw_groups, authDeny_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt, shared_links_enabled, link_force_password, link_allow_rw, external_share_url, link_expire_limit, link_authAuthall, link_authAllow_groups_ro, link_authAllow_groups_rw, link_authDeny_groups, link_authAllow_users_ro, link_authAllow_users_rw, link_authDeny_users |
 | NFS Exports | NfsExports.csv | All NFS exports listed in the NMC | exportId, Volume_GUID, filer_serial_number, export_name, path, comment, readonly, allowed_hosts, access_mode, perf_mode, sec_options, nfs_host_options |
