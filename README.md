@@ -8,7 +8,7 @@ These NMC API PowerShell scripts provide the building blocks for interacting wit
 This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
 **Required Inputs**: NMC hostname, username, password\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: GetToken.ps1\
+**Name**: GetToken.ps1
 
 ## Better Error Handling
 PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of error. PowerShell 6 and PowerShell core support a newer method for error handling while older versions of PowerShell require the use of GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
@@ -228,14 +228,14 @@ This script uses the NMC API to disable Auto Cache for the specified volume path
 **NMC API Endpoint Used**: Disable Auto Cache Mode - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#disable-auto-cache-mode-on-a-folder \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path \
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: DisableAutocache.ps1\
+**Name**: DisableAutocache.ps1
 
 ## Export Auto Cache Folders to CSV
 Exports a list of Auto Cache enabled folders to CSV.\
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: volume_guid, filer_serial_number, path, autocache mode\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportAutoCacheFoldersToCSV.ps1\
+**Name**: ExportAutoCacheFoldersToCSV.ps1
 
 ## Export Pinned Folders to CSV
 Exports a list of pinned folders to CSV.\
@@ -345,7 +345,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
 **Compatibility**: Nasuni 8.8 or higher required\
 **Output CSV content**: filer_serial_number, filer_name,last_updated,network,filesystem,cpu,nfs,memory,services,directoryservices,disk,smb\
-**Name**: ExportHealthToCSV.ps1\
+**Name**: ExportHealthToCSV.ps1
 
 ## Export Edge Appliance Status to CSV
 The NMC List Edge Appliances endpoint provides a list of all Edge Appliances, their status, and settings configured for each. This script lists all Edge Appliances in an account along with their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
