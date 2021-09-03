@@ -44,7 +44,7 @@ If the Edge Appliance version and NMC do in fact match what is documented for th
 # Shares
 PowerShell NMC API Scripts for working with shares.
 
-# Create a Share
+## Create a Share
 Uses PowerShell to create a share by referencing an existing Volume, Edge Appliance, and Path. Useful as an example of how shares can be created using PowerShell.
 
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, ShareName, Path
@@ -52,14 +52,10 @@ Uses PowerShell to create a share by referencing an existing Volume, Edge Applia
 Optional Inputs: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
 **Name**: CreateShare.ps1
 
-# Export or Import All Shares and Settings to CSV
-Export All Shares and Settings to CSV
-
+## Export or Import All Shares and Settings to CSV
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.
-
-Required PowerShell Version: 7.0 or higher. Name the latest version of PowerShell.
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 shares, but can be increased)
-**Compatibility**: Nasuni 7.10 or higher required
+**Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.
 **Output CSV content**: 
 shareid,Volume_GUID,filer_serial_number,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users
 **Name**: ExportAllSharesToCSV.ps1
