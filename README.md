@@ -193,7 +193,7 @@ Finally, the "Get a list of all known paths with a specific volume and filer", h
 This script uses the NMC API to get info for specified path. It first calls the "refresh info" endpoint to update stats for the path and then calls the "get info" endpoint.\
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path - The path should start with a "/" and is the path as displayed in the volume file browser and is not related to the share path--it should start at the volume root. Path is case sensitive.\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: GetPathInfo.ps1
+**Name**: GetPathInfo.ps1, GetPathInfo.png
 
 
 ## Bring Path into Cache
