@@ -60,45 +60,45 @@ shareid,Volume_GUID,filer_serial_number,share_name,path,comment,readonly,browsea
 **Name**: ExportAllSharesToCSV.ps1
 
 ## Bulk Share Creation
-These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.
-\**Compatibility**: Nasuni 8.0 or higher required
+These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.\
+**Compatibility**: Nasuni 8.0 or higher required
 
 ## Set All Shares on an Edge Appliance to Read Only
-This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share so that the shares are set to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. 
-**Required Inputs**: NMC hostname, username, password, Filer Serial
-**Compatibility**: Nasuni 8.0 or higher required
-**Known Issues**: none
+This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share so that the shares are set to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
+**Required Inputs**: NMC hostname, username, password, Filer Serial\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
 **Name**: SetFilerSharesToReadOnly.ps1
 
 ## Enable Previous Versions for all Shares
-This script uses the NMC API to list all shares, check to see if previous versions is enabled, and update the share properties for each share without previous versions support so that previous versions support is enabled. It can also be used to disable previous versions support for all shares. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this list by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.
-**Required Inputs**: NMC hostname, username, password, PreviousVersions (True/False)
-**Compatibility**: Nasuni 8.0 or higher required
-**Known Issues**: none
+This script uses the NMC API to list all shares, check to see if previous versions is enabled, and update the share properties for each share without previous versions support so that previous versions support is enabled. It can also be used to disable previous versions support for all shares. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this list by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
+**Required Inputs**: NMC hostname, username, password, PreviousVersions (True/False)\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
 **Name**: EnablePreviousVersionsForAllShares.ps1
 
 ## Set block files for all shares on an Edge Appliance
-This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share to match the supplied value for block files. The list of blocked files should be comma-separated.
-**Required Inputs**: NMC hostname, username, password, FilerSerial, BlockFiles
-**Compatibility**: Nasuni 8.0 or higher required
-**Known Issues**: none
+This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share to match the supplied value for block files. The list of blocked files should be comma-separated.\
+**Required Inputs**: NMC hostname, username, password, FilerSerial, BlockFiles\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
 **Name**: SetBlockFilesForAllSharesOnaFiler.ps1
 
 ## Delete a Share
-Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the list shares NMC API endpoint: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares
-**NMC API Endpoint Used**: Delete a share: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#delete-a-share
-
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, share_id
-**Compatibility**: Nasuni 8.0 or higher required
+Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the list shares NMC API endpoint: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares\
+**NMC API Endpoint Used**:
+* Delete a share: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#delete-a-share \
+**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, share_id\
+**Compatibility**: Nasuni 8.0 or higher required\
 **Name**: DeleteShare.ps1
 
 ## List Shares
-Lists shares for an account and exports results to the PowerShell console.
-
-**NMC API Endpoint Used**: list shares: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares
-**Required Inputs**: NMC hostname, username, password, limit (number of shares to list)
+Lists shares for an account and exports results to the PowerShell console.\
+**NMC API Endpoint Used**: 
+* list shares: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares \
+**Required Inputs**: NMC hostname, username, password, limit (number of shares to list)\
 **Output**: shareid, Volume_GUID,filer_serial_number, share_name, path, comment, readonly, browseable, authall, ro_users, rw_users, ro_groups, rw_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
-**Compatibility**: Nasuni 7.10 or higher required
+**Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ListShares.ps1
 
 ## Export CIFS Locks to CSV
