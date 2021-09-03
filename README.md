@@ -245,7 +245,7 @@ Exports a list of pinned folders to CSV.\
 **Name**: ExportPinnedFoldersToCSV.ps1
 
 # Reporting and Chargeback
-Use these NMC API scripts to help with reporting and chargeback.\
+Use these NMC API scripts to help with reporting and chargeback.
 
 ## Recharge tracking/Volume Details
 This script can be used as a starting point for billing and recharge reporting. This script example provides a report of all volumes in an account.\
