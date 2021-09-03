@@ -124,7 +124,7 @@ Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports 
 **Name**: ExportCifsLocksToCSV.ps1
 
 ## Enable Mac Support for all Shares
-This script uses the NMC API to list all shares, check for shares without Mac support and update those shares to enable Mac support. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this list by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
+This script uses the NMC API to list all shares, check for shares without Mac support and update those shares to enable Mac support. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this lists by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
 **Required Inputs**: NMC hostname, username, password, FruitEnabled (True/False)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: EnableMacSupportForAllShares.ps1
@@ -439,7 +439,7 @@ Uses PowerShell to create a volume.\
 
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues and Notes**:\
-Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until UNTY-27807 is fixed.
+Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
 
 Misleading terminology: The create volume API has an option that misleadingly reference to “cred” in its **Name**: auto_provision_cred. Counterintutively, auto_provision_cred controls the provisioning of encryption keys (pgp), rather than Nasuni cloud credentials.
 
