@@ -1,37 +1,36 @@
 # nmc-api-powershell-utilities
 Utlilities and scripts that use the NMC API to perform operations and generate reports
 
-#PowerShell REST API Basics
+# PowerShell REST API Basics
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
-#Request a Token
+# Request a Token
 This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.
 
 Required Inputs: NMC hostname, username, password
 Compatibility: Nasuni 7.10 or higher required
-Download: GetToken.ps1
+Name: GetToken.ps1
 
-#Better Error Handling
+# Better Error Handling
 PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of error. PowerShell 6 and PowerShell core support a newer method for error handling while older versions of PowerShell require the use of GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
 
 The code snippet below can be used as an example for modifying the PowerShell code examples in Confluence. Add the function (lines 1-13) to your script before referencing it, since functions must be defined before calling them in PowerShell. Line 15 of this script is an example of using try/catch with a command and should not be directly copied to your script since the variable names will not match. Instead, modify the Invoke-RestMethod line of the script that you would like to get better errors for by adding "try" and the matching open and close curly braces along followed by the "catch" command and "Failure" within curly braces.
 
-Download: BetterErrorHandling.ps1
+Name: BetterErrorHandling.ps1
 
-Allow Untrusted SSL Certificates
+# Allow Untrusted SSL Certificates
 Having a valid SSL certificate for the NMC is a best practice, but test/dev or new environments may not yet have a valid SSL certificate. Fortunately, there's a way to skip SSL certificate checks and this is included in most of the PowerShell examples we provide. If you have a valid SSL certificate for your NMC, you can remove this code block from the provided examples.
 
 If you are using PowerShell 6 or higher, the Invoke-RestMethod cmdlet natively includes a “-SkipCertificateCheck” option and this script changes the default for the Invoke-RestMethod cmdlet to skip certificate checks. Versions of PowerShell before version 6 and PowerShell core do not support a “-SkipCertificateCheck” option and must rely on the .Net subsystem to disable certificate checks.
 
-Download: AllowUntrustedSSLCerts.ps1
+Name: AllowUntrustedSSLCerts.ps1
 
 Avoid NMC API Throttling
 Beginning with version 8.5, NMC API endpoints are now throttled to preserve NMC performance and stability. NMC API endpoints are generally limited to 5 requests/second for "Get" actions and 1 request per second for "Post", "Update", or "Delete" actions. Nasuni recommends adding "sleep" or "wait" steps to existing API integrations to avoid exceeding the throttling defaults. The PowerShell Start-Sleep cmdlet can be used inside of your scripts to limit the speed of PowerShell Execution and to avoid throttling limits. For example, this command will pause execution for 1.1 seconds:
 
-
 Start-Sleep -s 1.1
 
-PowerShell Tools
+# PowerShell Tools
 Windows includes built-in tools for PowerShell editing and testing and there is also a good cross-platform, Microsoft-provided option for code editing that has native support for PowerShell. 
 
 PowerShell ISE is part of the Windows server and client. 
