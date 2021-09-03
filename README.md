@@ -5,13 +5,10 @@ Utlilities and scripts that use the NMC API to perform operations and generate r
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
 ## Request a Token
-This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.
-
-**Required Inputs**: NMC hostname, username, password
-
-**Compatibility**: Nasuni 7.10 or higher required
-
-**Name**: GetToken.ps1
+This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
+**Required Inputs**: NMC hostname, username, password\
+**Compatibility**: Nasuni 7.10 or higher required\
+**Name**: GetToken.ps1\
 
 ## Better Error Handling
 PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of error. PowerShell 6 and PowerShell core support a newer method for error handling while older versions of PowerShell require the use of GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
