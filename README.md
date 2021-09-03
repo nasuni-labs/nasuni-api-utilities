@@ -85,7 +85,7 @@ This script uses the NMC API to list all shares for an Edge Appliance and update
 **Name**: SetBlockFilesForAllSharesOnaFiler.ps1
 
 ## Delete a Share
-Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the list shares NMC API endpoint: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares\
+Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the list shares NMC API endpoint: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares \
 **NMC API Endpoint Used**: Delete a share: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#delete-a-share \
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, share_id\
 **Compatibility**: Nasuni 8.0 or higher required\
