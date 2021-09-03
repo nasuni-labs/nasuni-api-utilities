@@ -77,7 +77,6 @@ Exports all shares for the provided volume_guid and filer_serial to CSV. This co
 All share properties, including share permissions, can be set upon share creation. If a customer chooses to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
 
 Reads share information from a CSV file and use the input to update share permissions for each share. If more than one user or group is present for a section, separate them with spaces. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
-
 **Required Inputs**:  hostname, username, password, csvPath\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
