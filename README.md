@@ -412,8 +412,10 @@ Uses PowerShell to create a volume.\
     * on-prem object stores: default
 * permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exlusive)
 * policy: public (no auth), ads (active directory)
-[//]: # (endlist)
-**Compatibility**: Nasuni 8.0 or higher required
+
+<!-- -->
+
+**Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues and Notes**:\
 Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until UNTY-27807 is fixed.
 
