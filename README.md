@@ -86,62 +86,58 @@ This script uses the NMC API to list all shares for an Edge Appliance and update
 
 ## Delete a Share
 Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the list shares NMC API endpoint: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares\
-**NMC API Endpoint Used**:
-* Delete a share: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#delete-a-share \
+**NMC API Endpoint Used**: Delete a share: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#delete-a-share \
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, share_id\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: DeleteShare.ps1
 
 ## List Shares
 Lists shares for an account and exports results to the PowerShell console.\
-**NMC API Endpoint Used**: 
-* list shares: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares \
+**NMC API Endpoint Used**: list shares: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-shares \
 **Required Inputs**: NMC hostname, username, password, limit (number of shares to list)\
 **Output**: shareid, Volume_GUID,filer_serial_number, share_name, path, comment, readonly, browseable, authall, ro_users, rw_users, ro_groups, rw_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ListShares.ps1
 
 ## Export CIFS Locks to CSV
-Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV . This uses the v1 NMC API endpoint for CIFS LOCKs which returns all cifslocks rather than paging the output.
-**Required Inputs**: NMC hostname, username, password, filer_serial, reportFile
-**Compatibility**: Nasuni 7.10 or higher required
+Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV . This uses the v1 NMC API endpoint for CIFS LOCKs which returns all cifslocks rather than paging the output.\
+**Required Inputs**: NMC hostname, username, password, filer_serial, reportFile\
+**Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportCifsLocksToCSV.ps1
 
 ## Enable Mac Support for all Shares
-This script uses the NMC API to list all shares, check for shares without Mac support and update those shares to enable Mac support. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this list by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.
-**Required Inputs**: NMC hostname, username, password, FruitEnabled (True/False)
-**Compatibility**: Nasuni 8.0 or higher required
-**Known Issues**: none
+This script uses the NMC API to list all shares, check for shares without Mac support and update those shares to enable Mac support. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this list by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
+**Required Inputs**: NMC hostname, username, password, FruitEnabled (True/False)\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
 **Name**: EnableMacSupportForAllShares.ps1
 
 ## Export CIFS Clients to CSV
-Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV . This uses the v1 NMC API endpoint for CIFS Clients which returns all cifsclients rather than paging the output.
-**Required Inputs**: NMC hostname, username, password, reportFile
-**Compatibility**: Nasuni 7.10 or higher required
-**Output**: Edge Appliance Serial Number, Edge Appliance Description, List of connected clients and connected shares (one line for each connected client)
+Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV . This uses the v1 NMC API endpoint for CIFS Clients which returns all cifsclients rather than paging the output.\
+**Required Inputs**: NMC hostname, username, password, reportFile\
+**Compatibility**: Nasuni 7.10 or higher required\
+**Output**: Edge Appliance Serial Number, Edge Appliance Description, List of connected clients and connected shares (one line for each connected client)\
 **Name**: ExportCifsClientsToCSV.ps1
 
 ## Replicate Shares from Source to Destination Edge Appliance
-This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are not changed.
-
-**Required Inputs**: NMC hostname, username, password, SourceFilerSerialNumber, DestinationFilerSerialNumber
-**Compatibility**: Nasuni 8.0 or higher required
-**Known Issues**: none
+This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are not changed.\
+**Required Inputs**: NMC hostname, username, password, SourceFilerSerialNumber, DestinationFilerSerialNumber\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
 **Name**: ReplicateMissingShares.ps1
 
 ## Export All NFS Exports and Settings to CSV
-Uses PowerShell to export all NFS exports and configurable settings to CSV.
-**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 exports, but can be increased)
-**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.
-**Output CSV content**: exportId,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options
+Uses PowerShell to export all NFS exports and configurable settings to CSV.\
+**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 exports, but can be increased)\
+**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
+**Output CSV content**: exportId,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
 **Name**: ExportAllNFSExportsToCSV.ps1
 
 ## Export All FTP Directories and Settings to CSV
-Uses PowerShell to export all FTP directories and configurable settings to CSV.
-**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 FTP directories, but can be increased)
-**Compatibility**: Nasuni 7.10 or higher required; Requirs PowerShell Version: 7.0 or higher.
-**Output CSV content**: 
-FtpId,Volume_GUID,filer_serial_number,ftp_name,path,comment,readonly,visibility,ip_restrictions,allowed_users,allowed_groups,allow_anonymous,anonymous_only,Permissions_on_new_files,hide_ownership,use_temporary_files_during_upload
+Uses PowerShell to export all FTP directories and configurable settings to CSV.\
+**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 FTP directories, but can be increased)\
+**Compatibility**: Nasuni 7.10 or higher required; Requirs PowerShell Version: 7.0 or higher.\
+**Output CSV content**: FtpId,Volume_GUID,filer_serial_number,ftp_name,path,comment,readonly,visibility,ip_restrictions,allowed_users,allowed_groups,allow_anonymous,anonymous_only,Permissions_on_new_files,hide_ownership,use_temporary_files_during_upload\
 **Name**: ExportAllFtpDirectoriesToCSV.ps1
 
 # Quotas
