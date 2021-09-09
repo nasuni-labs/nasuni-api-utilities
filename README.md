@@ -427,7 +427,7 @@ PowerShell NMC API Scripts for working with volumes.
 Uses PowerShell to create a volume.\
 **Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_id, provider_name, shortname, location, permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
 **Fields and values**:
-* shortName: amazons3, azure, googles3 (9.0 version of the google connector)
+* shortName: amazons3, azure, googles3 (9.0 version of the google connector), vipr (ecs)
 * location (case-sensitve):
     * s3 locations: default, Asia, Beijing, Canada, EU, Frankfurt, HongKong, London, Mumbai, Ningxia, Ohio, Oregon, Paris, Seoul, SouthAmerica, Stockholm, Sydney, Tokyo, UsWest
     * Azure: Not Applicable - location is associated with the cred specified
