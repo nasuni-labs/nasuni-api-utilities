@@ -5,7 +5,7 @@
 $hostname = "insertNMChostnameHere"
 
 #Path to the NMC API authentication token input file
-$tokenFile = "c:/nasuni/token.txt"
+$tokenFile = "c:\nasuni\token.txt"
 
 #Supply the message ID you want to check
 $messageID = ''
