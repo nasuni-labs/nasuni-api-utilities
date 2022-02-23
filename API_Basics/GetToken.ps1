@@ -1,11 +1,14 @@
-#Request an NMC API token and store the output in a variable
+#Request an NMC API token and store the output in a Token file that can be used by subsequent scripts. Tokens expire after 8 hours.
 
 #populate NMC hostname or IP address
 $hostname = "InsertNMChostname"
 
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
 $username = "InsertUsername"
-$password = "InsertPassword"
+$password = 'InsertPassword'
+
+#Path to token output file
+$tokenFile = "c:/nasuni/token.txt"
 
 #end variables
 
@@ -56,3 +59,5 @@ $headers.Add("Authorization","Token " + $token)
 #write the token to the console to verify script ouput
 write-output $token
 
+#write the updated token to a file
+Set-Content $tokenFile $token
