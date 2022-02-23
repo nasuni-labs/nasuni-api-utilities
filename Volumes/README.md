@@ -43,7 +43,7 @@ Lists volumes for an account and exports snapshot and sync schedule for each Edg
 **Name**: ExportVolumeSnapshotAndSyncScheduleToCSV.ps1
 
 ## Set Volume Remote Access
-Sets remote access (enable/disable) and permissions for remote access. \
+Sets remote access (enable/disable) for a volume and permissions for remote access. \
 **Required Inputs**: NMC hostname, tokenFile (path to token from getToken.ps1), volume_guid, remoteAccessEnabled, remoteAccessPermissions \
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: SetVolumeRemoteAccess.ps1
