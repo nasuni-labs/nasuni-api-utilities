@@ -8,7 +8,7 @@ $username = "InsertUsername"
 $password = 'InsertPassword'
 
 #Path to token output file
-$tokenFile = "c:/nasuni/token.txt"
+$tokenFile = "c:\nasuni\token.txt"
 
 #end variables
 
