@@ -41,8 +41,8 @@ Some NMC API endpoints require a specific NMC or Edge Appliance version, and if 
 
 If the Edge Appliance version and NMC do in fact match what is documented for the NMC API endpoint and the error is still returned, it's possible that Edge Appliances were updated prior to upgrading the NMC. If this were to occur, the fulldumps that the Edge Appliances sent to the NMC would have contained information that the NMC couldn't process, causing the NMC to think the Edge Appliance doesn't meet the version criteria for the particular NMC API endpoint. The fix for this is to have the Edge Appliances resend their fulldumps once the NMC is running the current version–the "Refresh Managed Filers" button on the NMC overview page will do this.
 
-# Shares
-PowerShell NMC API Scripts for working with shares.
+# Access Points
+PowerShell NMC API Scripts for working with Access Points. Access points include CIFS Shares, NFS Exports, and FTP Directories.
 
 ## Create a Share
 Uses PowerShell to create a share by referencing an existing Volume, Edge Appliance, and Path. Useful as an example of how shares can be created using PowerShell.\
