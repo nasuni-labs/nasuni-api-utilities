@@ -6,7 +6,7 @@ PowerShell NMC API Scripts for working with access points. Access points include
 
 ## SMB (CIFS) Shares
 ### Create a Share
-Uses PowerShell to create a share by referencing an existing Volume, Edge Appliance, and Path. Useful as an example of how shares can be created using PowerShell.\
+Uses PowerShell to create a share by referencing an existing volume, Edge Appliance, and path. Useful as an example of how shares can be created using PowerShell.\
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, ShareName, Path\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt\
@@ -105,6 +105,13 @@ This script uses the NMC API to list all shares for source Edge Appliance, compa
 **Name**: ReplicateMissingShares.ps1
 
 ## NFS Exports
+### Create an Export
+Uses PowerShell to create an NFS Export by referencing an existing volume, Edge Appliance, and path. Useful as an example of how exports can be created using PowerShell.\
+**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, exportName, Path\
+**Compatibility**: NMC 21.2 or higher required\
+**Optional Inputs**: comment, readonly, hostspec, accessMode, perfMode, secOptions\
+**Name**: CreateExport.ps1
+
 ### Export All NFS Exports and Settings to CSV
 Uses PowerShell to export all NFS exports and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 exports, but can be increased)\
