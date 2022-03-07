@@ -1,8 +1,8 @@
 # nmc-api-powershell-utilities
 Utlilities and scripts that use the NMC API to perform operations and generate reports
 
-# Shares
-PowerShell NMC API Scripts for working with shares.
+# Access Points
+PowerShell NMC API Scripts for working with Access Points. Access points include CIFS Shares, NFS Exports, and FTP Directories.
 
 ## Create a Share
 Uses PowerShell to create a share by referencing an existing Volume, Edge Appliance, and Path. Useful as an example of how shares can be created using PowerShell.\
