@@ -5,8 +5,8 @@ Utlilities and scripts that use the NMC API to perform operations and generate r
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
 ## Request a Token
-This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
-**Required Inputs**: NMC hostname, username, password\
+This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful and outputs the token to the path specified in the tokenFile variable so that it can be used for authentication for subsequent scripts. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
+**Required Inputs**: NMC hostname, username, password, tokenFile\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: GetToken.ps1
 

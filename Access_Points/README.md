@@ -41,7 +41,6 @@ Reads share information from a CSV file and use the input to update share permis
 **Required Inputs**:  hostname, username, password, csvPath\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
-
 ### Set All Shares on an Edge Appliance to Read Only
 This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share so that the shares are set to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
 **Required Inputs**: NMC hostname, username, password, Filer Serial\
