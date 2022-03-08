@@ -1,6 +1,10 @@
 # nmc-api-powershell-utilities
 Utlilities and scripts that use the NMC API to perform operations and generate reports
 
+# Contents
+ - [PowerShell REST API basics](#powershell rest api basics) 
+ - [Access Points](#access points) 
+
 # PowerShell REST API Basics
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
