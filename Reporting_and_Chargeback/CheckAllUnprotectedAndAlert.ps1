@@ -118,11 +118,8 @@ $OutputArray = @()
 #write headers to the new output file
 Out-File -FilePath $reportFileNew -InputObject $csvHeader -Encoding UTF8
 
-#loop through the content in the imported file
-ForEach ($lineOrig in $ReportArrayOrig) {
-
-    #loop through the new content from the NMC API
-    Foreach($i in 0..($GetVolumeInfo.items.Count-1)){ 
+#loop through the new content from the NMC API
+Foreach($i in 0..($GetVolumeInfo.items.Count-1)){ 
 
      #call the list filer specific settings for a volume endpoint
      $VolumeFilerSpecificUrl = "https://"+$hostname+"/api/v1.1/volumes/" + $GetVolumeInfo.items.guid[$i] + "/filers/?limit="+$limit+"&offset=0"
@@ -134,6 +131,8 @@ ForEach ($lineOrig in $ReportArrayOrig) {
         $FilerUrl = "https://"+$hostname+"/api/v1.1/filers/" + $($VolumeFilerSpecificInfo.items[$j].filer_serial_number) + "/"
         $filerinfo = Invoke-RestMethod -Uri $FilerUrl -Method Get -Headers $headers
 
+        #loop through the content in the imported file
+        ForEach ($lineOrig in $ReportArrayOrig) {
             #check to see if the volume_guid and filer_serial_number match
             if (($GetVolumeInfo.items.guid[$i] -eq $lineOrig.volume_guid) -and ($filerinfo.serial_number -eq $lineOrig.filer_serial_number)){
                 #check date differential
