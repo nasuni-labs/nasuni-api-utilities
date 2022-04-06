@@ -13,7 +13,7 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 **Name**: DeleteSyncErrors.ps1
 
 ## Export NMC Messages to CSV
-Customers have requested that we supply robust auditing for actions performed using the NMC API or GUI (PM-320). While we don’t currently audit all NMC actions, the NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it . This script lists all messages that are currently available in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
+The NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all messages that are currently available in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
 
 Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. In order to capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity on a daily basis using the ConcatenateNMCMessages.ps1 script.\
 **NMC API Endpoints Used**:list messages - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-messages \
