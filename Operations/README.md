@@ -51,14 +51,14 @@ This script automates the process of updating cloud credentials on Edge Applianc
 
 Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ Edge Appliances is synchronous. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync.\
 **NMC API Endpoint Used**: 
-*List Cloud Credentials - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials \
-*List Filers- http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-filers \
-*Update cloud credentials -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#update-a-cloud-credential-on-a-filer \
-*Get Message- http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-messages \
+* List Cloud Credentials - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials \
+* List Filers- http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-filers \
+* Update cloud credentials -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#update-a-cloud-credential-on-a-filer \
+* Get Message- http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-messages \
 **Required Inputs**: NMC hostname, username, password, cred uuid \
 **Output**: Sync status summary \
 **Compatibility**: Nasuni 8.0 or higher required. \
-**API version**: NMC API 1.2 \
+**API version**: NMC API v1.2 \
 **Name**: UpdateCloudCredentials.ps1
 
 ## Get Message
