@@ -402,7 +402,7 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 **NMC API Endpoint Used**: 
 * List Cloud Credentials: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials 
 * List Filers: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-filers 
-* Update cloud credentials: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#update-a-cloud-credential-on-a-filer 
+* Update Cloud Credentials: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#update-a-cloud-credential-on-a-filer 
 * Get Message: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-messages 
 
 **Required Inputs**: NMC hostname, username, password, cred uuid \
