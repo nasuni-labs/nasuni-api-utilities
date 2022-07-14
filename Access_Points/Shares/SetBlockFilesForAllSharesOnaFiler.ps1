@@ -8,7 +8,7 @@ $username = "username"
 $password = 'password'
 $credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
-#Provide Filer Serial number
+#Provide Filer Serial number to set to read only
 $FilerSerial = "insertFilerSerial"
 
 #Comma separated list of files to block
