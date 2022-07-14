@@ -58,16 +58,17 @@ $token = $result.token
 $headers.Add("Authorization","Token " + $token)
 
 #List credentials
-$CredURL="https://"+$hostname+"/api/v1.1/account/cloud-credentials/?limit="+$limit+"&offset=0"
+$CredURL="https://"+$hostname+"/api/v1.2/account/cloud-credentials/?limit="+$limit+"&offset=0"
 $getCredInfo = Invoke-RestMethod -Uri $CredURL -Method Get -Headers $headers
 
 #loop through results and output to the screen
-$credHeader = "cred_id, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use"
+$credHeader = "cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use"
 
 write-output $credHeader
 
 foreach($i in 0..($getCredInfo.items.Count-1)){
-    $datastring = "$($getCredInfo.items[$i].cred_id),$($getCredInfo.items[$i].name),$($getCredinfo.items[$i].filer_serial_number),$($getCredInfo.items[$i].cloud_provider),$($getCredInfo.items[$i].account),$($getCredInfo.items[$i].hostname),$($getCredInfo.items[$i].status),$($getCredInfo.items[$i].note),$($getCredInfo.items[$i].in_use)"
+    $datastring = "$($getCredInfo.items[$i].cred_uuid),$($getCredInfo.items[$i].name),$($getCredinfo.items[$i].filer_serial_number),$($getCredInfo.items[$i].cloud_provider),$($getCredInfo.items[$i].account),$($getCredInfo.items[$i].hostname),$($getCredInfo.items[$i].status),$($getCredInfo.items[$i].note),$($getCredInfo.items[$i].in_use)"
     write-output $datastring
     $i++
 }
+

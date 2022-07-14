@@ -39,11 +39,26 @@ Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpu
 
 ## List Cloud Credentials
 Lists cloud credentials for an account and exports results to the PowerShell console. \
-**NMC API Endpoint Used**: list cloud credentials - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-cloud-credentials \
+**NMC API Endpoint Used**: list cloud credentials - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials \
 **Required Inputs**: NMC hostname, username, password\
-**Output**: cred_id, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
+**Output**: cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
 **Compatibility**: Nasuni 8.0 or higher required\
+**API version**: NMC API 1.2
 **Name**: ListCloudCredentials.ps1
+
+## Update Cloud Credentials
+The script automates the process of updating cloud credentials on edge appliances using NMC API. Cloud credentials shared among multiple edge appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script list all edge appliances sharing the cloud credentials and makes individual patch requests to each edge appliance to update them. If an edge appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarise the sync status. The number of sync checks and the wait time between them can be adjusted.\
+
+Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ edge appliances is synchronous. Updating pre-9.8 edge appliances or updating other attributes such as name, hostname, and note may take longer to sync.\
+**NMC API Endpoint Used**: List Cloud Credentials - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials
+List Filers- http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-filers
+Update cloud credentials -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#update-a-cloud-credential-on-a-filer
+Get Message- http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-messages
+**Required Inputs**: NMC hostname, username, password, cred uuid\
+**Output**: Sync status summary\
+**Compatibility**: Nasuni 8.0 or higher required.\
+**API version**: NMC API 1.2
+**Name**: UpdateCloudCredentials.ps1\
 
 ## Get Message
 This script gives you an example using the message ID to look up the status of an action. The NMC is an asynchronous API and POST or UPDATE actions you initiate with the NMC API will return a “pending” status along with an ID that you can then check to see the status of the request once it has been processed. The screenshot below is the result of a POST request to the NMC API. The red box is the message ID you will use for the messageID in the script. The green box gives you the full URL to the messages NMC API endpoint including the ID.\
