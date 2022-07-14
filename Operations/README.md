@@ -47,7 +47,7 @@ Lists cloud credentials for an account and exports results to the PowerShell con
 **Name**: ListCloudCredentials.ps1
 
 ## Update Cloud Credentials
-The script automates the process of updating cloud credentials on Edge Appliances using NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script list all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarise the sync status. The number of sync checks and the wait time between them can be adjusted.
+This script automates the process of updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script list all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarise the sync status. The number of sync checks and the wait time between them can be adjusted.
 
 Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ Edge Appliances is synchronous. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync.\
 **NMC API Endpoint Used**: 
