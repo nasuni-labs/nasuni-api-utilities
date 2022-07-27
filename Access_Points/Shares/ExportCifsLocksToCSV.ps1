@@ -1,5 +1,4 @@
 #Export Cifs locks for the specified filer to CSV
-#Uses the v1 version of the CIFSlocks API: http://docs.api.nasuni.com/nmc/api/1.0.0/index.html#retrieve-a-filer-with-a-list-of-cifs-file-locks-that-clients-have-on-its-shares-
 
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
@@ -13,6 +12,13 @@ $reportFile = "c:\export\CIFSLocks.csv"
 
 #Filer Serial
 $filer_serial = 'InsertFilerSerialHere'
+
+#Number of cifs locks to return
+$limit = 10000
+
+#NMC API version - supported values: v1.1 (22.1 NMC and older), v1.2 (22.2 NMC and higher)
+#do not use v1 with this script--v1 has a different URL/schema for cifslocks
+$nmcApiVersion = "v1.2"
 
 #end variables
 
@@ -54,7 +60,7 @@ $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
 
 #construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
+$url="https://"+$hostname+"/api/" + $nmcApiVersion + "/auth/login/"
  
 #Use credentials to request and store a session token from NMC for later use
 $result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
@@ -62,7 +68,7 @@ $token = $result.token
 $headers.Add("Authorization","Token " + $token)
 
 #List CIFS locks for filer NMC API endpoint
-$CifsLocksUrl="https://"+$hostname+"/api/v1/filers/" + $filer_serial +"/cifslocks/"
+$CifsLocksUrl="https://"+$hostname+"/api/" + $nmcApiVersion + "/filers/" + $filer_serial +"/cifsclients/locks/?limit=" + $limit+ "&offset=0"
 $FormatEnumerationLimit=-1
 $GetCifsLocks = Invoke-RestMethod -Uri $CifsLocksUrl -Method Get -Headers $headers
 
@@ -71,8 +77,8 @@ $csvHeader = "type,client,share,file_path,user"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 write-host ("Exporting CIFS Locks information to: " + $reportFile)
 
-foreach($i in 0..($GetCifsLocks.cifs_locks.Count-1)){
-    $datastring =  "$($GetCifsLocks.cifs_locks[$i].type),$($GetCifsLocks.cifs_locks[$i].client),$($GetCifsLocks.cifs_locks[$i].share),$($GetCifsLocks.cifs_locks[$i].file_path),$($GetCifsLocks.cifs_locks[$i].user)"
+foreach($i in 0..($GetCifsLocks.items.Count-1)){
+    $datastring =  "$($GetCifsLocks.items[$i].type),$($GetCifsLocks.items[$i].client),$($GetCifsLocks.items[$i].share),$($GetCifsLocks.items[$i].file_path),$($GetCifsLocks.items[$i].user)"
     Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
 	$i++
 } 
