@@ -79,8 +79,8 @@ Lists shares for an account and exports results to the PowerShell console.\
 
 ### Export CIFS Locks to CSV
 Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV . This uses the v1 NMC API endpoint for CIFS LOCKs which returns all cifslocks rather than paging the output.\
-**Required Inputs**: NMC hostname, username, password, filer_serial, reportFile\
-**Compatibility**: Nasuni 7.10 or higher required\
+**Required Inputs**: NMC hostname, username, password, filer_serial, reportFile, limit, nmcApiVersion\
+**Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Name**: ExportCifsLocksToCSV.ps1
 
 ### Enable Mac Support for all Shares
