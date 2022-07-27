@@ -1,5 +1,4 @@
 #Export Cifs clients to CSV
-#Uses the v1 version of the CIFSclients API: http://docs.api.nasuni.com/nmc/api/1.0.0/index.html#retrieve-a-list-of-all-filers--each-with-a-list-of-cifs-clients-connected-to-it-
 
 #populate NMC hostname and credentials
 $hostname = "insertNMChostname"
@@ -10,6 +9,13 @@ $password = 'password'
 
 #Path for CSV Export
 $reportFile = "c:\export\CIFSClients.csv"
+
+#Number of clients to return
+$limit = 10000
+
+#NMC API version - supported values: v1.1 (22.1 NMC and older), v1.2 (22.2 NMC and higher)
+#do not use v1 with this script--v1 has a different URL/schema for cifs clients
+$nmcApiVersion = "v1.2"
 
 #end variables
 
@@ -51,7 +57,7 @@ $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
 
 #construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
+$url="https://"+$hostname+"/api/" + $nmcApiVersion + "/auth/login/"
  
 #Use credentials to request and store a session token from NMC for later use
 $result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
@@ -59,27 +65,26 @@ $token = $result.token
 $headers.Add("Authorization","Token " + $token)
 
 #List CIFS clients NMC API endpoint
-$CifsClientsUrl="https://"+$hostname+"/api/v1/filers/cifsclients/"
+$CifsClientsUrl="https://"+$hostname+"/api/" + $nmcApiVersion + "/filers/cifsclients/?limit=" + $limit+ "&offset=0"
 $FormatEnumerationLimit=-1
 $GetCifsClients = Invoke-RestMethod -Uri $CifsClientsUrl -Method Get -Headers $headers
 
 #initialize csv output file
-$csvHeader = "serial_number,description,client_name,clientIP,shareName"
+$csvHeader = "filer_serial_number,user,client_name,clientIP,shareID"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 write-host ("Exporting CIFS Clients information to: " + $reportFile)
 
-foreach($i in 0..($GetCifsClients.items.Count-1)){
-	#check to see if no clients are connected
-	if ($GetCifsClients.items[$i].cifs_clients.Count -eq 0){
-    $datastring =  "$($GetCifsClients.items[$i].serial_number),$($GetCifsClients.items[$i].description),noclients,noClients,noClients"
-	}
-	else { #if clients are connected write a line for each connected client
-		foreach($c in 0..($GetCifsClients.items[$i].cifs_clients.Count-1)){
-		$datastring =  "$($GetCifsClients.items[$i].serial_number),$($GetCifsClients.items[$i].description),$($GetCifsClients.items[$i].cifs_clients[$c].client_name),$($GetCifsClients.items[$i].cifs_clients[$c].client),$($GetCifsClients.items[$i].cifs_clients[$c].share)"
+if ($GetCifsClients.total -eq 0){
+    $datastring =  "noClients,noClients,noClients,noClients,noClients"
+    Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
+    write-output "no clients connected"
+ } else {
+
+
+#if clients are connected write a line for each connected client
+		foreach($i in 0..($GetCifsClients.total.Count)){
+		$datastring =  "$($GetCifsClients.items[$i].filer_serial_number),$($GetCifsClients.items[$i].user),$($GetCifsClients.items[$i].client_name),$($GetCifsClients.items[$i].client),$($GetCifsClients.items[$i].share_id)"
 		Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
-		$c++
+		$i++
 		}
 	}
-	Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
-	$i++
-} 
