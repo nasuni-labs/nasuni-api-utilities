@@ -90,10 +90,10 @@ This script uses the NMC API to list all shares, check for shares without Mac su
 **Name**: EnableMacSupportForAllShares.ps1
 
 ### Export CIFS Clients to CSV
-Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV . 
+Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. 
 **Required Inputs**: NMC hostname, username, password, reportFile, limit, nmcApiVersion\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
-**Output**: Edge Appliance Serial Number, User Name, Client_Name, Share ID(one line for each connected client)\
+**Output**: Edge Appliance Serial Number, User Name, Client_Name, Share ID (one line for each connected client)\
 **Name**: ExportCifsClientsToCSV.ps1
 
 ### Replicate Shares from Source to Destination Edge Appliance
