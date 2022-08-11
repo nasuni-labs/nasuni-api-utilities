@@ -44,7 +44,7 @@ This script uses the NMC API to configure Auto Cache for the specified volume pa
 
 ## Set Global File Lock and Mode for a Path
 This script uses the NMC API to set Global File Lock and mode for the specified mode for the given path. The script checks the Volumes snapshot status for all Edge Appliances and waits using the specified retry delay and retry limit until snapshots are idle before executing the command to configure GFL. When configuring GFL, the script first confirms that the path is valid before setting Global File Lock and mode.\
-**NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path \ 
+**NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path  
 **Required Inputs**: NMC hostname, username, password, volume_guid, path, mode, RetryLimit, RetryDelay.\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be enabled in the customer's license, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed to be set if any Edge Appliance is running a snapshot for the volume. Disabling GFL is not currently supported via NMC API.\
@@ -52,7 +52,7 @@ This script uses the NMC API to set Global File Lock and mode for the specified 
 
 ## Set Global File Lock and Mode for Multiple Paths
 This script uses the NMC API to enable Global File Lock with the specified paths.\
-**NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path \ 
+**NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path  
 **Required Inputs**: NMC hostname, username, password, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: GFL must be enabled in the customer's license\
