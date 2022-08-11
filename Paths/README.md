@@ -83,6 +83,7 @@ This script uses the NMC API to disable Auto Cache for the specified volume path
 
 ## Export Auto Cache Folders to CSV
 Exports a list of Auto Cache enabled folders to CSV.\
+**NMC API Endpoint Used**: List Auto Cache Enabled Folders - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-a-list-of-all-auto-cache-enabled-folders \
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: volume_guid, filer_serial_number, path, autocache mode\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -90,6 +91,7 @@ Exports a list of Auto Cache enabled folders to CSV.\
 
 ## Export Pinned Folders to CSV
 Exports a list of pinned folders to CSV.\
+**NMC API Endpoint Used**: List Pinned Folders - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-a-list-of-all-pinned-folders \
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: volume_guid, filer_serial_number, path, pinning mode\
 **Compatibility**: Nasuni 7.10 or higher required\
