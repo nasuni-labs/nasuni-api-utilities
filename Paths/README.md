@@ -19,6 +19,7 @@ This script uses the NMC API to get info for specified path. It first calls the 
 
 ## Bring Path into Cache
 This script uses the NMC API to bring the specified path into cache. By default, both the metadata and data for the specified path are brought into cache. Bringing only the metadata into cache is an option if $MetadataOnly is set to "true".\
+**NMC API Endpoints Used**: Bring Path Into Cache -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#bring-path-into-cache
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, metadata only, force\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: BringPathIntoCache.ps1
