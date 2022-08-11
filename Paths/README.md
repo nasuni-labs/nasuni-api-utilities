@@ -23,7 +23,7 @@ This script uses the NMC API to get info for specified path. It first calls the 
 
 ## Bring Path into Cache
 This script uses the NMC API to bring the specified path into cache. By default, both the metadata and data for the specified path are brought into cache. Bringing only the metadata into cache is an option if $MetadataOnly is set to "true".\
-**NMC API Endpoints Used**: Bring Path Into Cache -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#bring-path-into-cache \
+**NMC API Endpoint Used**: Bring Path Into Cache -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#bring-path-into-cache \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, metadata only, force\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: BringPathIntoCache.ps1
@@ -37,7 +37,7 @@ This script uses the NMC API to configure pinning for the specified volume path 
 
 ## Set Auto Cache for a Path
 This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cahe of metadata and data or metadata only.\
-**NMC API Endpoints Used**: Set Auto Caching Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#set-auto-caching-mode \
+**NMC API Endpoint Used**: Set Auto Caching Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#set-auto-caching-mode \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetAutoCache.ps1
