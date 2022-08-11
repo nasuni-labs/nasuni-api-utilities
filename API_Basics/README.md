@@ -4,6 +4,12 @@ Utlilities and scripts that use the NMC API to perform operations and generate r
 # PowerShell REST API Basics
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
+
+## Authentication and Access
+Accessing the NMC API requires a user that is a member of an NMC group that has the "Enable NMC API Access" permission enabled. API users must also have the corresponding NMC permission for the action that they are performing. For example, setting folder quotas with the NMC API requires the "Manage Folder Quotas" NMC permission. Users must first authenticate to the NMC to obtain a token, and then can use that token to access subsequent API endpoints.
+
+Both native and domain accounts are supported for NMC API authentication (SSO accounts are not supported using with the NMC API). Domain account usernames should be formatted as a UPN (username@emailaddress) for the best compatibility with PowerShell and Bash syntax.
+
 ## Request a Token
 This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful and outputs the token to the path specified in the tokenFile variable so that it can be used for authentication for subsequent scripts. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
 **Required Inputs**: NMC hostname, username, password, tokenFile\
