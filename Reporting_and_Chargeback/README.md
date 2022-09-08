@@ -47,7 +47,8 @@ Get the size of top level folders within a share using the NMC API and export th
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Top Level Folder, Report File, Limit\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
-**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.
+**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
+**Name**: ExportTopLevelFolderSizesToCSV.ps1
 
 ## Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
