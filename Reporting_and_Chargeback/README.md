@@ -35,6 +35,20 @@ Uses PowerShell to export a list of all shares and with full path info, includin
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve share size.\
 **Name**: ExportAllSharesAndSizes.ps1
 
+## Export Top Level Folder Sizes to CSV
+Get the size of top level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top level folders within the share — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
+
+**API Endpoints Used**:  
+* NMC API: List Shares (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-shares
+* NMC API: Refresh Info on Path (POST) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#refresh-info-about-a-given-path  
+* NMC API: Get Info on a Path (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-info-on-a-specific-path
+* Data API: Get items (GET) - http://b.link/Nasuni_API_Documentation
+
+**Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Top Level Folder, Report File, Limit\
+**Compatibility**: Nasuni 8.5 or higher required\
+**Output CSV content**: volume_guid, filer_serial_number, path, size\
+**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.
+
 ## Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile\
