@@ -340,6 +340,21 @@ Get the size of top level folders within a share using the NMC API and export th
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
 **Name**: ExportTopLevelFolderSizesToCSV.ps1
 
+## Subfolder Size Report
+Get the size of subfolders within a path using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of subfolders within the path. The 'Sync and Mobile Access' share-level Advanced Setting must be enabled for the Data API to work
+
+**API Endpoints Used**:  
+* NMC API: List Shares for a volume and Filer (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-shares-for-a-volume-and-filer
+* NMC API: Refresh Info on Path (POST) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#refresh-info-about-a-given-path  
+* NMC API: Get Info on a Path (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-info-on-a-specific-path
+* Data API: Get items (GET) - http://b.link/Nasuni_API_Documentation
+
+**Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Volume GUID, Filer Serial, NMC Folder Path, Share Name, Report File\
+**Compatibility**: Nasuni 8.5 or higher required\
+**Output CSV content**: volume_guid, filer_serial_number, path, size\
+**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
+**Name**: SubfolderSizeReport.ps1
+
 ## Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile\
