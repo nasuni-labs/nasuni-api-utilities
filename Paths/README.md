@@ -10,6 +10,8 @@ Scripts that use the NMC API to list and control settings for paths. Nasuni prov
 
 Finally, the "Get a list of all known paths with a specific volume and filer", http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-a-list-of-all-known-paths, can be used to get a list of paths that are "known"--in other words, have recently been statted by POSTing to the "refresh info about a given path" endpoint. A directory reported as being reported as "known" just lets you know that it is eligible to be used with the "GET info on a specific path" endpoint. Known paths expire from the NMC after 10 minutes.
 
+Note: Paths are case-sensitive. If the wrong case is specified, the paths and path status endpoints will not return results.
+
 ## Get Path Info
 This script uses the NMC API to get info for specified path. It first calls the "refresh info" endpoint to update stats for the path and then calls the "get info" endpoint.\
 **NMC API Endpoints Used**:  
@@ -20,6 +22,7 @@ This script uses the NMC API to get info for specified path. It first calls the 
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: GetPathInfo.ps1, GetPathInfo.png
 
+![GetPathInfoOutput](/Paths/GetPathInfo.PNG)
 
 ## Bring Path into Cache
 This script uses the NMC API to bring the specified path into cache. By default, both the metadata and data for the specified path are brought into cache. Bringing only the metadata into cache is an option if $MetadataOnly is set to "true".\
