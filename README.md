@@ -366,7 +366,7 @@ This script uses the NMC API to export antivirus violations for all volume and E
 
 ## Export QoS Settings for all Edge Appliances
 This script uses the NMC API to read the QoS settings for all NMC managed Edge Appliances and export them to a CSV.\
-**Required Inputs**: NMC hostname, username, password, report_file\
+**Required Inputs**: NMC hostname, username, password, limit, report_file\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Setting QoS via the NMC API is not currently implemented and is in the backlog for the NMC.\
 **Name**: ExportQoSForAllFilers.ps1
