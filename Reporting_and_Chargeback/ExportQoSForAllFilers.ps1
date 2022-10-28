@@ -8,7 +8,7 @@ $username = "username"
 $password = 'password'
 
 #Number of Edge Appliances to return in results
-$limit = 00
+$limit = 500
 
 #path to Export CSV
 $reportFile = "c:\QoSExport.csv"
