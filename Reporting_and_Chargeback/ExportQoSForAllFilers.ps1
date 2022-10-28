@@ -7,6 +7,9 @@ $hostname = "insertNMChostnameHere"
 $username = "username"
 $password = 'password'
 
+#Number of Edge Appliances to return in results
+$limit = 00
+
 #path to Export CSV
 $reportFile = "c:\QoSExport.csv"
 
@@ -62,7 +65,7 @@ $csvHeader = "Filer Name,Filer Serial,Sunday,Monday,Tuesday,Wednesday,Thursday,F
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 
 #Get Filers
-$FilerInfoURL="https://"+$hostname+"/api/v1.1/filers/"
+$FilerInfoURL="https://"+$hostname+"/api/v1.1/filers/?limit="+$limit+"&offset=0"
 $GetFilerInfo = Invoke-RestMethod -Uri $FilerInfoUrl -Method Get -Headers $headers
 
 foreach($f in 0..($GetFilerInfo.items.Count-1)){
