@@ -58,7 +58,7 @@ Uses PowerShell to create a share by referencing an existing volume, Edge Applia
 **Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt\
 **Name**: CreateShare.ps1
 
-### Export or Import All Shares and Settings to CSV
+### Export All Shares and Settings to CSV
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 shares, but can be increased)\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
@@ -73,7 +73,7 @@ These scripts demonstrate how shares can be created, exported, and subsequently 
 **Required Inputs**: CSV (volume_guid,filer_serial_number,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users)\
 **Name**: CreateSharesFromCSV.ps1, CreateSharesFromCSV-sample.csv
 
-#### Step 2 - Export Shares to CSV (optional)
+#### Step 2 - Export Filtered List Shares to CSV (optional)
 Exports all shares for the provided volume_guid and filer_serial to CSV. This could be modified to include all shares for a volume (regardless of filer) or all shares managed by the NMC. A more comprehensive example is available here: ExportAllSharesToCSV.ps1.\
 **Required Inputs**:  hostname, username, password, reportFile, filer_serial, volume_guid\
 **CSV Output**: shareid, Volume_GUID, filer_serial, share_name, path, comment, block_files, fruit_enabled, authall, ro_users, ro_groups, rw_users, rw_groups\
