@@ -1,3 +1,0 @@
-Volume_Guid,Filer_Serial,ShareName,Path,Comment
-SomeVolumeGuid,SomeFilerSerial,\\root\folder1,FirstShare
-SomeVolumeGuid,SomeFilerSerial,\\root\folder2,SecondShare
