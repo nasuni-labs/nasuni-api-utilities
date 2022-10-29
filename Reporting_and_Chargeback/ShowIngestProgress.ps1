@@ -59,7 +59,7 @@ $result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $cred
 $token = $result.token
 $headers.Add("Authorization","Token " + $token)
 
-#List up to the first 200 volumes
+#List up to the number of volumes set in the limit
 $url="https://"+$hostname+"/api/v1.1/volumes/?limit="+$limit+"&offset=0"
 $getinfo = Invoke-RestMethod -Uri $url -Method Get -Headers $headers
 
