@@ -12,11 +12,11 @@ Uses PowerShell to create a share by referencing an existing volume, Edge Applia
 **Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt\
 **Name**: CreateShare.ps1
 
-### Export or Import All Shares and Settings to CSV
+### Export All Shares and Settings to CSV
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 shares, but can be increased)\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
-**Output CSV content**: shareid,Volume_GUID,filer_serial_number,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
+**Output CSV content**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
 **Name**: ExportAllSharesToCSV.ps1
 
 ### Bulk Share Creation
@@ -24,15 +24,16 @@ These scripts demonstrate how shares can be created, exported, and subsequently 
 **Compatibility**: Nasuni 8.0 or higher required
 
 #### Step 1 - Create Shares From CSV
-**Required Inputs**: CSV (Volume_GUID, Filer_Serial, ShareName, Comment), hostname, username, password, csvPath, hide_unreadable, fruit_enabled (macOS support)\
-**Optional Inputs**: Other share properties (would require script modification)\
-**Name**: CreateSharesFromCSV.ps1, CreateSharesFromCSV-sample.csv
+Uses CSV input to create shares. We recommend manually creating several shares along with desired settings and then use the ExportAllSharesToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional shares, deleting the columns for volume_name and filer_name. The shareid column is ignored during import but must be present.\
+**Required Inputs**: hostname, username, password, csvPath\
+**CSV Contents**:(shareid,volume_guid,filer_serial_number,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users)\
+**Name**: CreateSharesFromCSV.ps1
 
-#### Step 2 - Export Shares to CSV (optional)
-Exports all shares to CSV.\
-**Required Inputs**:  hostname, username, password, reportFile, limit\
-**CSV Output**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
-**Name**: ExportSharesToCSV.ps1
+#### Step 2 - Export Filtered List Shares to CSV (optional)
+Exports all shares for the provided volume_guid and filer_serial to CSV. This could be modified to include all shares for a volume (regardless of filer) or all shares managed by the NMC. A more comprehensive example is available here: ExportAllSharesToCSV.ps1.\
+**Required Inputs**:  hostname, username, password, reportFile, filer_serial, volume_guid\
+**CSV Output**: shareid, Volume_GUID, filer_serial, share_name, path, comment, block_files, fruit_enabled, authall, ro_users, ro_groups, rw_users, rw_groups\
+**Name**: ExportFilteredSharesToCSV.ps1
 
 #### Step 3 - Set Share Permissions (optional)
 All share properties, including share permissions, can be set upon share creation. If a customer chooses to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
@@ -41,6 +42,12 @@ Reads share information from a CSV file and use the input to update share permis
 **Required Inputs**:  hostname, username, password, csvPath\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
+### Set All Shares on an Edge Appliance to Read Only
+This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share so that the shares are set to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
+**Required Inputs**: NMC hostname, username, password, Filer Serial\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
+**Name**: SetFilerSharesToReadOnly.ps1
 ### Set All Shares on an Edge Appliance to Read Only
 This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share so that the shares are set to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
 **Required Inputs**: NMC hostname, username, password, Filer Serial\
