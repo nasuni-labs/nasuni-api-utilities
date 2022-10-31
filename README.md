@@ -1,5 +1,5 @@
 # nmc-api-powershell-utilities
-Utlilities and scripts that use the NMC API to perform operations and generate reports
+Utilities and scripts that use the NMC API to perform operations and generate reports
 
 # PowerShell REST API Basics
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
@@ -169,7 +169,7 @@ Uses PowerShell to export all NFS exports and configurable settings to CSV.\
 ### Export All FTP Directories and Settings to CSV
 Uses PowerShell to export all FTP directories and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 FTP directories, but can be increased)\
-**Compatibility**: Nasuni 7.10 or higher required; Requirs PowerShell Version: 7.0 or higher.\
+**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Output CSV content**: FtpId,Volume_GUID,filer_serial_number,ftp_name,path,comment,readonly,visibility,ip_restrictions,allowed_users,allowed_groups,allow_anonymous,anonymous_only,Permissions_on_new_files,hide_ownership,use_temporary_files_during_upload\
 **Name**: ExportAllFtpDirectoriesToCSV.ps1
 
@@ -190,7 +190,7 @@ This script uses the NMC API to update an existing folder quota. The script list
 **Name**: UpdateQuota.ps1
 
 ## Export Folder Quotas to CSV
-Exports folder quotas and rule to CSV\
+Exports folder quotas and rules to CSV\
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: Quota ID, VolumeGuid, FilerSerial, Path, Quota Type, Quota Limit, Quota Usage, Email\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -234,7 +234,7 @@ This script uses the NMC API to configure pinning for the specified volume path 
 **Name**: SetPinning.ps1
 
 ## Set Auto Cache for a Path
-This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cahe of metadata and data or metadata only.\
+This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cache of metadata and data or metadata only.\
 **NMC API Endpoint Used**: Set Auto Caching Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#set-auto-caching-mode \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
@@ -253,7 +253,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 **NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path  
 **Required Inputs**: NMC hostname, username, password, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshotshot contention, but that could be added.\
+**Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshot contention, but that could be added.\
 **Name**: SetGFLandModeForMultiplePaths.ps1
 
 ## Create Folder
@@ -412,7 +412,7 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 **Name**: DeleteSyncErrors.ps1
 
 ## Export NMC Messages to CSV
-Customers have requested that we supply robust auditing for actions performed using the NMC API or GUI (PM-320). While we don’t currently audit all NMC actions, the NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it . This script lists all messages that are currently available in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
+Customers have requested that we supply robust auditing for actions performed using the NMC API or GUI (PM-320). While we don’t currently audit all NMC actions, the NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all messages that are currently available in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
 
 Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. In order to capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity on a daily basis using the ConcatenateNMCMessages.ps1 script.\
 **NMC API Endpoints Used**:list messages - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-messages \
@@ -500,7 +500,7 @@ Exports NMC Notifications to CSV.\
 Sets Edge Appliance Escrow Passphrase.\
 **NMC API Endpoints Used**: Update Filer - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#update-a-filer \
 **Required Inputs**: NMC hostname, tokenFile (provided by `GetToken.ps1`), filer_serial_number, EscrowPassphrase \
-**Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encyrption keys with Nasuni. \
+**Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encryption keys with Nasuni. \
 **Name**: SetEscrowPassphrase.ps1
 
 # Volumes
@@ -511,7 +511,7 @@ Uses PowerShell to create a volume.\
 **Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_id, provider_name, shortname, location, permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
 **Fields and values**:
 * shortName: amazons3, azure, googles3 (9.0 version of the google connector), vipr (ecs)
-* location (case-sensitve):
+* location (case-sensitive):
     * s3 locations: default, Asia, Beijing, Canada, EU, Frankfurt, HongKong, London, Mumbai, Ningxia, Ohio, Oregon, Paris, Seoul, SouthAmerica, Stockholm, Sydney, Tokyo, UsWest
     * Azure: Not Applicable - location is associated with the cred specified
     * on-prem object stores: default
@@ -524,7 +524,7 @@ Uses PowerShell to create a volume.\
 **Known Issues and Notes**:\
 Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
 
-Misleading terminology: The create volume API has an option that misleadingly reference to “cred” in its **Name**: auto_provision_cred. Counterintutively, auto_provision_cred controls the provisioning of encryption keys (pgp), rather than Nasuni cloud credentials.
+Misleading terminology: The create volume API has an option that misleadingly reference to “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (pgp), rather than Nasuni cloud credentials.
 
 Use the List Cloud Credentials NMC API endpoint to obtain the cred_id of a credential to use with the create volume NMC API endpoint. Each cred_id returned is actually a hash of the filer serial number and cred UUID (something internal to Nasuni). Since cred_id is a hash of a cred listed in the NMC and the filer serial number, the list cloud credentials NMC API endpoint may list more credentials than you’d expect. Any valid cred_id from any filer can be provided to the create volume NMC API endpoint as long as it shares the provider_name (the name you enter for the cred and that is visible in the NMC) and the shortname (something Nasuni uses internally to for each type of object store). There’s no need to first “copy” the cred to a new filer before using that cred with the NMC API to create a volume on the new filer. Copying creds in the NMC is a leftover artifact from how we had to copy creds from filer to filer before the NMC existed.\
 **Name**: CreateVolume.ps1
