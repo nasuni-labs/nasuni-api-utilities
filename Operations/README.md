@@ -101,6 +101,6 @@ Exports NMC Notifications to CSV.\
 Sets Edge Appliance Escrow Passphrase.\
 **NMC API Endpoints Used**: Update Filer - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#update-a-filer \
 **Required Inputs**: NMC hostname, tokenFile (provided by `GetToken.ps1`), filer_serial_number, EscrowPassphrase \
-**Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encyrption keys with Nasuni. \
+**Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encryption keys with Nasuni. \
 **Name**: SetEscrowPassphrase.ps1
 
