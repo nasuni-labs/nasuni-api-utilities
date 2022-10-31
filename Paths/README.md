@@ -39,7 +39,7 @@ This script uses the NMC API to configure pinning for the specified volume path 
 **Name**: SetPinning.ps1
 
 ## Set Auto Cache for a Path
-This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cahe of metadata and data or metadata only.\
+This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cache of metadata and data or metadata only.\
 **NMC API Endpoint Used**: Set Auto Caching Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#set-auto-caching-mode \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
@@ -58,7 +58,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 **NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path  
 **Required Inputs**: NMC hostname, username, password, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshotshot contention, but that could be added.\
+**Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshot contention, but that could be added.\
 **Name**: SetGFLandModeForMultiplePaths.ps1
 
 ## Create Folder
