@@ -18,7 +18,7 @@ This script uses the NMC API to update an existing folder quota. The script list
 **Name**: UpdateQuota.ps1
 
 ## Export Folder Quotas to CSV
-Exports folder quotas and rule to CSV\
+Exports folder quotas and rules to CSV\
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: Quota ID, VolumeGuid, FilerSerial, Path, Quota Type, Quota Limit, Quota Usage, Email\
 **Compatibility**: Nasuni 7.10 or higher required\
