@@ -1,9 +1,8 @@
 # nmc-api-powershell-utilities
-Utlilities and scripts that use the NMC API to perform operations and generate reports
+Utilities and scripts that use the NMC API to perform operations and generate reports
 
 # PowerShell REST API Basics
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
-
 
 ## Authentication and Access
 Accessing the NMC API requires a user that is a member of an NMC group that has the "Enable NMC API Access" permission enabled. API users must also have the corresponding NMC permission for the action that they are performing. For example, setting folder quotas with the NMC API requires the "Manage Folder Quotas" NMC permission. Users must first authenticate to the NMC to obtain a token, and then can use that token to access subsequent API endpoints.
