@@ -2,7 +2,7 @@
 Does not check snapshot status before attempting to set GFL
 Checks the message status after submitting GFL request to see if the operation completed successfully
 Writes the following info to the console: path, retry number, status
-Includes error handling for invalid paths and has a progress counter #>
+Includes error handling for invalid paths #>
   
 #populate NMC hostname and credentials
 $hostname = "InsertNMCHostname"
