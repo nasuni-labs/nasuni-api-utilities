@@ -22,7 +22,7 @@ $path = "/folder1/folder2"
 $mode = "optimized"
 
 #Specify Number of times to retry before giving up
-$RetryLimit = 10
+$RetryLimit = 20
 
 #Specify delay between retries in seconds
 $RetryDelay = 30
@@ -139,10 +139,15 @@ $Message=Invoke-RestMethod -Uri $SetGFL.message.links.self.href -Method Get -Hea
  #Increment the RetryCount before retrying
  $RetryCount++
 
- #If the end of the loop completes and the snapshot is still running, log the results
+ #If the end of the loop completes and the snapshot is still running end the loop and clean up the pending request
  if ($RetryCount -ge $RetryLimit) {
-     write-output "Snapshot still running--retries exceeded"
+     write-output "Snapshot still running--retries exceeded, removing pending request"
      $status = "retryExceeded"
+
+     #clean up the pending request
+     $DeleteMessageURL = $message.links.acknowledge.href
+     #call deleteMessage uses a variable to suppress output
+     $DeleteMessage = Invoke-RestMethod -Uri $DeleteMessageURL -Method Delete -Headers $headers -Body $credentials
  }
 
 #sleep for defined time in Retry delay before starting the loop again
