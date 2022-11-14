@@ -73,12 +73,12 @@ $FormatEnumerationLimit=-1
 $GetCifsLocks = Invoke-RestMethod -Uri $CifsLocksUrl -Method Get -Headers $headers
 
 #initialize csv output file
-$csvHeader = "type,ip_address,hostname,share_id,path,user,type"
+$csvHeader = "type,ip_address,hostname,share_id,path,user"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 write-host ("Exporting CIFS Locks information to: " + $reportFile)
 
 foreach($i in 0..($GetCifsLocks.total-1)){
-    $datastring =  "$($GetCifsLocks.items[$i].type),$($GetCifsLocks.items[$i].client),$($GetCifsLocks.items[$i].client_name),$($GetCifsLocks.items[$i].share_id),$($GetCifsLocks.items[$i].path),$($GetCifsLocks.items[$i].user),$($GetCifsLocks.items[$i].type)"
+    $datastring =  "$($GetCifsLocks.items[$i].type),$($GetCifsLocks.items[$i].client),$($GetCifsLocks.items[$i].client_name),$($GetCifsLocks.items[$i].share_id),$($GetCifsLocks.items[$i].path),$($GetCifsLocks.items[$i].user)"
     Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
 	$i++
 } 
