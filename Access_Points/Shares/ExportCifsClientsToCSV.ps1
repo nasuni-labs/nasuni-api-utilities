@@ -82,7 +82,7 @@ if ($GetCifsClients.total -eq 0){
 
 
 #if clients are connected write a line for each connected client
-		foreach($i in 0..($GetCifsClients.total.Count)){
+		foreach($i in 0..(($GetCifsClients.total)-1)){
 		$datastring =  "$($GetCifsClients.items[$i].filer_serial_number),$($GetCifsClients.items[$i].user),$($GetCifsClients.items[$i].client_name),$($GetCifsClients.items[$i].client),$($GetCifsClients.items[$i].share_id)"
 		Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
 		$i++
