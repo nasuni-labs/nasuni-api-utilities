@@ -88,6 +88,7 @@ Lists shares for an account and exports results to the PowerShell console.\
 Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV.\
 **Required Inputs**: NMC hostname, username, password, filer_serial, reportFile, limit, nmcApiVersion\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
+**Output**: type, ip_address, hostname, share_id, path, user\
 **Name**: ExportCifsLocksToCSV.ps1
 
 ### Enable Mac Support for all Shares
