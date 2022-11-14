@@ -77,7 +77,7 @@ $csvHeader = "type,client,share,file_path,user"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 write-host ("Exporting CIFS Locks information to: " + $reportFile)
 
-foreach($i in 0..($GetCifsLocks.items.Count-1)){
+foreach($i in 0..($GetCifsLocks.total-1)){
     $datastring =  "$($GetCifsLocks.items[$i].type),$($GetCifsLocks.items[$i].client),$($GetCifsLocks.items[$i].share),$($GetCifsLocks.items[$i].file_path),$($GetCifsLocks.items[$i].user)"
     Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
 	$i++
