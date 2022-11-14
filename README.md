@@ -61,8 +61,8 @@ Uses PowerShell to create a share by referencing an existing volume, Edge Applia
 ### Export All Shares and Settings to CSV
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 shares, but can be increased)\
-**Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Output CSV content**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
+**Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllSharesToCSV.ps1
 
 ### Bulk Share Creation
@@ -162,16 +162,16 @@ Uses PowerShell to create an NFS Export by referencing an existing volume, Edge 
 ### Export All NFS Exports and Settings to CSV
 Uses PowerShell to export all NFS exports and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 exports, but can be increased)\
-**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Output CSV content**: exportId,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
+**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllNFSExportsToCSV.ps1
 
 ## FTP Directories
 ### Export All FTP Directories and Settings to CSV
 Uses PowerShell to export all FTP directories and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 FTP directories, but can be increased)\
-**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Output CSV content**: FtpId,Volume_GUID,filer_serial_number,ftp_name,path,comment,readonly,visibility,ip_restrictions,allowed_users,allowed_groups,allow_anonymous,anonymous_only,Permissions_on_new_files,hide_ownership,use_temporary_files_during_upload\
+**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllFtpDirectoriesToCSV.ps1
 
 # Quotas
@@ -302,16 +302,16 @@ Use these NMC API scripts to help with reporting and chargeback.
 ## Recharge tracking/Volume Details
 This script can be used as a starting point for billing and recharge reporting. This script example provides a report of all volumes in an account.\
 **Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
-**Compatibility**: Nasuni 7.10 or higher required\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, provider\
+**Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Does not work correctly if there is a disconnected volume in the account.\
 **Name**: ExportVolumeDetailToCSV.ps1
 
 ## Show Ingest Progress
 This script can be used to track the progress of data ingestion or data growth. This script provides a report of all volumes in an account and the amount of accessible data alongside unprotected data on each Edge Appliance, the last snapshot time, and last snapshot version. Running this daily and compare results to get data for ingest trending or data growth.\
 **Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
-**Compatibility**: Nasuni 7.10 or higher required\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version\
+**Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Might not work correctly if there is a disconnected volume in the account. \
 **Name**: ShowIngestProgress.ps1
 
@@ -325,9 +325,9 @@ Customers can use this script to monitor all Edge Appliances connected to a volu
 ## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares and with full path info, including current sizes, and exports the results to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
-**Compatibility**: Nasuni 8.5 or higher required\
 **Output CSV content**: shareid,volume_name,volume_guid,filer_name,filer_serial,share_name,path,comment,cache_resident,protected,owner,size,pinning_enabled,pinning_mode,pinning_inherited,autocache_enabled,autocache_mode,autocache_inherited,quota_enabled,quota_type,quota_email,quota_usage,quota_limit,quota_inherited,global_locking_enabled,global_locking_inherited,global_locking_mode\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve share size.\
+**Compatibility**: Nasuni 8.5 or higher required\
 **Name**: ExportAllSharesAndSizes.ps1
 
 ## Export Top Level Folder Sizes to CSV
@@ -340,8 +340,8 @@ Get the size of top level folders within a share using the NMC API and export th
 * Data API: Get items (GET) - http://b.link/Nasuni_API_Documentation
 
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Top Level Folder, Report File, Limit\
-**Compatibility**: Nasuni 8.5 or higher required\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
+**Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
 **Name**: ExportTopLevelFolderSizesToCSV.ps1
 
@@ -355,8 +355,8 @@ Get the size of subfolders within a path using the NMC API and export the result
 * Data API: Get items (GET) - http://b.link/Nasuni_API_Documentation
 
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Volume GUID, Filer Serial, NMC Folder Path, Share Name, Report File\
-**Compatibility**: Nasuni 8.5 or higher required\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
+**Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
 **Name**: SubfolderSizeReport.ps1
 
@@ -425,8 +425,8 @@ Note: NMC Messages will only show recent activity since a cron runs on the NMC e
 Uses PowerShell to export a list of Health Monitor status for Edge Appliances and export the results to a CSV.\
 **NMC API Endpoints Used**: List health status for all Edge Appliances - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-health-status-for-all-filers \
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
-**Compatibility**: Nasuni 8.8 or higher required\
 **Output CSV content**: filer_serial_number, filer_name,last_updated,network,filesystem,cpu,nfs,memory,services,directoryservices,disk,smb\
+**Compatibility**: Nasuni 8.8 or higher required\
 **Name**: ExportHealthToCSV.ps1
 
 ## Export Edge Appliance Status to CSV
