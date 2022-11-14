@@ -127,6 +127,7 @@ Lists shares for an account and exports results to the PowerShell console.\
 ### Export CIFS Locks to CSV
 Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV.\
 **Required Inputs**: NMC hostname, username, password, filer_serial, reportFile, limit, nmcApiVersion\
+**Output**: type, ip_address, hostname, share_id, path, user\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Name**: ExportCifsLocksToCSV.ps1
 
@@ -139,8 +140,8 @@ This script uses the NMC API to list all shares, check for shares without Mac su
 ### Export CIFS Clients to CSV
 Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. 
 **Required Inputs**: NMC hostname, username, password, reportFile, limit, nmcApiVersion\
-**Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Output**: Edge Appliance Serial Number, User Name, Client_Name, Share ID (one line for each connected client)\
+**Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Name**: ExportCifsClientsToCSV.ps1
 
 ### Replicate Shares from Source to Destination Edge Appliance
