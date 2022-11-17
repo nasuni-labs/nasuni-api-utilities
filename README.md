@@ -16,6 +16,12 @@ This is a simple script to validate NMC API connectivity and obtain a token that
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: GetToken.ps1
 
+## Request a Token - Prompt for Credentials
+Works the same way as the "Request a Token" script, but prompts the user for credentials using PowerShell's Get-Credential cmdlet rather than relying on hardcoded credentials in the script. \
+**Required Inputs**: NMC hostname, tokenFile\
+**Compatibility**: Nasuni 7.10 or higher required\
+**Name**: GetTokenCredPrompt.ps1
+
 ## Better Error Handling
 PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of error. PowerShell 6 and PowerShell core support a newer method for error handling while older versions of PowerShell require the use of GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
 
