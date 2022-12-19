@@ -27,6 +27,17 @@ Customers can use this script to monitor all Edge Appliances connected to a volu
 **Email Content**: Email contains Edge Appliance name(s) and amount of unprotected data for the Edge Appliance.\
 **Name**: VolumeUnprotectedDataAlert.ps1
 
+## Export Full Path Info for the Provided List of Paths to CSV
+Export all path information for the inputs specified in the CSV to a new CSV output file.\
+**Required Inputs**: NMC hostname, username, password, csvInputPath, csvOutputPath, limit\
+**Compatibility**: Nasuni 8.5 or higher required\
+**Input CSV content**:\
+Header: Volume_GUID,filer_serial_number,path\
+Additonal lines containing that info for each path to list. Use backslashes (\) as delimiters within paths.\
+**Output CSV content**: volume_name,volume_guid,filer_name,filer_serial,share_name,path,cache_resident,protected,owner,size,pinning_enabled,pinning_mode,pinning_inherited,autocache_enabled,autocache_mode,autocache_inherited,quota_enabled,quota_type,quota_email,quota_usage,quota_limit,quota_inherited,global_locking_enabled,global_locking_inherited,global_locking_mode\
+**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher.\
+**Name**: CsvPathReport.ps1
+
 ## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares and with full path info, including current sizes, and exports the results to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
