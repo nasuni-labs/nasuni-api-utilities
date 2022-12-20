@@ -342,9 +342,14 @@ Additonal lines containing that info for each path to list. Use backslashes (\) 
 ## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares and with full path info, including current sizes, and exports the results to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
+**Required NMC Permissions**:
+* NMC API Access
+* Filer Permissions: Manage Shares, Exports, FTP and ISCSI
+* Filer Access: Select all Filers with shares that should be included in the report or select "Manage All Filers (super user)"
+
+**Compatibility**: Nasuni 8.5 or higher required\
 **Output CSV content**: shareid,volume_name,volume_guid,filer_name,filer_serial,share_name,path,comment,cache_resident,protected,owner,size,pinning_enabled,pinning_mode,pinning_inherited,autocache_enabled,autocache_mode,autocache_inherited,quota_enabled,quota_type,quota_email,quota_usage,quota_limit,quota_inherited,global_locking_enabled,global_locking_inherited,global_locking_mode\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve share size.\
-**Compatibility**: Nasuni 8.5 or higher required\
 **Name**: ExportAllSharesAndSizes.ps1
 
 ## Export Top Level Folder Sizes to CSV
