@@ -4,13 +4,17 @@ $hostname = "insertNMChostnameHere"
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
 $username = "username"
 $password = 'password'
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #enter the path for the CSV export file
 $reportFile = "C:\path\to\folder\VolumeInfo.csv"
 
 #Number of Volumes to query
 $limit = 1000
+
+#end variables
+
+#combine credentials for token request
+$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #Request token and build connection headers
 # Allow untrusted SSL certs
