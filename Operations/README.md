@@ -1,6 +1,16 @@
 # nmc-api-powershell-utilities
 Utlilities and scripts that use the NMC API to perform operations and generate reports
 
+# Support Statement
+
+*   These scripts have been validated with the PowerShell and Nasuni versions documented in the README file.
+    
+*   Nasuni Support is limited to the underlying APIs used by the scripts.
+    
+*   Nasuni API and Protocol bugs or feature requests should be communicated to Nasuni Customer Success.
+    
+*   GitHub project to-do's, bugs, and feature requests should be submitted as “Issues” in GitHub under its repositories.
+
 # Operations
 PowerShell NMC API Scripts to assist with daily Nasuni operations.
 
