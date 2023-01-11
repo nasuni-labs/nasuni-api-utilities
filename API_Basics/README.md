@@ -4,6 +4,9 @@ Utilities and scripts that use the NMC API to perform operations and generate re
 # PowerShell REST API Basics
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
+## Compatible Operating Systems
+Beginning with NMC version 22.3, insecure ephemeral Diffie-Hellman ciphers used by PowerShell on older Windows OS versions (Server 2012R2 and older) are disabled. Callers impacted by the change could see the following error messages: "TLS handshake failure" or "The request was aborted: Could not create SSL/TLS secure channel."  Upgrade to a supported Windows version (Server 2016, Windows 10, or newer) to resolve the issue. If this is not possible, contact Nasuni Customer Support and reference internal KB11989 to have insecure ciphers re-enabled for your NMC. Linux and macOS PowerShell versions are not impacted.
+
 ## Authentication and Access
 Accessing the NMC API requires a user that is a member of an NMC group that has the "Enable NMC API Access" permission enabled. API users must also have the corresponding NMC permission for the action that they are performing. For example, setting folder quotas with the NMC API requires the "Manage Folder Quotas" NMC permission. Users must first authenticate to the NMC to obtain a token, and then can use that token to access subsequent API endpoints.
 
