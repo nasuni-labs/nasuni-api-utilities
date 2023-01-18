@@ -83,6 +83,11 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
  } }
 
+#build JSON headers
+$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+$headers.Add("Accept", 'application/json')
+$headers.Add("Content-Type", 'application/json')
+
 #construct Uri
 $url="https://"+$hostname+"/api/v1.2/auth/login/"
 
