@@ -1,4 +1,4 @@
-# nmc-api-powershell-utilities
+# nmc-api-utilities
 Utilities and scripts that use the NMC API to perform operations and generate reports
 
 # Support Statement
