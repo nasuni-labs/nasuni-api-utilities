@@ -2,7 +2,7 @@
 Utlilities and scripts that use the NMC API to perform operations and generate reports
 
 # Volumes
-PowerShell NMC API Scripts for working with volumes. 
+PowerShell NMC API Scripts for working with volumes.
 
 ## Create a Volume
 Uses PowerShell to create a volume.\
@@ -26,6 +26,14 @@ Misleading terminology: The create volume API has an option that misleadingly re
 
 Use the List Cloud Credentials NMC API endpoint to obtain the cred_id of a credential to use with the create volume NMC API endpoint. Each cred_id returned is actually a hash of the filer serial number and cred UUID (something internal to Nasuni). Since cred_id is a hash of a cred listed in the NMC and the filer serial number, the list cloud credentials NMC API endpoint may list more credentials than you’d expect. Any valid cred_id from any filer can be provided to the create volume NMC API endpoint as long as it shares the provider_name (the name you enter for the cred and that is visible in the NMC) and the shortname (something Nasuni uses internally to for each type of object store). There’s no need to first “copy” the cred to a new filer before using that cred with the NMC API to create a volume on the new filer. Copying creds in the NMC is a leftover artifact from how we had to copy creds from filer to filer before the NMC existed.\
 **Name**: CreateVolume.ps1
+
+## List Volumes
+Lists volumes for an account and exports results to the console.\
+**NMC API Endpoint Used**: list volumes: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-volumes \
+**Required Inputs**: NMC hostname, username, password, limit\
+**Output**: name, guid, filer_serial_number, case sensitive, permissions policy, protocols, remote access, remote access permissions,provider name, provider shortname, provider location\
+**Compatibility**: Nasuni 7.10 or higher required\
+**Name**: ListVolumes.ps1
 
 ## Export Volumes and Settings to CSV
 Lists volumes for an account and exports results to the specified CSV file.\
