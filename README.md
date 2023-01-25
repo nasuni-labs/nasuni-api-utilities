@@ -165,7 +165,7 @@ Uses PowerShell to list CIFS clients for all Edge Appliance and exports the resu
 ### Replicate Shares from Source to Destination Edge Appliance
 This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are not changed.\
 **Required Inputs**: NMC hostname, username, password, SourceFilerSerialNumber, DestinationFilerSerialNumber\
-**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
+**Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Known Issues**: none\
 **Name**: ReplicateMissingShares.ps1
 
