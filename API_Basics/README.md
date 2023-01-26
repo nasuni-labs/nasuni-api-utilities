@@ -47,6 +47,7 @@ Most scripts support the bundled version of PowerShell that comes with Windows (
 
    ```PowerShell
    ConvertFrom-Json : A parameter cannot be found that matches parameter name 'Depth'
+   Invoke-RestMethod : A parameter cannot be found that matches parameter name 'SkipCertificateCheck'
    ```
 
 ### Nasuni Version Troubleshooting
