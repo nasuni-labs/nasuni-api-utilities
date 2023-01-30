@@ -16,7 +16,7 @@ Uses PowerShell to create a share by referencing an existing volume, Edge Applia
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 shares, but can be increased)\
 **Output CSV content**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
-**Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
+**Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllSharesToCSV.ps1
 
 ### Bulk Share Creation
@@ -26,6 +26,7 @@ These scripts demonstrate how shares can be created, exported, and subsequently 
 #### Step 1 - Create Shares From CSV
 Uses CSV input to create shares. We recommend manually creating several shares along with desired settings and then use the ExportAllSharesToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional shares, deleting the columns for volume_name and filer_name. The shareid column is ignored during import but must be present.\
 **Required Inputs**: hostname, username, password, csvPath\
+**Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **CSV Contents**:(shareid,volume_guid,filer_serial_number,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users)\
 **Name**: CreateSharesFromCSV.ps1
 
