@@ -127,6 +127,13 @@ Uses PowerShell to export all NFS exports and configurable settings to CSV.\
 **Compatibility**: Nasuni 7.10 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllNFSExportsToCSV.ps1
 
+### Create Exports From CSV
+Uses CSV input to create exports. We recommend manually creating several exports along with desired settings and then use the ExportAllNFSExportsToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional exports. The exportId and nfs_hosts_options columns are ignored during import but must be present. Only 1 entry is currently supported for allowed hosts, but could be expanded.\
+**Required Inputs**: hostname, username, password, csvPath\
+**Compatibility**: Nasuni 21.2 or higher required\
+**CSV Contents**: exportID,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
+**Name**: CreateExportsFromCSV.ps1
+
 ## FTP Directories
 ### Export All FTP Directories and Settings to CSV
 Uses PowerShell to export all FTP directories and configurable settings to CSV.\
