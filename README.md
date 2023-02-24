@@ -206,6 +206,13 @@ Uses CSV input to create exports. We recommend manually creating several exports
 **CSV Contents**: exportID,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
 **Name**: CreateExportsFromCSV.ps1
 
+### Create Export Host Options From CSV
+Uses CSV input to create new host options for existing exports. We recommend manually creating several exports with host options and then using the ExportAllNFSExportsToCSV.ps1 script to output a CSV. Use the exported CSV as a reference when creating a new host options CSV import file. Allowed hosts supports multiple entries--use a semicolon to separate entries.\
+**Required Inputs**: hostname, username, password, csvPath, limit\
+**Compatibility**: Nasuni 21.2 or higher required\
+**CSV Contents**: filer_serial_number,export_name,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
+**Name**: CreateExportHostOptionsFromCSV.ps1
+
 ## FTP Directories
 ### Export All FTP Directories and Settings to CSV
 Uses PowerShell to export all FTP directories and configurable settings to CSV.\
