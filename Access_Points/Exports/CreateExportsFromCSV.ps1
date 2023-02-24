@@ -72,7 +72,7 @@ ForEach ($export in $exports) {
     $path = $($export.path)
     $comment = $($export.comment)
     $readonly = $($export.readonly)
-    $allowed_hosts = $($export.allowed_hosts)
+    $allowed_hosts = $($export.allowed_hosts) -replace ";",","
     $access_mode = $($export.access_mode)
     $perf_mode = $($export.perf_mode)
     $sec_options = $($export.sec_options)
