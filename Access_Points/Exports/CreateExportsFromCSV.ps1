@@ -1,5 +1,5 @@
 #Create Nasuni NFS Exports from a CSV
-#CSV column order - exportID(skipped for during share creation)Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options(not implemented)
+#CSV column order - exportID(skipped for during export creation),Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options(not implemented)
 
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
