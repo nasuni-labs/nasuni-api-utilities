@@ -139,7 +139,7 @@ Uses CSV input to create new host options for existing exports. We recommend man
 **Required Inputs**: hostname, username, password, csvPath, limit\
 **Compatibility**: Nasuni 21.2 or higher required\
 **CSV Contents**: filer_serial_number,export_name,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
-**Name**: CreateExportsFromCSV.ps1
+**Name**: CreateExportHostOptionsFromCSV.ps1
 
 ## FTP Directories
 ### Export All FTP Directories and Settings to CSV
