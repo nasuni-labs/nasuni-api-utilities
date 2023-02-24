@@ -79,7 +79,7 @@ ForEach ($hostOption in $hostOptions) {
     $filer_serial_number = $($hostOption.filer_serial_number)
     $export_name = $($hostOption.export_name)
     $readonly = $($hostOption.readonly)
-    $allowed_hosts = $($hostOption.allowed_hosts)
+    $allowed_hosts = $($hostOption.allowed_hosts) -replace ";",","
     $access_mode = $($hostOption.access_mode)
     $perf_mode = $($hostOption.perf_mode)
     $sec_options = $($hostOption.sec_options)
