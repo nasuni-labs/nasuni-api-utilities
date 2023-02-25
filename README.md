@@ -192,6 +192,12 @@ Uses PowerShell to create an NFS Export by referencing an existing volume, Edge 
 **Optional Inputs**: comment, readonly, hostspec, accessMode, perfMode, secOptions\
 **Name**: CreateExport.ps1
 
+### Create an Export Host Option
+Uses PowerShell to add a host option to an existing NFS export. Use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id for an existing export. \
+**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, export_id,readonly, hostspec, accessMode, perfMode, secOptions\
+**Compatibility**: NMC 21.2 or higher required\
+**Name**: CreateExportHostOption.ps1
+
 ### Export All NFS Exports and Settings to CSV
 Uses PowerShell to export all NFS exports and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 exports, but can be increased)\
