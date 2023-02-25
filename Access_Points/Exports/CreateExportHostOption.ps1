@@ -1,7 +1,7 @@
 #Add a new host option to an existing Nasuni NFS Export
 
 #populate NMC hostname and credentials
-$hostname = "host.domaincom"
+$hostname = "host.domain.com"
  
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
 $username = "username"
