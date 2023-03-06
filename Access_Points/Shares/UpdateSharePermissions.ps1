@@ -1,4 +1,4 @@
-﻿#Update All Shares for a given Filer/Volume using the supplied CSV input file
+#Update All Shares for a given Filer/Volume using the supplied CSV input file
 #if more than one user or group are specified in a section, they should be divided by spaces. Use a single backslash for domain users an groups
 
 #populate NMC hostname or IP address
@@ -61,7 +61,7 @@ $headers.Add("Authorization","Token " + $token)
 #Begin share update
 
 #read the contents of the CSV into variables, skipping the first line and replace semicolons to commas in share perms and set the right domain backslashes for domain json
-$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","filer_serial_number","share_name","path","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups"
+$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","filer_serial_number","share_name","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups"
 ForEach ($share in $shares) {
 	$ID = $($share.ID)
 	$volume_guid = $($share.volume_guid)
@@ -82,7 +82,7 @@ ForEach ($share in $shares) {
 	"auth": {
 	   "authall": $authAuthall,
 	   "rw_groups": [$authRw_groups],
-           "ro_groups": [$authRo_groups],
+       "ro_groups": [$authRo_groups],
 	   "deny_groups": [$authDeny_groups],
 	   "rw_users": [$authRw_users],
 	   "ro_users": [$authRo_users],
