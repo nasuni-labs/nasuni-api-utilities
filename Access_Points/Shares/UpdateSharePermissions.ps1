@@ -61,27 +61,32 @@ $headers.Add("Authorization","Token " + $token)
 #Begin share update
 
 #read the contents of the CSV into variables, skipping the first line and replace semicolons to commas in share perms and set the right domain backslashes for domain json
-$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -Delimiter "," -header "ID","Volume_Guid","Filer_Serial","ShareName","Path","comment","block_files","fruit_enabled","AuthAll","ro_users","ro_groups","rw_users","rw_groups"
+$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","filer_serial_number","share_name","path","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups"
 ForEach ($share in $shares) {
 	$ID = $($share.ID)
 	$volume_guid = $($share.volume_guid)
-	$filer_serial = $($share.filer_serial)
+	$filer_serial = $($share.filer_serial_number)
 	$AuthAll = $($share.AuthAll)
-	if (!$Share.ro_users) {} else {$ROUsers = "'"+$($Share.ro_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
-	if (!$Share.ro_groups) {} else {$ROGroups = "'"+$($Share.ro_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
-	if (!$Share.rw_users) {} else {$RWUsers = "'"+$($Share.rw_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
-	if (!$Share.rw_groups) {} else {$RWGroups = "'"+$($Share.rw_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+        if (!$share.authAuthall) {$authAuthall = "true"} else {$authAuthall = $($share.authAuthall).ToLower()}
+        if (!$share.authRo_users) {Clear-Variable authRo_users -ErrorAction SilentlyContinue} else {$authRo_users = "'"+$($share.authRo_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+        if (!$share.authRw_users) {Clear-Variable authRw_users -ErrorAction SilentlyContinue} else {$authRw_users = "'"+$($share.authRw_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+        if (!$share.authDeny_users) {Clear-Variable authDeny_users -ErrorAction SilentlyContinue} else {$authDeny_users = "'"+$($share.authDeny_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+        if (!$share.authRo_groups) {Clear-Variable authRo_groups -ErrorAction SilentlyContinue} else {$authRo_groups = "'"+$($share.authRo_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+        if (!$share.authRw_groups) {Clear-Variable authRw_groups -ErrorAction SilentlyContinue} else {$authRw_groups = "'"+$($share.authRw_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+        if (!$share.authDeny_groups) {Clear-Variable authDeny_groups -ErrorAction SilentlyContinue} else {$authDeny_groups = "'"+$($share.authDeny_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
 	if ($AuthAll -eq $false) {
 
 	#build the body for share update
 	$body = @"
 	{
 	"auth": {
-	"authall": "FALSE",
-	"ro_users": [$ROUsers],
-	"ro_groups": [$ROGroups],
-	"rw_users": [$RWUsers],
-	"rw_groups": [$RWGroups]
+	   "authall": $authAuthall,
+	   "rw_groups": [$authRw_groups],
+           "ro_groups": [$authRo_groups],
+	   "deny_groups": [$authDeny_groups],
+	   "rw_users": [$authRw_users],
+	   "ro_users": [$authRo_users],
+	   "deny_users": [$authDeny_users]
 	}
 	}
 "@
@@ -98,15 +103,7 @@ ForEach ($share in $shares) {
 	#write the response to the console
 	write-output $response | ConvertTo-Json
 
-	#remove variables for the next loop
-	Remove-Variable Body
-	Remove-Variable jsonbody
-	Remove-Variable ROGroups
-	Remove-Variable RWGroups
-	Remove-Variable ROUsers
-	Remove-Variable RWUsers
-
 	#sleep before starting the next loop to avoid NMC API throttling
 	Start-Sleep -s 1.1
-}
+        }
 }
