@@ -67,10 +67,10 @@ ForEach ($share in $shares) {
 	$volume_guid = $($share.volume_guid)
 	$filer_serial = $($share.filer_serial)
 	$AuthAll = $($share.AuthAll)
-	if (!$Share.ro_users) {} else {$ROUsers = "'"+$($Share.ro_users)+"'" -replace '\\','\\' -replace ' ',''','''}
-	if (!$Share.ro_groups) {} else {$ROGroups = "'"+$($Share.ro_groups)+"'" -replace '\\','\\' -replace ' ',''','''}
-	if (!$Share.rw_users) {} else {$RWUsers = "'"+$($Share.rw_users)+"'" -replace '\\','\\' -replace ' ',''','''}
-	if (!$Share.rw_groups) {} else {$RWGroups = "'"+$($Share.rw_groups)+"'" -replace '\\','\\' -replace ' ',''','''}
+	if (!$Share.ro_users) {} else {$ROUsers = "'"+$($Share.ro_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+	if (!$Share.ro_groups) {} else {$ROGroups = "'"+$($Share.ro_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+	if (!$Share.rw_users) {} else {$RWUsers = "'"+$($Share.rw_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
+	if (!$Share.rw_groups) {} else {$RWGroups = "'"+$($Share.rw_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
 	if ($AuthAll -eq $false) {
 
 	#build the body for share update
