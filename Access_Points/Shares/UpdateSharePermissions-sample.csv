@@ -1,3 +1,3 @@
-shareid,Volume_GUID,filer_serial,share_name,authAuthall,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups
-5,88b14b86-c3b2-48e3-b9c9-60e53a7fbaf6_0,118d19f6-8fdd-4863-bda8-03bab0363d01,subfoldera,TRUE,FALSE,COANAWS\user1111,,COANAWS\NasuniReaders;COANAWS\DomainUsers,,,
-1,88b14b86-c3b2-48e3-b9c9-60e53a7fbaf6_0,118d19f6-8fdd-4863-bda8-03bab0363d01,Volume1,TRUE,,,,,,
+shareid,Volume_GUID,filer_serial_number,share_name,authAuthall,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups
+5,88b14b86-c3b2-48e3-b9c9-60e53a7fbaf6_0,118d19f6-8fdd-4863-bda8-03bab0363d01,Share1,FALSE,COANAWS\user1111,,COANAWS\NasuniReaders;COANAWS\NasuniGroup2,,COANAWS\NasuniDenyMembers
+1,88b14b86-c3b2-48e3-b9c9-60e53a7fbaf6_1,118d19f6-8fdd-4863-bda8-03bab0363d01,Share2,FALSE,COANAWS\user1112,COANAWS\user1113,,,
