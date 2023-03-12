@@ -5,7 +5,7 @@ $hostname = "InsertNMChostname"
  
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required). Nasuni Native user accounts are also supported.
 $username = "InsertUsername"
-$password = "InsertPassword"
+$password = 'InsertPassword'
 
 #Path for CSV Export
 $reportFile = "c:\export\ExportedNFSExports.csv"
@@ -71,7 +71,7 @@ Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 write-host ("Exporting NFS Exports Information to: " + $reportFile)
 
 foreach($i in 0..($getinfo.items.Count-1)){
-    clear-variable nhoOutput
+    clear-variable nhoOutput -ErrorAction SilentlyContinue
     $exportId = $getinfo.items[$i].id
     $Volume_GUID = $getinfo.items[$i].Volume_Guid
     $filer_serial_number = $getinfo.items[$i].Filer_Serial_Number
