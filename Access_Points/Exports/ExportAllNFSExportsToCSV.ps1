@@ -86,7 +86,7 @@ foreach($i in 0..($getinfo.items.Count-1)){
     $nfs_host_options = $getinfo.items[$i].nfs_host_options
     #loop through host options since it can contain multiple values
     ForEach ($nho in $nfs_host_options) {
-        $nhoOutput = $nhoOutput + "allowed_hosts: " + ($nho.hostspec -replace ",",";") + "; access_mode: " + $nho.access_mode + "; read_ondly: " + $nho.readonly + "; sec_options: " + $nho.sec_options + "; perf_mode: " + $nho.perf_mode + ";; "
+        $nhoOutput = $nhoOutput + "host_option_id: " + $nho.id + "; allowed_hosts: " + ($nho.hostspec -replace ",",";") + "; access_mode: " + $nho.access_mode + "; read_ondly: " + $nho.readonly + "; sec_options: " + $nho.sec_options + "; perf_mode: " + $nho.perf_mode + ";; "
     }
 
     $datastring = "$exportID,$Volume_Guid,$Filer_Serial_Number,$export_name,$path,$comment,$readonly,$allowed_hosts,$access_mode,$perf_mode,$sec_options,$nhoOutput"
