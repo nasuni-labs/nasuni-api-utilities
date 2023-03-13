@@ -209,6 +209,7 @@ Uses PowerShell to add a host option to an existing NFS export. Use the list exp
 Uses PowerShell to update an existing host option for an NFS export. Use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id and host_option_id. \
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, export_id, host_option_id, readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
+**Notes**: After updating NFS host options, the host option ID will change. Perform a new listing of exports/IDs before subsequent host options updates.\
 **Name**: UpdateExportHostOption.ps1
 
 ### Export All NFS Exports and Settings to CSV
