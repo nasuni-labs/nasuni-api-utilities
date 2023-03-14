@@ -92,7 +92,7 @@ Uses PowerShell to create a share by referencing an existing volume, Edge Applia
 
 ### Export All Shares and Settings to CSV
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 shares, but can be increased)\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit (preset to 1000 shares, but can be increased)\
 **Output CSV content**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllSharesToCSV.ps1
@@ -108,10 +108,10 @@ Uses CSV input to create shares. We recommend manually creating several shares a
 
 **Variants**: This script has two variants: One with no input filtering and one that prompts for the filer serial and volume GUID to match.
 *   Variant 1: No input filtering (all shares in the CSV get created).
-    - **Required Inputs**: hostname, username, password, csvPath
+    - **Required Inputs**: hostname, tokenFile, csvPath
     - **Name**: CreateSharesFromCSV-NoFilter.ps1
 *   Variant 2: Only CSV entries that match the supplied Filer Serial and Volume Guid get created.
-    - **Required Inputs**: hostname, username, password, csvPath, matchFilerSN
+    - **Required Inputs**: hostname, tokenFile, csvPath, matchFilerSN
     - **Optional Inputs**: matchVolumeGuid
     - **Name**: CreateSharesFromCSV-WithFilter.ps1
 
@@ -125,7 +125,7 @@ Exports all shares for the provided volume_guid and filer_serial to CSV. This co
 All share properties, including share permissions, can be set upon share creation. If a customer chooses to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
 
 Reads share information from a CSV file and use the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
-**Required Inputs**:  hostname, username, password, csvPath\
+**Required Inputs**:  hostname, tokenFile, csvPath\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
 ### Set All Shares on an Edge Appliance to Read Only
@@ -186,7 +186,7 @@ Uses PowerShell to list CIFS clients for all Edge Appliance and exports the resu
 
 ### Replicate Shares from Source to Destination Edge Appliance
 This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are not changed.\
-**Required Inputs**: NMC hostname, username, password, SourceFilerSerialNumber, DestinationFilerSerialNumber\
+**Required Inputs**: NMC hostname, tokenFile, SourceFilerSerialNumber, DestinationFilerSerialNumber\
 **Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **Known Issues**: none\
 **Name**: ReplicateMissingShares.ps1
