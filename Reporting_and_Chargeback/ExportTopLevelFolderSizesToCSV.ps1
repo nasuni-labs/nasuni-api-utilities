@@ -149,7 +149,7 @@ foreach($i in 0..($nmcGetShares.items.Count-1)){
                         #now we need to loop through the folders to get their size using the NMC API
 
                         #Build the URL for the endpoints
-                        $nmcPathInfoURL="https://"+$nmcHostname+"/api/v1.1/volumes/" + $nmcShareVolumeGuid + "/filers/" + "$nmcShareFilerSerial" + "/path" + $nmcSharePathFixed + $topLevelFolder + '/' + $dataFolder
+                        $nmcPathInfoURL="https://"+$nmcHostname+"/api/v1.1/volumes/" + $nmcShareVolumeGuid + "/filers/" + "$nmcShareFilerSerial" + "/path" + $nmcSharePathFixed + '/' + $topLevelFolder + '/' + $dataFolder
                         write-output $nmcPathInfoURL
 
                         #Refresh Stats on the supplied path - calling as a variable to suppress output
