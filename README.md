@@ -150,15 +150,15 @@ This script uses the NMC API to list all shares for an Edge Appliance and update
 **Name**: SetBlockFilesForAllSharesOnaFiler.ps1
 
 ### Delete a Share
-Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the list shares NMC API endpoint: https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/ \
-**NMC API Endpoint Used**: Delete a share: https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1shares~1%7Bshare_id%7D~1/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1shares~1{share_id}~1/delete \
+Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) endpoint. \
+**NMC API Endpoint Used**: [Delete a share](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1shares~1%7Bshare_id%7D~1/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1shares~1{share_id}~1/delete) \
 **Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, share_id\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: DeleteShare.ps1
 
 ### List Shares
 Lists shares for an account and exports results to the PowerShell console.\
-**NMC API Endpoint Used**: list shares: https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/ \
+**NMC API Endpoint Used**: [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) \
 **Required Inputs**: NMC hostname, username, password, limit (number of shares to list)\
 **Output**: shareid, Volume_GUID,filer_serial_number, share_name, path, comment, readonly, browseable, authall, ro_users, rw_users, ro_groups, rw_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -178,7 +178,7 @@ This script uses the NMC API to list all shares, check for shares without Mac su
 **Name**: EnableMacSupportForAllShares.ps1
 
 ### Export CIFS Clients to CSV
-Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. 
+Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. \
 **Required Inputs**: NMC hostname, username, password, reportFile, limit, nmcApiVersion\
 **Output**: Edge Appliance Serial Number, User Name, Client_Name, Share ID (one line for each connected client)\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
@@ -291,28 +291,28 @@ This script uses the NMC API to get info for specified path. It first calls the 
 
 ## Bring Path into Cache
 This script uses the NMC API to bring the specified path into cache. By default, both the metadata and data for the specified path are brought into cache. Bringing only the metadata into cache is an option if $MetadataOnly is set to "true".\
-**NMC API Endpoint Used**: Bring Path Into Cache -http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#bring-path-into-cache \
+**NMC API Endpoint Used**: [Bring Path Into Cache](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1cache-path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1cache-path~1{path}/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, metadata only, force\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: BringPathIntoCache.ps1
 
 ## Set Pinning for a Path
 This script uses the NMC API to configure pinning for the specified volume path and Edge Appliance. Can be used to configure the pinning of metadata and data or metadata only.\
-**NMC API Endpoint Used**: Set Pinning Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#set-pinning-mode \
+**NMC API Endpoint Used**: [Set Pinning Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1pinned-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1pinned-folders~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetPinning.ps1
 
 ## Set Auto Cache for a Path
 This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cache of metadata and data or metadata only.\
-**NMC API Endpoint Used**: Set Auto Caching Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#set-auto-caching-mode \
+**NMC API Endpoint Used**: [Set Auto Caching Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1auto-cached-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1auto-cached-folders~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetAutoCache.ps1
 
 ## Set Global File Lock and Mode for a Path
 This script uses the NMC API to set Global File Lock and mode for the specified path. Since GFL cannot be set while snapshots are running, the script includes retry delay and retry limit that will automatically retry setting GFL. The script will return an error when setting GFL if the path is invalid (paths are case sensitive.\
-**NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path  
+**NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, path, mode, RetryLimit, RetryDelay.\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed to be set if any Edge Appliance is running a snapshot for the volume. Disabling GFL is not currently supported via NMC API.\
@@ -320,7 +320,7 @@ This script uses the NMC API to set Global File Lock and mode for the specified 
 
 ## Set Global File Lock and Mode for Multiple Paths
 This script uses the NMC API to enable Global File Lock with the specified paths.\
-**NMC API Endpoint Used**: Enable GFL on a Path - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#enable-global-locking-and-its-various-modes-on-a-specified-path  
+**NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshot contention, but that could be added.\
@@ -329,7 +329,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 ## Create Folder
 This script uses the NMC API to create a folder within the given path on the specified volume and connected Edge Appliance.
 
-**NMC API Endpoint Used**: Create Folder - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#try-to-make-the-given-directory-path \
+**NMC API Endpoint Used**: [Create Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1make-dir-path~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1make-dir-path~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Folders are owned by the root POSIX user. This could create issues for NTFS exclusive volumes.\
@@ -337,21 +337,21 @@ This script uses the NMC API to create a folder within the given path on the spe
 
 ## Disable Pinning for a Path
 This script uses the NMC API to disable pinning for the specified volume path and Edge Appliance.\
-**NMC API Endpoint Used**: Disable Pinning Mode on a Folder - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#disable-pinning-mode-on-a-folder \
+**NMC API Endpoint Used**: [Disable Pinning Mode on a Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1pinned-folder~1%7Bpath%7D/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1pinned-folder~1{path}/delete) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: DisablePinning.ps1
 
 ## Disable Auto Cache for a Path
 This script uses the NMC API to disable Auto Cache for the specified volume path and Edge Appliance.\
-**NMC API Endpoint Used**: Disable Auto Cache Mode - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#disable-auto-cache-mode-on-a-folder \
+**NMC API Endpoint Used**: [Disable Auto Cache Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1auto-cached-folder~1%7Bpath%7D/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1auto-cached-folder~1{path}/delete) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path \
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: DisableAutocache.ps1
 
 ## Export Auto Cache Folders to CSV
 Exports a list of Auto Cache enabled folders to CSV.\
-**NMC API Endpoint Used**: List Auto Cache Enabled Folders - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-a-list-of-all-auto-cache-enabled-folders \
+**NMC API Endpoint Used**: [List Auto Cache Enabled Folders](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1auto-cached-folders~1/get/#tag/Volumes/paths/~1volumes~1filers~1auto-cached-folders~1/get) \
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: volume_guid, filer_serial_number, path, autocache mode\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -359,7 +359,7 @@ Exports a list of Auto Cache enabled folders to CSV.\
 
 ## Export Pinned Folders to CSV
 Exports a list of pinned folders to CSV.\
-**NMC API Endpoint Used**: List Pinned Folders - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-a-list-of-all-pinned-folders \
+**NMC API Endpoint Used**: [List Pinned Folders](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1pinned-folders~1/get/#tag/Volumes/paths/~1volumes~1filers~1pinned-folders~1/get) \
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: volume_guid, filer_serial_number, path, pinning mode\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -419,10 +419,10 @@ Uses PowerShell to export a list of all shares and with full path info, includin
 Get the size of top level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top level folders within the share — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
 
 **API Endpoints Used**:  
-* NMC API: List Shares (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-shares
-* NMC API: Refresh Info on Path (POST) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#refresh-info-about-a-given-path  
-* NMC API: Get Info on a Path (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-info-on-a-specific-path
-* Data API: Get items (GET) - http://b.link/Nasuni_API_Documentation
+* NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
+* NMC API: [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/post)
+* NMC API: [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/get)
+* Data API: [Get items (GET)](http://b.link/Nasuni_API_Documentation)
 
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Top Level Folder, Report File, Limit\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
@@ -434,10 +434,10 @@ Get the size of top level folders within a share using the NMC API and export th
 Get the size of subfolders within a path using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of subfolders within the path. The 'Sync and Mobile Access' share-level Advanced Setting must be enabled for the Data API to work
 
 **API Endpoints Used**:  
-* NMC API: List Shares for a volume and Filer (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-shares-for-a-volume-and-filer
-* NMC API: Refresh Info on Path (POST) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#refresh-info-about-a-given-path  
-* NMC API: Get Info on a Path (GET) - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#get-info-on-a-specific-path
-* Data API: Get items (GET) - http://b.link/Nasuni_API_Documentation
+* NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
+* NMC API: [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/post)
+* NMC API: [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/get)
+* Data API: [Get items (GET)](http://b.link/Nasuni_API_Documentation)
 
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Volume GUID, Filer Serial, NMC Folder Path, Share Name, Report File\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
@@ -491,7 +491,7 @@ PowerShell NMC API Scripts to assist with daily Nasuni operations.
 
 ## Delete Sync Errors
 While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, customers can use the NMC API Messages endpoint to list and delete sync errors. This script deletes sync errors by using the Messages NMC API endpoints to list and delete messages that match the specified status codes and type.\
-**NMC API Endpoints Used**: list messages - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-messages; delete message - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#delete-message \
+**NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get); [delete message](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1%7Bmessage_id%7D~1/delete/#tag/Messages/paths/~1messages~1{message_id}~1/delete) \
 **Required Inputs**: NMC hostname, username, password, StatusCode, StatusType, limit\
 **Status codes**: set GFL for path (fsbrowser_globallock_edit); Refresh info for path (fsbrowser_stat_item); Create a Share (volumes_shares_add)\
 **Compatibility**: Nasuni 8.0 or higher required\
@@ -501,14 +501,14 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 Customers have requested that we supply robust auditing for actions performed using the NMC API or GUI (PM-320). While we don’t currently audit all NMC actions, the NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all messages that are currently available in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
 
 Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. In order to capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity on a daily basis using the ConcatenateNMCMessages.ps1 script.\
-**NMC API Endpoints Used**:list messages - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-messages \
+**NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get) \
 **Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of messages to return).\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: ExportMessagesToCSV.ps1
 
 ## Export Health Monitor Status for All Edge Appliances
 Uses PowerShell to export a list of Health Monitor status for Edge Appliances and export the results to a CSV.\
-**NMC API Endpoints Used**: List health status for all Edge Appliances - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-health-status-for-all-filers \
+**NMC API Endpoints Used**: [List Health Status for all Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1health~1/get/#tag/Filers/paths/~1filers~1health~1/get) \
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
 **Output CSV content**: filer_serial_number, filer_name,last_updated,network,filesystem,cpu,nfs,memory,services,directoryservices,disk,smb\
 **Compatibility**: Nasuni 8.8 or higher required\
@@ -516,7 +516,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 
 ## Export Edge Appliance Status to CSV
 The NMC List Edge Appliances endpoint provides a list of all Edge Appliances, their status, and settings configured for each. This script lists all Edge Appliances in an account along with their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
-**NMC API Endpoints Used**: List Edge Appliances - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-filers \
+**NMC API Endpoints Used**: [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get) \
 **Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
 Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -524,7 +524,7 @@ Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpu
 
 ## List Cloud Credentials
 Lists cloud credentials for an account and exports results to the PowerShell console. \
-**NMC API Endpoint Used**: list cloud credentials - http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials \
+**NMC API Endpoint Used**: [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get) \
 **Required Inputs**: NMC hostname, username, password\
 **Output**: cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
 **Compatibility**: Nasuni 8.0 or higher required\
@@ -536,10 +536,10 @@ This script automates the process of updating cloud credentials on Edge Applianc
 
 Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ Edge Appliances is synchronous. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync. \
 **NMC API Endpoint Used**: 
-* List Cloud Credentials: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#list-all-cloud-credentials 
-* List Filers: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-filers 
-* Update Cloud Credentials: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#update-a-cloud-credential-on-a-filer 
-* Get Message: http://docs.api.nasuni.com/nmc/api/1.2.0/index.html#nasuni-management-console-api-messages 
+* [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get)
+* [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get)
+* [Update Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1%7Bcred_uuid%7D~1filers~1%7Bfiler_serial%7D~1/patch/#tag/Account/paths/~1account~1cloud-credentials~1{cred_uuid}~1filers~1{filer_serial}~1/patch)
+* [Get Message](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1%7Bmessage_id%7D~1/get/#tag/Messages/paths/~1messages~1{message_id}~1/get)
 
 **Required Inputs**: NMC hostname, username, password, cred uuid \
 **Output**: Sync status summary \
@@ -549,7 +549,7 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 
 ## Get Message
 This script gives you an example using the message ID to look up the status of an action. The NMC is an asynchronous API and POST or UPDATE actions you initiate with the NMC API will return a “pending” status along with an ID that you can then check to see the status of the request once it has been processed. The screenshot below is the result of a POST request to the NMC API. The red box is the message ID you will use for the messageID in the script. The green box gives you the full URL to the messages NMC API endpoint including the ID.\
-**NMC API Endpoint Used**: Get Message - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-messages \
+**NMC API Endpoint Used**: [Get Message](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1%7Bmessage_id%7D~1/get/#tag/Messages/paths/~1messages~1{message_id}~1/get) \
 **Required Inputs**: NMC hostname, username, messageID\
 **Output**: Example below is of a message for an action that failed. A successful message will show “synced” as the status.\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -577,14 +577,14 @@ This script exports all Edge Appliance settings that are applied on a per-Volume
 
 ## Export NMC Notifications to CSV
 Exports NMC Notifications to CSV.\
-**NMC API Endpoints Used**: ist notifications - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#nasuni-management-console-api-notifications \
+**NMC API Endpoints Used**: [List Notifications](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Notifications/paths/~1notifications~1/get/#tag/Notifications/paths/~1notifications~1/get) \
 **Required Inputs**: NMC hostname, username, password, ReportFileName, limit (number of notifications to return)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: ExportNotificationsToCSV.ps1
 
 ## Set Edge Appliance Escrow Passphrase
 Sets Edge Appliance Escrow Passphrase.\
-**NMC API Endpoints Used**: Update Filer - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#update-a-filer \
+**NMC API Endpoints Used**: [Update Edge Appliance](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1%7Bfiler_serial%7D~1/patch/#tag/Filers/paths/~1filers~1{filer_serial}~1/patch) \
 **Required Inputs**: NMC hostname, tokenFile (provided by `GetToken.ps1`), filer_serial_number, EscrowPassphrase \
 **Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encryption keys with Nasuni. \
 **Name**: SetEscrowPassphrase.ps1
@@ -617,7 +617,7 @@ Use the List Cloud Credentials NMC API endpoint to obtain the cred_id of a crede
 
 ## List Volumes
 Lists volumes for an account and exports results to the console.\
-**NMC API Endpoint Used**: list volumes: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-volumes \
+**NMC API Endpoint Used**: [List Volumes](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1/get/#tag/Volumes/paths/~1volumes~1/get) \
 **Required Inputs**: NMC hostname, username, password, limit\
 **Output**: name, guid, filer_serial_number, case sensitive, permissions policy, protocols, remote access, remote access permissions,provider name, provider shortname, provider location\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -625,7 +625,7 @@ Lists volumes for an account and exports results to the console.\
 
 ## Export Volumes and Settings to CSV
 Lists volumes for an account and exports results to the specified CSV file.\
-**NMC API Endpoint Used**: list volumes: http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#list-volumes \
+**NMC API Endpoint Used**: [List Volumes](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1/get/#tag/Volumes/paths/~1volumes~1/get) \
 **Required Inputs**: NMC hostname, username, password, reportFile, limit\
 **Output**: name,guid,filer_serial_number,case sensitive,permissions policy,protocols,remote access,remote access permissions,snapshot retention,quota,compression,chunk_size,authenticated access,auth policy,auth policy label,provider name,provider shortname,provider location,provider storage class,bucket name, AV enabled,AV days,AV check immediately,AV allday,AV start,AV stop,AV frequency\
 **Compatibility**: Nasuni 7.10 or higher required\
