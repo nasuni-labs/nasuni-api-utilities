@@ -8,11 +8,11 @@ $username = "username"
 $password = 'password'
  
 #specify volume name
-$volume_name = "insertVolumeNmae"
+$volume_name = "insertVolumeName"
 #specify Edge Appliance serial number
 $filer_serial_number = "insertFilerSerial"
-#cred id - list using the get
-$cred_id = "insertCredID"
+#cred uuid - lookup using List all cloud credentials endpoint - begins with "customer-"
+$cred_uuid = "insert cred_uuid"
 #provider name - Amazon S3, Azure
 $provider_name = "Amazon S3"
 #shortname - amazons3, azure, googles3
@@ -29,8 +29,8 @@ $policy = "ads"
 $policy_label = "Active Directory"
 #Auto Provision Credentials - use existing cred or create new
 $auto_provision_cred = "false"
-#Key Name - specify existing Key Name if autoprovision = false, should match cred name
-$key_name = "inssertKeyName"
+#Key Name - specify existing encryption key Name if autoprovision = false, should match key name
+$key_name = "insertExistingEncryptionKeyName"
 #create default access point
 $create_default_access_point = "true"
 #case sensitive
@@ -90,7 +90,7 @@ $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
  
 #construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
+$url="https://"+$hostname+"/api/v1.2/auth/login/"
   
 #Use credentials to request and store a session token from NMC for later use
 $result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
@@ -98,7 +98,7 @@ $token = $result.token
 $headers.Add("Authorization","Token " + $token)
  
 #Create the  volume
-$url="https://"+$hostname+"/api/v1.1/volumes/"
+$url="https://"+$hostname+"/api/v1.2/volumes/"
  
  
 #body for volume create
@@ -106,7 +106,7 @@ $body = @"
 {
     "filer_serial_number": "$filer_serial_number",
     "provider": {
-        "cred_id": "$cred_id",
+        "cred_uuid": "$cred_uuid",
         "name": "$provider_name",
         "shortname": "$shortname",
         "location": "$location"
