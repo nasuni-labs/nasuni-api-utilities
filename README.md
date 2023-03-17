@@ -606,7 +606,7 @@ PowerShell NMC API Scripts for working with volumes.
 
 ## Create a Volume
 Uses PowerShell to create a volume.\
-**Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_id, provider_name, shortname, location, permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
+**Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
 **Fields and values**:
 * shortName: amazons3, azure, googles3 (9.0 version of the google connector), vipr (ecs)
 * location (case-sensitive):
@@ -618,13 +618,13 @@ Uses PowerShell to create a volume.\
 
 <!-- -->
 
-**Compatibility**: Nasuni 8.0 or higher required\
+**Compatibility**: NMC 22.2 and Edge Appliance 9.8 or higher required\
 **Known Issues and Notes**:\
-Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
+Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating an encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
 
 Misleading terminology: The create volume API has an option that misleadingly reference to “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (pgp), rather than Nasuni cloud credentials.
 
-Use the List Cloud Credentials NMC API endpoint to obtain the cred_id of a credential to use with the create volume NMC API endpoint. Each cred_id returned is actually a hash of the filer serial number and cred UUID (something internal to Nasuni). Since cred_id is a hash of a cred listed in the NMC and the filer serial number, the list cloud credentials NMC API endpoint may list more credentials than you’d expect. Any valid cred_id from any filer can be provided to the create volume NMC API endpoint as long as it shares the provider_name (the name you enter for the cred and that is visible in the NMC) and the shortname (something Nasuni uses internally to for each type of object store). There’s no need to first “copy” the cred to a new filer before using that cred with the NMC API to create a volume on the new filer. Copying creds in the NMC is a leftover artifact from how we had to copy creds from filer to filer before the NMC existed.\
+Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a credential to use with the create volume NMC API endpoint.\
 **Name**: CreateVolume.ps1
 
 ## List Volumes
