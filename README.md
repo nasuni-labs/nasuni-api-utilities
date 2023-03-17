@@ -539,8 +539,7 @@ Lists cloud credentials for an account and exports results to the PowerShell con
 **NMC API Endpoint Used**: [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get) \
 **Required Inputs**: NMC hostname, username, password\
 **Output**: cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
-**Compatibility**: Nasuni 8.0 or higher required\
-**API version**: NMC API 1.2 \
+**Compatibility**: NMC API v1.2, NMC 22.2 and Edge Appliance 9.8 or higher required\
 **Name**: ListCloudCredentials.ps1
 
 ## Update Cloud Credentials
@@ -555,8 +554,7 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 
 **Required Inputs**: NMC hostname, username, password, cred uuid \
 **Output**: Sync status summary \
-**Compatibility**: Nasuni 8.0 or higher required. \
-**API version**: NMC API v1.2 \
+**Compatibility**: NMC API v1.2, NMC 22.2 and Edge Appliance 9.8 or higher required\
 **Name**: UpdateCloudCredentials.ps1
 
 ## Get Message
@@ -618,7 +616,7 @@ Uses PowerShell to create a volume.\
 
 <!-- -->
 
-**Compatibility**: NMC 22.2 and Edge Appliance 9.8 or higher required\
+**Compatibility**: NMC API v1.2, NMC 22.2 and Edge Appliance 9.8 or higher required\
 **Known Issues and Notes**:\
 Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating an encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
 
