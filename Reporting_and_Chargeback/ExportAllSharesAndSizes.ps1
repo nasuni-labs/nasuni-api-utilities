@@ -105,7 +105,7 @@ foreach($i in 0..($GetShareInfo.items.Count-1)){
     $RefreshStats = Invoke-RestMethod -Uri $GetPathInfoURL -Method POST -Headers $headers
  
     #Sleep to allow time for the refresh stats to complete
-    Start-Sleep -s 5
+    Start-Sleep -s 10
  
 	#Get Path Info to get the size of the share
 	$GetPathInfo = Invoke-RestMethod -Uri $GetPathInfoURL -Method Get -Headers $headers
