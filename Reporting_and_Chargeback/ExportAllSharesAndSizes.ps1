@@ -13,6 +13,12 @@ $reportFile = "c:\reports\SharesAndPathInfo.csv"
 #Number of shares, filers and volumes to query
 $limit = 1000
 
+#Specify Number of times to retry getting status on a path before giving up
+$RetryLimit = 20
+
+#Specify delay between POST and GET operations
+$Delay = 5
+
 #end variables
 
 #combine credentials for token request
@@ -52,10 +58,10 @@ $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
 
 #construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
+$loginUrl="https://"+$hostname+"/api/v1.1/auth/login/"
  
 #Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials 
+$result = Invoke-RestMethod -Uri $loginUrl -Method Post -Headers $headers -Body $credentials 
 $token = $result.token
 $headers.Add("Authorization","Token " + $token)
 
@@ -77,6 +83,8 @@ $GetFilerInfo = Invoke-RestMethod -Uri $FilersUrl -Method Get -Headers $headers
 #List volume info
 $VolumeUrl="https://"+$hostname+"/api/v1.1/volumes/?limit"+$limit+"&offset=0"
 $GetVolumeInfo = Invoke-RestMethod -Uri $VolumeUrl -Method Get -Headers $headers 
+
+#Loop through the shares for the CSV export
 
 foreach($i in 0..($GetShareInfo.items.Count-1)){
     	
@@ -101,22 +109,45 @@ foreach($i in 0..($GetShareInfo.items.Count-1)){
     $GetPathInfoURL="https://"+$hostname+"/api/v1.1/volumes/" + $($GetShareInfo.items.Volume_Guid[$i]) + "/filers/" + $($GetShareInfo.items.filer_serial_number[$i]) + "/path" + $NormalizedPath
     write-output $GetPathInfoURL	
     
+    #run loop the number of times specified by the Retry Limit
+    #set the RetryCount to 1 before begging the loop
+    $RetryCount = 1
+    DO
+    {
+    write-output "Getting Share Info, attempt number: $RetryCount"
+
     #Refresh Stats on the supplied path
     $RefreshStats = Invoke-RestMethod -Uri $GetPathInfoURL -Method POST -Headers $headers
- 
-    #Sleep to allow time for the refresh stats to complete
-    Start-Sleep -s 10
- 
-	#Get Path Info to get the size of the share
-	$GetPathInfo = Invoke-RestMethod -Uri $GetPathInfoURL -Method Get -Headers $headers
 
-    #Gather all details and write them to the output file
-    $datastring =  "$($GetShareInfo.items[$i].id),$VolumeName,$($GetShareInfo.items[$i].volume_guid),$FilerName,$($GetShareInfo.items[$i].filer_serial_number),$($GetShareInfo.items[$i].name),$($GetShareInfo.items[$i].path),$($GetShareInfo.items[$i].comment),$($GetPathInfo.cache_resident),$($GetPathInfo.protected),$($GetPathInfo.owner),$($GetPathInfo.size),$($GetPathInfo.pinning_enabled),$($GetPathInfo.pinning_mode),$($GetPathInfo.pinning_inherited),$($GetPathInfo.autocache_enabled),$($GetPathInfo.autocache_mode),$($GetPathInfo.autocache_inherited),$($GetPathInfo.quota_enabled),$($GetPathInfo.quota_type),$($GetPathInfo.quota_email),$($GetPathInfo.quota_usage),$($GetPathInfo.quota_limit),$($GetPathInfo.quota_inherited),$($GetPathInfo.global_locking_enabled),$($GetPathInfo.global_locking_inherited),$($GetPathInfo.global_locking_mode)"
+    #Sleep to allow time for the refresh stats to complete
+    Start-Sleep -s $Delay
+
+    #see what happened when setting GFL
+    $RefreshMessage=Invoke-RestMethod -Uri $RefreshStats.message.links.self.href -Method Get -Headers $headers
+
+    #check if message status is synced and if it is, exit the loop so we can get the path info
+        if ($RefreshMessage.status -eq "synced") {
+            #Get Path Info to get the size of the share
+            $GetPathInfo = Invoke-RestMethod -Uri $GetPathInfoURL -Method Get -Headers $headers
+
+            #Gather all details and write them to the output file
+            $datastring =  "$($GetShareInfo.items[$i].id),$VolumeName,$($GetShareInfo.items[$i].volume_guid),$FilerName,$($GetShareInfo.items[$i].filer_serial_number),$($GetShareInfo.items[$i].name),$($GetShareInfo.items[$i].path),$($GetShareInfo.items[$i].comment),$($GetPathInfo.cache_resident),$($GetPathInfo.protected),$($GetPathInfo.owner),$($GetPathInfo.size),$($GetPathInfo.pinning_enabled),$($GetPathInfo.pinning_mode),$($GetPathInfo.pinning_inherited),$($GetPathInfo.autocache_enabled),$($GetPathInfo.autocache_mode),$($GetPathInfo.autocache_inherited),$($GetPathInfo.quota_enabled),$($GetPathInfo.quota_type),$($GetPathInfo.quota_email),$($GetPathInfo.quota_usage),$($GetPathInfo.quota_limit),$($GetPathInfo.quota_inherited),$($GetPathInfo.global_locking_enabled),$($GetPathInfo.global_locking_inherited),$($GetPathInfo.global_locking_mode)"
+            
+            Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
+            
+            #this path is done, write the status to the console and exit the loop
+            write-output "Share Info Export Successful"
+            break
+            }
     
-	Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
+     #Increment the RetryCount before retrying
+     $RetryCount++
+
+        if ($RetryCount -ge $RetryLimit) {
+        write-output "Retries exceeded, moving on to next share"} 
+
+    } Until ($RetryCount -ge $RetryLimit)
 	
-	#Sleep before calling the RefreshStats endpoint again
-    Start-Sleep -s 1.1
 
     #clear variables for next loop
     $ClearVar = ("GetPathInfo", "VolumeName", "VolumeGuid", "FilerName", "FilerSerial")
