@@ -416,7 +416,7 @@ Additonal lines containing that info for each path to list. Use backslashes (\) 
 
 ## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares and with full path info, including current sizes, and exports the results to a CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile, limit\
+**Required Inputs**: NMC hostname, username, password, reportFile, limit, RetryLimit, Delay\
 **Required NMC Permissions**:
 * NMC API Access
 * Filer Permissions: Manage Shares, Exports, FTP and ISCSI
