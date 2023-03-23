@@ -122,7 +122,7 @@ foreach($i in 0..($GetShareInfo.items.Count-1)){
     #Sleep to allow time for the refresh stats to complete
     Start-Sleep -s $Delay
 
-    #see what happened when setting GFL
+    #check to see the status of the refresh stats request
     $RefreshMessage=Invoke-RestMethod -Uri $RefreshStats.message.links.self.href -Method Get -Headers $headers
 
     #check if message status is synced and if it is, exit the loop so we can get the path info
