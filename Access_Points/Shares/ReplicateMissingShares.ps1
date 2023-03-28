@@ -7,6 +7,10 @@ $hostname = "InsertNMChostname"
 Tokens expire after 8 hours #>
 $tokenFile = "c:\nasuni\token.txt"
 
+#enter the source and destination Edge Appliance serial numbers
+$SourceFilerSerialNumber = "insertSourceSerial"
+$DestinationFilerSerialNumber = "insertDestinationSerial"
+
 #Number of shares to return
 $limit = 1000
 
