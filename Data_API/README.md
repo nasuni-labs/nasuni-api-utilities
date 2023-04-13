@@ -18,7 +18,7 @@ NFS-only volumes do not support the Nasuni Data API, and LDAP-bound Edge Applian
 
 Once a token is successfully requested using the Nasuni Data API, a license for the token will be listed on the "Mobile Licenses" page in the NMC under Filers: Filer Services: Mobile Licenses. Unlike the NMC API, Nasuni Data API licenses never expire, although they can be disabled or deleted using this page.
 
-![MobileLicenses](MobileLicenses.png)
+![MobileLicenses](/images/MobileLicenses.png)
 
 When referencing paths using the Nasuni Data API, the path begins with the CIFS share name followed by the path within the share. Unlike the NMC API, which interacts with volumes, the Nasuni Data API interacts with data through shares.
 
