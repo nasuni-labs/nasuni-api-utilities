@@ -18,5 +18,5 @@ token=$(curl -s -k -i -F username=$username -F password=$password -F device_id=l
 echo "$token"
 
 #get infor for an item
-get=$(curl -s -k -i -u "apple001:$token" https://${hostname}:443/mobileapi/1/fs/$filepath | sed -n '/ *X-Size: / {s///;p;}' )
+get=$(curl -s -k -i -u "linux001:$token" https://${hostname}:443/mobileapi/1/fs/$filepath | sed -n '/ *X-Size: / {s///;p;}' )
 echo "$get"
