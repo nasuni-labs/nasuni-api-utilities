@@ -12,7 +12,7 @@ password=InsertPassword
 filepath=share/folder/filename
 
 #get the token
-token=$(curl -s -k -i -F username=$username -F password=$password -F device_id=apple001 -F device_type=iphone https://${hostname}:443/mobileapi/1/auth/login | sed -n '/ *X-Secret-Key: / {s///;p;}')
+token=$(curl -s -k -i -F username=$username -F password=$password -F device_id=linux001 -F device_type=linux https://${hostname}:443/mobileapi/1/auth/login | sed -n '/ *X-Secret-Key: / {s///;p;}')
 
 #output the token to the console
 echo "$token"
