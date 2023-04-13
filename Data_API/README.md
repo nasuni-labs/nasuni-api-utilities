@@ -31,12 +31,17 @@ The Nasuni Data API uses the httpd WSGI process on the filer. There are 4 WSGI p
 # Examples
 PowerShell NMC API Scripts for working with access points. Access points include SMB (CIFS) Shares, NFS Exports, and FTP Directories.
 
-## Request a Token
+## Request a Token (PowerShell)
 Validates Nasuni Data API connectivity and obtain a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution is successful and writes the encoded token to the specified path.\
 **Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, deviceID, deviceType\
 **Name**: GetToken.ps1
 
-## List Folder Contents
+## List Folder Contents (PowerShell)
 This script loads the encoded credentials from the specified file path and then connects to the Get Items endpoint to return a listing of directory contents for the specified directory. The script writes the directory listing to the console.\
 **Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, folderPath \
 **Name**: ListFolderContents.ps1\
+
+## Request a Token and Get File Info (Bash)
+Validates Nasuni Data API connectivity using curl and obtain a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution is successful and also gets info for the specified file.\
+**Required Inputs**: Edge Appliance hostname, username, password, filepath\
+**Name**: GetTokenAndFileInfo.sh
