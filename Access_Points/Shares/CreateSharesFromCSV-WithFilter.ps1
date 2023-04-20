@@ -67,7 +67,7 @@ $headers.Add("Authorization","Token " + $token)
 
 #Begin share creation
 #read the contents of the CSV into variables
-$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","filer_serial_number","share_name","path","comment","readonly","browseable","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups","hosts_allow","hide_unreadable","enable_previous_vers","case_sensitive","enable_snapshot_dirs","homedir_support","mobile","browser_access","aio_enabled","veto_files","fruit_enabled","smb_encrypt","shared_links_enabled","link_force_password","link_allow_rw","external_share_url","link_expire_limit","link_authAuthall","link_authAllow_groups_ro","link_authAllow_groups_rw","link_authDeny_groups","link_authAllow_users_ro","link_authAllow_users_rw","link_authDeny_users"
+$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","Volume_Name","filer_serial_number","share_name","path","comment","readonly","browseable","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups","hosts_allow","hide_unreadable","enable_previous_vers","case_sensitive","enable_snapshot_dirs","homedir_support","mobile","browser_access","aio_enabled","veto_files","fruit_enabled","smb_encrypt","shared_links_enabled","link_force_password","link_allow_rw","external_share_url","link_expire_limit","link_authAuthall","link_authAllow_groups_ro","link_authAllow_groups_rw","link_authDeny_groups","link_authAllow_users_ro","link_authAllow_users_rw","link_authDeny_users"
 
 ForEach ($share in $shares) {
     $volume_guid = $($share.Volume_Guid)
