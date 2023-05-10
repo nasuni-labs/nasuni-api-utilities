@@ -1,9 +1,9 @@
 #populate NMC hostname and credentials
-$hostname = "insertNMChostnameHere"
+$hostname = "sclpnuninas5020.ced.corp.cummins.com"
 
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+$username = "CED-InfyStorage"
+$password = 'NASun!@987^%'
 
 #enter the path for the CSV export file
 $reportFile = "C:\path\to\folder\VolumeInfo.csv"
