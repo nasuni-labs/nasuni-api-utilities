@@ -1,5 +1,5 @@
 #Update All Shares for a given Filer/Volume using the supplied CSV input file
-#if more than one user or group are specified in a section, they should be divided by spaces. Use a single backslash for domain users an groups
+#if more than one user or group are specified in a section, they should be divided by semicolons. Use a single backslash for domain users an groups
 
 #populate NMC hostname or IP address
 $hostname = "InsertNMChostname"
