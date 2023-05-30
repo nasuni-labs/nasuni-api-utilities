@@ -104,7 +104,7 @@ These scripts demonstrate how shares can be created, exported, and subsequently 
 #### Step 1 - Create Shares From CSV
 Uses CSV input to create shares. We recommend manually creating several shares along with desired settings and then use the ExportAllSharesToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional shares. The shareid, filer_name, volume_name columns are ignored during import but must be present. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
 **Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
-**CSV Contents**:(shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users)\
+**CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
 
 **Variants**: This script has two variants: One with no input filtering and one that prompts for the filer serial and volume GUID to match.
 *   Variant 1: No input filtering (all shares in the CSV get created).
@@ -115,16 +115,13 @@ Uses CSV input to create shares. We recommend manually creating several shares a
     - **Optional Inputs**: matchVolumeGuid
     - **Name**: CreateSharesFromCSV-WithFilter.ps1
 
-#### Step 2 - Export Filtered List Shares to CSV (optional)
-Exports all shares for the provided volume_guid and filer_serial to CSV. This could be modified to include all shares for a volume (regardless of filer) or all shares managed by the NMC. A more comprehensive example is available here: ExportAllSharesToCSV.ps1.\
-**Required Inputs**:  hostname, username, password, reportFile, filer_serial, volume_guid\
-**CSV Output**: shareid, Volume_GUID, filer_serial, share_name, path, comment, block_files, fruit_enabled, authall, ro_users, ro_groups, rw_users, rw_groups\
-**Name**: ExportFilteredSharesToCSV.ps1
+#### Step 2 - Export Shares to CSV (optional)
+use the "ExportAllSharesToCSV.ps1" script (documented above) to export all the shares you created to CSV.
 
 #### Step 3 - Update Share Permissions (optional)
-All share properties, including share permissions, can be set upon share creation. If a customer chooses to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
+All share properties, including share permissions, can be set upon share creation. If you choose to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends exclusively using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
 
-Reads share information from a CSV file and use the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
+Reads share information from a CSV file (starting from the step 2 export is recommended) and use the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
 **Required Inputs**:  hostname, tokenFile, csvPath\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
