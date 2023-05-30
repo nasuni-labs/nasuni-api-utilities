@@ -123,6 +123,8 @@ All share properties, including share permissions, can be set upon share creatio
 
 Reads share information from a CSV file (starting from the step 2 export is recommended) and use the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
 **Required Inputs**:  hostname, tokenFile, csvPath\
+**Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
+**CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
 ### Set All Shares on an Edge Appliance to Read Only
