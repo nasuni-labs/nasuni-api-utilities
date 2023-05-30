@@ -54,12 +54,12 @@ $headers.Add("Authorization","Token " + $token)
 #Begin share update
 
 #read the contents of the CSV into variables, skipping the first line and replace semicolons to commas in share perms and set the right domain backslashes for domain json
-$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","filer_serial_number","share_name","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups"
+$shares = Get-Content $csvPath | Select-Object -Skip 1 | ConvertFrom-Csv -header "shareid","Volume_GUID","volume_name","filer_serial_number","filer_name","share_name","path","comment","readonly","browseable","authAuthall","authRo_users","authRw_users","authDeny_users","authRo_groups","authRw_groups","authDeny_groups"
 ForEach ($share in $shares) {
-	$ID = $($share.ID)
+	$ID = $($share.shareid)
 	$volume_guid = $($share.volume_guid)
 	$filer_serial = $($share.filer_serial_number)
-	$AuthAll = $($share.AuthAll)
+	$AuthAll = $($share.authAuthAll)
         if (!$share.authAuthall) {$authAuthall = "true"} else {$authAuthall = $($share.authAuthall).ToLower()}
         if (!$share.authRo_users) {Clear-Variable authRo_users -ErrorAction SilentlyContinue} else {$authRo_users = "'"+$($share.authRo_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
         if (!$share.authRw_users) {Clear-Variable authRw_users -ErrorAction SilentlyContinue} else {$authRw_users = "'"+$($share.authRw_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
