@@ -125,6 +125,7 @@ Reads share information from a CSV file (starting from the step 2 export is reco
 **Required Inputs**:  hostname, tokenFile, csvPath\
 **Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups\
+The filer_name, volume_name, share_name, path, comments, readonyy, and browseable columns are ignored during import but must be present.\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
 ### Set All Shares on an Edge Appliance to Read Only
