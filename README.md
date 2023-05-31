@@ -99,11 +99,10 @@ Uses PowerShell to export a list of all shares and configured share settings to 
 
 ### Bulk Share Creation
 These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.\
-**Compatibility**: Nasuni 8.0 or higher required
+**Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 
 #### Step 1 - Create Shares From CSV
 Uses CSV input to create shares. We recommend manually creating several shares along with desired settings and then use the ExportAllSharesToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional shares. The shareid, filer_name, volume_name columns are ignored during import but must be present. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
-**Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
 
 **Variants**: This script has two variants: One with no input filtering and one that prompts for the filer serial and volume GUID to match.
@@ -123,7 +122,6 @@ All share properties, including share permissions, can be set upon share creatio
 
 Reads share information from a CSV file (starting from the step 2 export is recommended) and use the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
 **Required Inputs**:  hostname, tokenFile, csvPath\
-**Compatibility**: Nasuni 8.0 or higher required; Requires PowerShell Version: 7.0 or higher.\
 **CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups\
 The filer_name, volume_name, share_name, path, comments, readonyy, and browseable columns are ignored during import but must be present.\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
