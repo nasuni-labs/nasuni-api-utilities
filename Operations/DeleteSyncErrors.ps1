@@ -4,14 +4,14 @@
  
 #populate NMC hostname and credentials
 $hostname = "insertHostname"
- 
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
 
-#match by sync error type and status code
-#example codes - set GFL for path (fsbrowser_globallock_edit); Refresh info for path (fsbrowser_stat_item); Create a Share (volumes_shares_add)
+<#Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
 
+<#match by sync error type and status code
+example status codes - set GFL for path (fsbrowser_globallock_edit); Refresh info for path (fsbrowser_stat_item); Create a Share (volumes_shares_add)
+example status types - failure (because of error); the API does not allow you to delete pending messages #>
 $StatusCode = "volumes_shares_add"
 $StatusType = "failure"
 
@@ -20,8 +20,6 @@ $limit = 1000
 
 #end variables
 
-#combine credentials for token request
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
  
 # Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
@@ -55,13 +53,9 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
- 
-#construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
- 
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
  
 #Connect to the Messages endpoint and list messages
@@ -69,13 +63,11 @@ $MessagesUrl="https://"+$hostname+"/api/v1.1/messages/?limit=" + $limit + "&offs
 $FormatEnumerationLimit=-1
 $Messages = Invoke-RestMethod -Uri $MessagesUrl -Method Get -Headers $headers
 
-
 #look for sync errors with a status that matches the specified status code and status type and clear them
 foreach($i in 0..($Messages.items.Count-1)){
     If (($Messages.items[$i].code -eq $StatusCode) -and ($Messages.items[$i].status -eq $StatusType))
     {
-    $DeleteURL = $Messages.items[$i].links.acknowledge.href
-    write-output $Messages.items[$i].error.description
+    $DeleteURL = $Messages.items[$i].links.self.href
     $CleanSync = Invoke-RestMethod -Uri $DeleteURL -Method Delete -Headers $headers -Body $credentials
     start-sleep 1.1
     }
