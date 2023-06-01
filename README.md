@@ -500,9 +500,9 @@ This script uses the NMC API to set find all Volumes and Edge Appliances and con
 PowerShell NMC API Scripts to assist with daily Nasuni operations.
 
 ## Delete Sync Errors
-While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, customers can use the NMC API Messages endpoint to list and delete sync errors. This script deletes sync errors by using the Messages NMC API endpoints to list and delete messages that match the specified status codes and type.\
+While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, customers can use the NMC API Messages endpoint to list and delete sync errors for failed requests. This script deletes sync errors by using the Messages NMC API endpoints to list and delete messages that match the specified status codes and type.\
 **NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get); [delete message](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1%7Bmessage_id%7D~1/delete/#tag/Messages/paths/~1messages~1{message_id}~1/delete) \
-**Required Inputs**: NMC hostname, username, password, StatusCode, StatusType, limit\
+**Required Inputs**: NMC hostname, tokenfile, StatusCode, StatusType, limit\
 **Status codes**: set GFL for path (fsbrowser_globallock_edit); Refresh info for path (fsbrowser_stat_item); Create a Share (volumes_shares_add)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: DeleteSyncErrors.ps1
