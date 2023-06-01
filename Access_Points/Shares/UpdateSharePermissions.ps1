@@ -84,7 +84,7 @@ ForEach ($share in $shares) {
 	}
 "@
 
-	$jsonbody = $body | ConvertFrom-Json | ConvertTo-Json
+	$jsonbody = $body | ConvertFrom-Json | ConvertTo-Json -Depth 4
 
 	#set up the URL for the create share NMC endpoint
 	$url="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/shares/"
