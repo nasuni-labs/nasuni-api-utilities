@@ -608,7 +608,7 @@ Uses PowerShell to create a volume.\
 * location (case-sensitive):
     * AWS locations: us-east-1, us-east-2, us-west-1 (Refer NMC for a complete list of supported regions)
     * Azure: Not Applicable - location is associated with the cred specified
-    * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, NORTHAMERICA-NORTHEAST2, SOUTHAMERICA-EAST1, SOUTHAMERICA-WEST1, US-CENTRAL1 (Refer NMC for a complete list of supported regions)
+    * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, SOUTHAMERICA-EAST1 (Refer NMC for a complete list of supported regions)
     * on-prem object stores: None
 * permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exlusive)
 * policy: public (no auth), ads (active directory)
