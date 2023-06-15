@@ -17,8 +17,12 @@ $cred_uuid = "insert cred_uuid"
 $provider_name = "Amazon S3"
 #shortname - amazons3, azure, googles3
 $shortname = "amazons3"
-#location - AmazonS3 locations - Asia, Beijing, Canada, EU, Frankfurt, HongKong, London, Mumbai, Ningxia, Ohio, Oregon, Paris, Seoul, SouthAmerica, Stockholm, Sydney, Tokyo, UsWest
-$location = "Ohio"
+#location - For AmazonS3, use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example- US East (Ohio) : us-east-2
+#location - For Google, use Google region codes. Example- US WEST(Dalles, Oregon): US-WEST1
+#location - For other S3 compatible cloud providers, use location as None
+$location = "us-east-1"
+#Storage class - Required for Google volumes. Optional for other storage providers. Example- STANDARD, NEARLINE, COLDLINE, and ARCHIVE
+$storage_class = "STANDARD"
 #permissions policy PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exlusive)
 $permissions_policy = "NTFSONLY710"
 #authenticated access - false for public, true for AD
@@ -90,7 +94,7 @@ $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
  
 #construct Uri
-$url="https://"+$hostname+"/api/v1.2/auth/login/"
+$url = "https://"+$hostname+"/api/v1.2/auth/login/"
   
 #Use credentials to request and store a session token from NMC for later use
 $result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
@@ -98,19 +102,37 @@ $token = $result.token
 $headers.Add("Authorization","Token " + $token)
  
 #Create the  volume
-$url="https://"+$hostname+"/api/v1.2/volumes/"
+$url = "https://"+$hostname+"/api/v1.2/volumes/"
  
+ 
+#Adding storage class to the provider object if cloud provider is Google
+if($provider_name -ieq "Google"){
+    $provider = @"
+    { 
+        "cred_uuid": "$cred_uuid",
+        "name": "$provider_name",   
+        "shortname": "$shortname",
+        "location": "$location",
+        "storage_class": "$storage_class"
+        }
+"@
+}
+else {
+$provider = @"
+{ 
+    "cred_uuid": "$cred_uuid",
+    "name": "$provider_name",   
+    "shortname": "$shortname",
+    "location": "$location"
+    }
+"@
+}
  
 #body for volume create
 $body = @"
 {
     "filer_serial_number": "$filer_serial_number",
-    "provider": {
-        "cred_uuid": "$cred_uuid",
-        "name": "$provider_name",
-        "shortname": "$shortname",
-        "location": "$location"
-    },
+    "provider": $provider,
     "name": "$volume_name",
     "protocols": {
         "permissions_policy": "$permissions_policy",
@@ -131,6 +153,7 @@ $body = @"
     "case_sensitive": "$case_sensitive"
 }
 "@
+
 
 #create the volume
 try { $response=Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body} catch {Failure}
