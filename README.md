@@ -602,21 +602,25 @@ PowerShell NMC API Scripts for working with volumes.
 
 ## Create a Volume
 Uses PowerShell to create a volume.\
-**Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
-**Fields and values**:
+**Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, storage_class(optional), permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
+**Fields and values**: 
 * shortName: amazons3, azure, googles3 (9.0 version of the google connector), vipr (ecs)
 * location (case-sensitive):
-    * s3 locations: default, Asia, Beijing, Canada, EU, Frankfurt, HongKong, London, Mumbai, Ningxia, Ohio, Oregon, Paris, Seoul, SouthAmerica, Stockholm, Sydney, Tokyo, UsWest
+    * AWS locations: us-east-1, us-east-2, us-west-1 (Refer NMC for a complete list of supported regions)
     * Azure: Not Applicable - location is associated with the cred specified
-    * on-prem object stores: default
+    * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, NORTHAMERICA-NORTHEAST2, SOUTHAMERICA-EAST1, SOUTHAMERICA-WEST1, US-CENTRAL1 (Refer NMC for a complete list of supported regions)
+    * on-prem object stores: None
 * permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exlusive)
 * policy: public (no auth), ads (active directory)
-
+* storage_class (required for Google): STANDARD, NEARLINE, COLDLINE, and ARCHIVE
+  
 <!-- -->
 
-**Compatibility**: NMC API v1.2, NMC 22.2 and Edge Appliance 9.8 or higher required\
+**Compatibility**: NMC API v1.2, NMC 23.2 and Edge Appliance 9.12 or higher required\
 **Known Issues and Notes**:\
 Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating an encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
+
+New AWS regions should be opted-in before using them to create new volumes.
 
 Misleading terminology: The create volume API has an option that misleadingly reference to “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (pgp), rather than Nasuni cloud credentials.
 
