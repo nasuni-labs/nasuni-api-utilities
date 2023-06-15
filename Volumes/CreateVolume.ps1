@@ -13,7 +13,7 @@ $volume_name = "insertVolumeName"
 $filer_serial_number = "insertFilerSerial"
 #cred uuid - lookup using List all cloud credentials endpoint - begins with "customer-"
 $cred_uuid = "insert cred_uuid"
-#provider name - Amazon S3, Azure
+#provider name - Amazon S3, Azure, Google
 $provider_name = "Amazon S3"
 #shortname - amazons3, azure, googles3
 $shortname = "amazons3"
