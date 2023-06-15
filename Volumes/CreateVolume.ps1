@@ -17,8 +17,8 @@ $cred_uuid = "insert cred_uuid"
 $provider_name = "Amazon S3"
 #shortname - amazons3, azure, googles3
 $shortname = "amazons3"
-#location - For AmazonS3, use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example- US East (Ohio) : us-east-2
-#location - For Google, use Google region codes. Example- US WEST(Dalles, Oregon): US-WEST1
+#location - For AmazonS3, use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio) : us-east-2
+#location - For Google, use Google region codes. Example: us-west1 (Oregon): US-WEST1
 #location - For other S3 compatible cloud providers, use location as None
 $location = "us-east-1"
 #Storage class - Required for Google volumes. Optional for other storage providers. Example- STANDARD, NEARLINE, COLDLINE, and ARCHIVE
