@@ -6,11 +6,14 @@ $hostname = "host.domain.com"
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
 $username = "username"
 $password = 'password'
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
  
 #specify Nasuni volume guid and filer serial number
 $filer_serial = "InsertFilerSerialHere"
 $volume_guid = "InsertVolumeGuidHere"
+
+#end variables
+#build credentials from username and password
+$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
  
 #specify share information
 #share name
@@ -23,7 +26,7 @@ $comment = "InsertShareComment"
 $readonly = "false"
 #should the share be browsable/visible? true/false - default value is "true"
 $browseable = "true"
-#whether to allow authenticated users full share access. Should be set to "false" if specificying ROUsers, ROGroups, RWUsers, or RWGroups. default is "true"
+#whether to allow authenticated users full share access. Should be set to "false" if specifying ROUsers, ROGroups, RWUsers, or RWGroups. default is "true"
 $authall = "true"
 #list of read only user(s) separated by commas if more than one entry applies. Format: '"DOMAIN\\sAMAccountName","DOMAIN\\sAMAccountName2"'
 $ROUsers = ''
@@ -37,7 +40,7 @@ $RWGroups = ''
 $hosts_allow = ""
 #hide unreadable folders and files - default is "true"
 $hide_unreadable = "true"
-#enable previous versions windows integration for the share: true/false - default is "faulse"
+#enable previous versionsintegration for the share: true/false - default is "false"
 $enable_previous_vers = "false"
 #enable case sensitivity for the share: true/false - default is "false"
 $case_sensitive = "false"
@@ -55,7 +58,7 @@ $aio_enabled = "true"
 $veto_files = ""
 #Enable Enhanced Support for Mac OS X Clients - default is "false"
 $fruit_enabled = "false"
-#Require SMB encryption - options are blank which corresponds to "optional", "desired" or "required" can also be specified.
+#Require SMB encryption - options are blank, which corresponds to "optional", "desired" or "required" can also be specified.
 $smb_encrypt = ""
 
 #function for error
