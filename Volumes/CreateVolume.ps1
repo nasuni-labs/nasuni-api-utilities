@@ -137,7 +137,7 @@ $provider = @"
     "location": "$location"
     }
 "@
-}
+}}
  
 #body for volume create
 $body = @"
