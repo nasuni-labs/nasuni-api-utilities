@@ -13,9 +13,9 @@ $volume_name = "insertVolumeName"
 $filer_serial_number = "insertFilerSerial"
 #cred uuid - lookup using List all cloud credentials endpoint - begins with "customer-"
 $cred_uuid = "insert cred_uuid"
-#provider name - Amazon S3, Azure, Google
+#provider name - Amazon S3, Azure, Google, Hitachi Client Platform
 $provider_name = "Amazon S3"
-#shortname - amazons3, azure, googles3
+#shortname - amazons3, azure, googles3, hcp
 $shortname = "amazons3"
 #location - For AmazonS3, use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
 #location - For Google, use Google region codes. Example: us-west1 (Oregon): US-WEST1
@@ -114,6 +114,17 @@ if($provider_name -ieq "Google"){
         "shortname": "$shortname",
         "location": "$location",
         "storage_class": "$storage_class"
+        }
+"@
+}
+else {
+#Adding storage class to the provider object if cloud provider is Google
+if($provider_name -ieq "Hitachi Content Platform"){
+    $provider = @"
+    { 
+        "cred_uuid": "$cred_uuid",
+        "name": "$provider_name",   
+        "shortname": "$shortname",
         }
 "@
 }
