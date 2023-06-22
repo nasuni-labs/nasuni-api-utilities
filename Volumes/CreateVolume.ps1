@@ -12,32 +12,35 @@ $volume_name = "insertVolumeName"
 #specify Edge Appliance serial number
 $filer_serial_number = "insertFilerSerial"
 #cred uuid - lookup using List all cloud credentials endpoint - begins with "customer-"
-$cred_uuid = "insert cred_uuid"
+$cred_uuid = "insertCred_uuid"
 #provider name - Amazon S3, Azure, Google, Hitachi Client Platform
 $provider_name = "Amazon S3"
 #shortname - amazons3, azure, googles3, hcp
 $shortname = "amazons3"
-#location - For AmazonS3, use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
-#location - For Google, use Google region codes. Example: us-west1 (Oregon): US-WEST1
-#location - For other S3 compatible cloud providers, use location as None
-$location = "us-east-1"
+<#location - AmazonS3: use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
+Google: use Google region codes. Example: us-west1 (Oregon): US-WEST1
+Oother S3 compatible cloud providers: use location as None #>
+$location = "us-east-2"
 #Storage class - Required for Google volumes. Optional for other storage providers. Example- STANDARD, NEARLINE, COLDLINE, and ARCHIVE
 $storage_class = "STANDARD"
-#permissions policy PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive)
-$permissions_policy = "NTFSONLY710"
+#volume protocol - CIFS or NFS
+$volume_protocol = "CIFS"
+<# volume permissions policy - USED only for CIFS in the API: NTFSONLY710 (NTFS Exclusive), NTFS60 (NTFS Compatible), PUBLICMODE60 (PUBLIC CIFS)  
+NFS: leave blank #>
+$permissions_policy = ""
 #authenticated access - false for public, true for AD
 $authenticated_access = "true"
 #policy - public (no auth), ads (active directory)
 $policy = "ads"
 #policy label - Publicly Available,  Active Directory
 $policy_label = "Active Directory"
-#Auto Provision Credentials - use existing cred or create new
+#Auto Provision Credentials (This is encryption keys even though the API calls it credentials) - use existing cred or create new
 $auto_provision_cred = "false"
 #Key Name - specify existing encryption key Name if autoprovision = false, should match key name
 $key_name = "insertExistingEncryptionKeyName"
-#create default access point
+#create default access point (creates the default CIFS share or NFS export)
 $create_default_access_point = "true"
-#case sensitive
+#case sensitive - true required for NFS
 $case_sensitive = "false"
 
 #end variables
@@ -138,6 +141,29 @@ $provider = @"
     }
 "@
 }}
+
+#build the volume protocol and permissions policy
+#CIFS needs a volume permissions policy
+if($volume_protocol -ieq "CIFS"){
+    $protocols = @"
+   "protocols": {
+        "permissions_policy": "$permissions_policy",
+        "protocols": [
+            "$volume_protocol"
+        ]
+   }
+"@
+}
+else {
+   #NFS - does not support permissions policy during volume create, so omit it from the JSON
+   $protocols = @"
+   "protocols": {
+    "protocols": [
+        "$volume_protocol"
+    ]
+    }
+"@
+}
  
 #body for volume create
 $body = @"
@@ -145,12 +171,7 @@ $body = @"
     "filer_serial_number": "$filer_serial_number",
     "provider": $provider,
     "name": "$volume_name",
-    "protocols": {
-        "permissions_policy": "$permissions_policy",
-        "protocols": [
-            "CIFS"
-        ]
-    },
+    $protocols,
     "auth": {
         "authenticated_access": "$authenticated_access",
         "policy": "$policy",
