@@ -413,7 +413,7 @@ Additonal lines containing that info for each path to list. Use backslashes (\) 
 **Name**: CsvPathReport.ps1
 
 ## Export All Shares and Path Info, Including Sizes to CSV
-Uses PowerShell to export a list of all shares and with full path info, including current sizes, and exports the results to a CSV.\
+Uses PowerShell to export a list of all shares with full path info, including current sizes, and exports the results to a CSV.\
 **Required Inputs**: NMC hostname, username, password, reportFile, limit, RetryLimit, Delay\
 **Required NMC Permissions**:
 * NMC API Access
@@ -425,8 +425,8 @@ Uses PowerShell to export a list of all shares and with full path info, includin
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve share size.\
 **Name**: ExportAllSharesAndSizes.ps1
 
-## Export Top Level Folder Sizes to CSV
-Get the size of top level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top level folders within the share — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
+## Export Top-level Folder Sizes to CSV
+Get the size of top-level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top-level folders within the share — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
 
 **API Endpoints Used**:  
 * NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
@@ -437,7 +437,11 @@ Get the size of top level folders within a share using the NMC API and export th
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Top Level Folder, Report File, Limit\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
+**Required Permissions**: 
+* NMC API: Perform File Restores/Access Versions, access to the Filer used for listing.
+* Data API: The Data API user must have NTFS permissions for the listed folders.
+  
+**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher in order to retrieve folder size. \
 **Name**: ExportTopLevelFolderSizesToCSV.ps1
 
 ## Subfolder Size Report
