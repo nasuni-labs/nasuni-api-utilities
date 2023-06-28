@@ -147,6 +147,13 @@ This script uses the NMC API to list all shares for an Edge Appliance and update
 **Known Issues**: none\
 **Name**: SetBlockFilesForAllSharesOnaFiler.ps1
 
+### Set hide unreadable for all shares
+This script uses the NMC API to list all shares and update the share properties for each share to match the supplied value for hide unreadable files.\
+**Required Inputs**: NMC hostname, username, password, hide_unreadable, limit\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
+**Name**: SetHideUnreadableForAllShares.ps1
+
 ### Delete a Share
 Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) endpoint. \
 **NMC API Endpoint Used**: [Delete a share](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1shares~1%7Bshare_id%7D~1/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1shares~1{share_id}~1/delete) \
