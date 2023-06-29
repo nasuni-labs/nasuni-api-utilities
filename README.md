@@ -149,7 +149,7 @@ This script uses the NMC API to list all shares for an Edge Appliance and update
 
 ### Set hide unreadable for all shares
 This script uses the NMC API to list all shares and update the share properties for each share to match the supplied value for hide unreadable files.\
-**Required Inputs**: NMC hostname, username, password, hide_unreadable, limit\
+**Required Inputs**: NMC hostname, tokenFile, hide_unreadable, limit\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
 **Name**: SetHideUnreadableForAllShares.ps1
