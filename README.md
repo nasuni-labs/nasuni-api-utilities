@@ -660,3 +660,36 @@ Lists volumes for an account and exports snapshot and sync schedule for each Edg
 **Output**:VolumeName,FilerName,VolumeGuid,FilerSerialNumber,SnapSchedMon,SnapSchedTue,SnapSchedWed,SnapSchedThu,SnapSchedFri,SnapSchedSat,SnapSchedSun,SnapSchedAllday,SnapSchedStart,SnapSchedStop,SnapSchedFrequency,SyncSchedMon,SyncSchedTue,SyncSchedWed,SyncSchedThu,SyncSchedFri,SyncSchedSat,SyncSchedSun,SyncSchedAllday,SyncSchedStart,SyncSchedStop,SyncSchedFrequency,SyncSchedAutocacheAllowed,SyncSchedAutocacheMinFileSize\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportVolumeSnapshotAndSyncScheduleToCSV.ps1
+
+# Ransomware
+PowerShell NMC API Scripts to assist with ransomware mitigation and blocked client IP address reporting.
+
+## Block Client IP Address on an Edge Appliance
+Blocks a client IP address for the specified Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: BlockIpOnAnNEA.ps1
+
+## Unblock Client IP Address on an Edge Appliance
+Unblocks a client IP address for the specified Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: UnblockIpOnAnNEA.ps1
+
+## Block Client IP Address on all Edge Appliances
+Blocks a client IP address on all NMC-managed Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: BlockIpOnAllNEAs.ps1
+
+## Unblock Client IP Address on all Edge Appliances
+Unblocks a client IP address on all NMC-managed Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: UnblockIpOnAllNEAs.ps1
+
+## Export Block Client IP Addresses to CSV
+Exports list of blocked client IP Addresses to CSV.\
+**Required Inputs**: NMC hostname, tokenFile, blockedIpsReport\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: ExportBlockedIpsToCSV.ps1
