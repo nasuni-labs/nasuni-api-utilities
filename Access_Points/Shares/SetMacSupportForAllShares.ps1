@@ -1,11 +1,11 @@
-#Enable enhanced support for Mac clients (vfs_fruit) to all shares
+#Set enhanced support for Mac clients (vfs_fruit) to all shares
  
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
   
 #username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required). Nasuni Native user accounts are also supported.
 $username = "username"
-$password = 'passwords'
+$password = 'password'
 
 #Enable Mac Support - set to True to enable Mac Support; False to disable
 $FruitEnabled = "True"
@@ -73,16 +73,35 @@ $UpdateBody = @"
 $FormatEnumerationLimit=-1
 $GetShareInfoUrl="https://"+$hostname+"/api/v1.1/volumes/filers/shares/?limit="+$limit+"&offset=0"
 $GetShareInfo = Invoke-RestMethod -Uri $GetShareInfoUrl -Method Get -Headers $headers
+
+#if the script is Fruit Enabled to true-check shares where it is false and only update those
+if ($FruitEnabled -eq $true){
  
-foreach($i in 0..($GetShareInfo.items.Count-1)){
-    #loop through shares to find shares without fruit enabled and set fruit enabled to true
-    #Build the URL for updating shares
-    if ($GetShareInfo.items[$i].fruit_enabled -eq $false){
-    $UpdateShareURL="https://"+$hostname+"/api/v1.1/volumes/" + $($GetShareInfo.items[$i].Volume_Guid) + "/filers/" + $($GetShareInfo.items[$i].filer_serial_number) + "/shares/" + $($GetShareInfo.items[$i].id) + "/"
-    $response=Invoke-RestMethod -Uri $UpdateShareURL -Method Patch -Headers $headers -Body $UpdateBody
-    write-output $response | ConvertTo-Json
-    Start-Sleep 1.1
-    }
+    foreach($i in 0..($GetShareInfo.items.Count-1)){
+        #loop through shares to find shares without fruit enabled and set fruit enabled to true
+        #Build the URL for updating shares
+        if ($GetShareInfo.items[$i].fruit_enabled -eq $false){
+        $UpdateShareURL="https://"+$hostname+"/api/v1.1/volumes/" + $($GetShareInfo.items[$i].Volume_Guid) + "/filers/" + $($GetShareInfo.items[$i].filer_serial_number) + "/shares/" + $($GetShareInfo.items[$i].id) + "/"
+        $response=Invoke-RestMethod -Uri $UpdateShareURL -Method Patch -Headers $headers -Body $UpdateBody
+        write-output $response | ConvertTo-Json
+        Start-Sleep 1.1
+        }
 
-$i++}
+    $i++}
+}
 
+#if the script is Fruit Enabled to false-check shares where it is true and only update those
+if ($FruitEnabled -eq $false){
+ 
+    foreach($i in 0..($GetShareInfo.items.Count-1)){
+        #loop through shares to find shares without fruit enabled and set fruit enabled to true
+        #Build the URL for updating shares
+        if ($GetShareInfo.items[$i].fruit_enabled -eq $true){
+        $UpdateShareURL="https://"+$hostname+"/api/v1.1/volumes/" + $($GetShareInfo.items[$i].Volume_Guid) + "/filers/" + $($GetShareInfo.items[$i].filer_serial_number) + "/shares/" + $($GetShareInfo.items[$i].id) + "/"
+        $response=Invoke-RestMethod -Uri $UpdateShareURL -Method Patch -Headers $headers -Body $UpdateBody
+        write-output $response | ConvertTo-Json
+        Start-Sleep 1.1
+        }
+
+    $i++}
+}
