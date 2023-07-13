@@ -176,11 +176,11 @@ Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports 
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Name**: ExportCifsLocksToCSV.ps1
 
-### Enable Mac Support for all Shares
-This script uses the NMC API to list all shares, check for shares without Mac support and update those shares to enable Mac support. There is a 1.1 second pause after updating each share in order to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this lists by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
+### Set Mac Support for all Shares
+This script uses the NMC API to list all shares, check for shares without Mac support and update those shares to set Mac support. There is a 1.1 second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares this lists by default. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
 **Required Inputs**: NMC hostname, username, password, FruitEnabled (True/False)\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Name**: EnableMacSupportForAllShares.ps1
+**Name**: SetMacSupportForAllShares.ps1
 
 ### Export CIFS Clients to CSV
 Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. \
