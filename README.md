@@ -443,7 +443,7 @@ Get the size of top-level folders within a share using the NMC API and export th
 
 **Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Top Level Folder, Report File, Limit\
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
-**Compatibility**: Nasuni 8.5 or higher required\
+**Compatibility**: Nasuni 8.5 or higher required; Requires PowerShell Version: 7.0 or higher\
 **Required Permissions**: 
 * NMC API: Perform File Restores/Access Versions, access to the Filer used for listing.
 * Data API: The Data API user must have NTFS permissions for the listed folders.
