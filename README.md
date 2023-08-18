@@ -99,7 +99,7 @@ Uses PowerShell to export a list of all shares and configured share settings to 
 
 ### Bulk Share Creation
 These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.\
-**Compatibility**: Nasuni 8.0 or higher required; Required PowerShell Version: 7.0 or higher.\
+**Compatibility**: Nasuni 8.0 or higher required; Required PowerShell Version: 7.0 or higher.
 
 #### Step 1 - Create Shares From CSV
 Uses CSV input to create shares. We recommend manually creating several shares along with desired settings and then use the ExportAllSharesToCSV.ps1 script to output a CSV. Use the exported CSV as a template for creating additional shares. The shareid, filer_name, volume_name columns are ignored during import but must be present. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
