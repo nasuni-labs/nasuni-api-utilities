@@ -26,22 +26,22 @@ Once a token is successfully requested using the Nasuni Data API, a license for 
 When referencing paths using the Nasuni Data API, the path begins with the CIFS share name followed by the path within the share. Unlike the NMC API, which interacts with volumes, the Nasuni Data API interacts with data through shares.
 
 # Limits
-The Nasuni Data API uses the httpd WSGI process on the filer. There are 4 WSGI processes allowed with 16 threads each for a total of 64 sessions that can be used for the Nasuni Data API. While there is a 64-session limit for the Nasuni Data API, we don't have a throttle in place for connections or a way for customers to observe the number of connections.
+The Nasuni Data API uses the httpd WSGI process on the filer. There are 4 WSGI processes allowed with 16 threads each for a total of 64 sessions that can be used for the Nasuni Data API. While there is a 64-session limit for the Nasuni Data API, we don't have a throttle for connections or a way for customers to observe the number of connections.
 
 # Examples
 PowerShell NMC API Scripts for working with access points. Access points include SMB (CIFS) Shares, NFS Exports, and FTP Directories.
 
 ## Request a Token (PowerShell)
-Validates Nasuni Data API connectivity and obtain a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution is successful and writes the encoded token to the specified path.\
+Validates Nasuni Data API connectivity and obtains a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution is successful and writes the encoded token to the specified path.\
 **Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, deviceID, deviceType\
 **Name**: GetToken.ps1
 
 ## List Folder Contents (PowerShell)
 This script loads the encoded credentials from the specified file path and then connects to the Get Items endpoint to return a listing of directory contents for the specified directory. The script writes the directory listing to the console.\
-**Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, folderPath \
-**Name**: ListFolderContents.ps1\
+**Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, folderPath\
+**Name**: ListFolderContents.ps1
 
 ## Request a Token and Get File Info (Bash)
-Validates Nasuni Data API connectivity using curl and obtain a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution is successful and also gets info for the specified file.\
+Validates Nasuni Data API connectivity using curl and obtain a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution succeeds and gets info for the specified file.\
 **Required Inputs**: Edge Appliance hostname, username, password, filepath\
 **Name**: GetTokenAndFileInfo.sh
