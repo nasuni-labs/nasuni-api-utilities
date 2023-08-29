@@ -6,8 +6,8 @@ $hostname = "InsertEdgeApplianceHostname"
 #Path to token input file
 $dataTokenFile = "c:\nasuni\dataToken.txt"
   
-#path to list - path is case sensitive and includes the share name
-$folderPath = '/top/folder2'
+#path to list - path to list - path is case sensitive and includes the share name followed by the path, separated using forward slashes (/)
+$folderPath = 'share1/folder1'
  
 #end variables
    
@@ -15,9 +15,9 @@ $folderPath = '/top/folder2'
 #Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
 {
-    if ($PSDefaultParameterValues.Contains('Invoke-WebRequest:SkipCertificateCheck')) {}
+    if ($PSDefaultParameterValues.Contains('Invoke-RestMethod:SkipCertificateCheck')) {}
     else {
-        $PSDefaultParameterValues.Add('Invoke-WebRequest:SkipCertificateCheck', $true)
+        $PSDefaultParameterValues.Add('Invoke-RestMethod:SkipCertificateCheck', $true)
     }
 }
 else #other versions of PowerShell
