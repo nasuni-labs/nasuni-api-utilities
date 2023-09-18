@@ -344,7 +344,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 **Name**: SetGFLandModeForMultiplePaths.ps1
 
 ## Create Folder
-This script uses the NMC API to create a folder within the given path on the specified volume and connected Edge Appliance.
+This script uses the NMC API to create a folder using the provided path on the specified volume and Edge Appliance.
 
 **NMC API Endpoint Used**: [Create Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1make-dir-path~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1make-dir-path~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
@@ -394,7 +394,7 @@ This script can be used as a starting point for billing and recharge reporting. 
 **Name**: ExportVolumeDetailToCSV.ps1
 
 ## Show Ingest Progress
-This script can be used to track the progress of data ingestion or data growth. This script provides a report of all volumes in an account and the amount of accessible data alongside unprotected data on each Edge Appliance, the last snapshot time, and last snapshot version. Run this daily and compare results to get data for ingest trending or data growth.\
+This script can be used to track the progress of data ingestion or data growth. This script provides a report of all volumes in an account and the amount of accessible data alongside unprotected data on each Edge Appliance, the last snapshot time, and the last snapshot version. Run this daily and compare results to get data for ingest trending or data growth.\
 **Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -502,7 +502,7 @@ This script uses the NMC API to set volume auditing information for the specifie
 **Name**: SetVolumeAuditing.ps1
 
 ## Set Volume Auditing for All Volumes and Edge Appliances in an Account
-This script uses the NMC API to set find all Volumes and Edge Appliances and configure them all to use the specified auditing settings.\
+This script uses the NMC API to find all Volumes and Edge Appliances and configure them to use the specified auditing settings.\
 **Required Inputs**: NMC hostname, username, password, multiple auditing parameters\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetAuditForAllVolumesAndFilers.ps1
@@ -521,7 +521,7 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 ## Export NMC Messages to CSV
 The NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all currently available messages in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
 
-Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. To capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity on a daily basis using the ConcatenateNMCMessages.ps1 script.\
+Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. To capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity daily using the ConcatenateNMCMessages.ps1 script.\
 **NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get) \
 **Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of messages to return).\
 **Compatibility**: Nasuni 8.0 or higher required\
@@ -536,7 +536,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 **Name**: ExportHealthToCSV.ps1
 
 ## Export Edge Appliance Status to CSV
-The NMC List Edge Appliances endpoint provides a list of all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account along with their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
+The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
 **NMC API Endpoints Used**: [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get) \
 **Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
 Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed\
@@ -575,7 +575,7 @@ This script gives you an example using the message ID to look up the status of a
 **Name**: GetMessage.ps1
 
 ## Export Edge Appliance Volume Settings to CSV
-This script exports all Edge Appliance settings that are applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud-to-cloud migration. The script exports the following settings and logs them to the listed file name:
+This script exports all Edge Appliance settings applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud-to-cloud migration. The script exports the following settings and logs them to the listed file name:
 
 | Setting | File Name | Description | CSV Columns |
 | ------- | --------- | ----------- | ----------- |
