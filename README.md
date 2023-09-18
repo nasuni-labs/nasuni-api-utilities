@@ -344,7 +344,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 **Name**: SetGFLandModeForMultiplePaths.ps1
 
 ## Create Folder
-This script uses the NMC API to create a folder using the provided path on the specified volume and Edge Appliance.
+This script uses the NMC API to create a folder using the provided volume path on the specified volume and Edge Appliance. The volume path is the path to the folder from the volume's root and does not include the SMB share or NFS export name.
 
 **NMC API Endpoint Used**: [Create Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1make-dir-path~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1make-dir-path~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
