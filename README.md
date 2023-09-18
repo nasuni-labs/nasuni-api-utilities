@@ -15,7 +15,7 @@ Utilities and scripts that use the NMC API to perform operations and generate re
 These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
 
 ## Authentication and Access
-Accessing the NMC API requires a user that is a member of an NMC group that has the "Enable NMC API Access" permission enabled. API users must also have the corresponding NMC permission for the action that they are performing. For example, setting folder quotas with the NMC API requires the "Manage Folder Quotas" NMC permission. Users must first authenticate to the NMC to obtain a token, and then can use that token to access subsequent API endpoints.
+Accessing the NMC API requires a user who is a member of an NMC group that has the "Enable NMC API Access" permission enabled. API users must also have the corresponding NMC permission for the action that they are performing. For example, setting folder quotas with the NMC API requires the "Manage Folder Quotas" NMC permission. Users must first authenticate to the NMC to obtain a token, and then can use that token to access subsequent API endpoints.
 
 Both native and domain accounts are supported for NMC API authentication (SSO accounts are not supported using the NMC API). Domain account usernames should be formatted as a UPN (username@emailaddress) for the best compatibility with PowerShell and Bash syntax.
 
@@ -265,7 +265,7 @@ PowerShell NMC API scripts to work with quotas.
 This script uses the NMC API to set a quota for the given path on the specified volume.\
 **Required Inputs**: NMC hostname, username, password, volume_guid, path, quota amount, email\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Known Issues**: Quotas cannot be configured for a path that already has a quota configured at a lower level.\
+**Known Issues**: Quotas cannot be configured for a path with a quota configured at a lower level.\
 **Name**: SetQuota.ps1
 
 ## Update Folder Quota
@@ -288,11 +288,11 @@ Scripts that use the NMC API to list and control settings for paths. Nasuni prov
 1. [Refresh info about a given path:](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/post)
 Posting to this endpoint causes the NMC to request current information from the associated Edge Appliance for the path (statting it). Once this is done, the path is considered to be a "known path" for the Get info on a specific path endpoint. Known paths are only cached for 10 minutes before expiring.
 2. [GET info on a specific path (only valid for known paths):](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
-Calling this NMC API endpoint and specifying the Edge Appliance serial and path, asks the NMC to give the requestor information it has about the specified path. This only works if the path is a "known path"-- In other words, if the path has recently been enumerated/statted by the NMC file browser or API call. 
+Calling this NMC API endpoint and specifying the Edge Appliance serial and path, asks the NMC to give the requestor information it has about the specified path. This only works if the path is a "known path"-- In other words, if the path has recently been enumerated/statted by the NMC file browser or API call (Using "Refresh info about a given path"). 
 
-Finally, the [Get a list of all known paths with a specific volume and filer](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1paths~1/get/), can be used to get a list of paths that are "known"--in other words, have recently been statted by POSTing to the "refresh info about a given path" endpoint. A directory reported as being reported as "known" just lets you know that it is eligible to be used with the "GET info on a specific path" endpoint. Known paths expire from the NMC after 10 minutes.
+Finally, the [Get a list of all known paths with a specific volume and filer](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1paths~1/get/), can be used to get a list of paths that are "known"--in other words, have recently been statted by POSTing to the "refresh info about a given path" endpoint. A directory reported as being reported as "known" lets you know that it is eligible to be used with the "GET info on a specific path" endpoint. Known paths expire from the NMC after 10 minutes.
 
-Note: Paths are case-sensitive. If the wrong case is specified, the paths and path status endpoints will not return results.
+Note: Paths are case-sensitive. The paths and path status endpoints will not return results if the wrong case is specified.
 
 ## Get Path Info
 This script uses the NMC API to get info for the specified path. It first calls the "refresh info" endpoint to update stats for the path and then calls the "get info" endpoint.\
@@ -402,7 +402,7 @@ This script can be used to track the progress of data ingestion or data growth. 
 **Name**: ShowIngestProgress.ps1
 
 ## Volume Unprotected Data Alert
-Customers can use this script to monitor all Edge Appliances connected to a volume for unprotected data that exceeds a user-configured threshold. Once this is exceeded, an email to the administrator is generated. This is designed to be run as a windows scheduled task and can be run as frequently as every 10 minutes. Requires an SMTP server for email alerting.\
+Customers can use this script to monitor all Edge Appliances connected to a volume for unprotected data that exceeds a user-configured threshold. Once this is exceeded, an email to the administrator is generated. This is designed to be run as a Windows scheduled task and can be run as frequently as every 10 minutes. Requires an SMTP server for email alerting.\
 **Required Inputs**: NMC hostname, username, password, volume_guid, recipients, from, SMTPserver, port, subject, body\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s) and amount of unprotected data for the Edge Appliance.\
@@ -452,7 +452,7 @@ Get the size of top-level folders within a share using the NMC API and export th
 **Name**: ExportTopLevelFolderSizesToCSV.ps1
 
 ## Subfolder Size Report
-Get the size of subfolders within a path using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of subfolders within the path. The 'Sync and Mobile Access' share-level Advanced Setting must be enabled for the Data API to work
+Get the size of subfolders within a path using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of subfolders within the path. The 'Sync and Mobile Access' share-level Advanced Setting must be enabled for the Data API to work.
 
 **API Endpoints Used**:  
 * NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
@@ -473,14 +473,14 @@ This script uses the NMC API to export antivirus violations for all volume and E
 **Name**: ExportAntivirusViolationsToCSV.ps1
 
 ## Export QoS Settings for all Edge Appliances
-This script uses the NMC API to read the QoS settings for all NMC managed Edge Appliances and export them to a CSV.\
+This script uses the NMC API to read the QoS settings for all NMC-managed Edge Appliances and export them to a CSV.\
 **Required Inputs**: NMC hostname, username, password, limit, report_file\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Setting QoS via the NMC API is not currently implemented and is in the backlog for the NMC.\
 **Name**: ExportQoSForAllFilers.ps1
 
 ## Unprotected Data Alert
-Customers can use this script to monitor all Edge Appliances and all Volumes for unprotected data that does not decrease after a user-specified time. Once this is exceeded, an email to the administrator is generated once per day at the time the user specifies. Results are also logged to an output file that is compared against the current status from the NMC API to determine if unprotected data is growing. This is designed to be run as a Windows scheduled task and could be run as frequently as every hour but should be run at least once per day. Requires an SMTP server for email alerting.\
+Customers can use this script to monitor all Edge Appliances and all Volumes for unprotected data that does not decrease after a user-specified time. Once this is exceeded, an email to the administrator is generated once daily at the time the user specifies. Results are also logged to an output file that is compared against the current status from the NMC API to determine if unprotected data is growing. This is designed to be run as a Windows scheduled task and could be run as frequently as every hour but should be run at least once per day. Requires an SMTP server for email alerting.\
 **Required Inputs**: NMC hostname, username, password, DayAlertValue, SendEmailTime, recipients, from, SMTP server, port, subject, body, ReportFileOrig\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s), volume(s), and amount of unprotected data for each Edge Appliance and Volume.\
@@ -519,9 +519,9 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 **Name**: DeleteSyncErrors.ps1
 
 ## Export NMC Messages to CSV
-The NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all messages that are currently available in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
+The NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all currently available messages in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
 
-Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. In order to capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity on a daily basis using the ConcatenateNMCMessages.ps1 script.\
+Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. To capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity on a daily basis using the ConcatenateNMCMessages.ps1 script.\
 **NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get) \
 **Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of messages to return).\
 **Compatibility**: Nasuni 8.0 or higher required\
@@ -552,7 +552,7 @@ Lists cloud credentials for an account and exports results to the PowerShell con
 **Name**: ListCloudCredentials.ps1
 
 ## Update Cloud Credentials
-This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script list all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarise the sync status. The number of sync checks and the wait time between them can be adjusted.
+This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script list all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
 
 Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ Edge Appliances is synchronous. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync. \
 **NMC API Endpoint Used**: 
@@ -642,7 +642,7 @@ Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a cre
 Lists volumes for an account and exports results to the console.\
 **NMC API Endpoint Used**: [List Volumes](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1/get/#tag/Volumes/paths/~1volumes~1/get) \
 **Required Inputs**: NMC hostname, username, password, limit\
-**Output**: name, guid, filer_serial_number, case sensitive, permissions policy, protocols, remote access, remote access permissions,provider name, provider shortname, provider location\
+**Output**: name, guid, filer_serial_number, case sensitive, permissions policy, protocols, remote access, remote access permissions, provider name, provider shortname, provider location\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ListVolumes.ps1
 
