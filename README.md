@@ -349,7 +349,7 @@ This script uses the NMC API to create a folder within the given path on the spe
 **NMC API Endpoint Used**: [Create Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1make-dir-path~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1make-dir-path~1/post) \
 **Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Folders are owned by the root POSIX user. This could create issues for NTFS exclusive volumes.\
+**Known Issues**: Folders created are owned by the root POSIX user and do not include NTFS permissions. NTFS permissions must be applied before the folder is visible on NTFS Exclusive volumes.\
 **Name**: CreateFolder.ps1
 
 ## Disable Pinning for a Path
