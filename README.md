@@ -123,12 +123,12 @@ All share properties, including share permissions, can be set upon share creatio
 Reads share information from a CSV file (starting from step 2 export is recommended) and uses the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
 **Required Inputs**:  hostname, tokenFile, csvPath\
 **CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups\
-The filer_name, volume_name, share_name, path, comments, readonyy, and browseable columns are ignored during import but must be present.\
+The filer_name, volume_name, share_name, path, comments, readonly, and browseable columns are ignored during import but must be present.\
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
 ### Set All Shares on an Edge Appliance to Read Only
 This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share to set the shares to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
-**Required Inputs**: NMC hostname, username, password, Filer Serial\
+**Required Inputs**: NMC hostname, username, password, Filer Serial, limit (set to 1000 by default)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
 **Name**: SetFilerSharesToReadOnly.ps1
@@ -177,7 +177,7 @@ Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports 
 **Name**: ExportCifsLocksToCSV.ps1
 
 ### Set Mac Support for all Shares
-This script uses the NMC API to list all shares, check for shares with or without Mac support and update those shares to the desired Mac support setting. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
+This script uses the NMC API to list all shares, check for shares with or without Mac support, and update those shares to the desired Mac support setting. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
 **Required Inputs**: NMC hostname, username, password, FruitEnabled (True/False)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: SetMacSupportForAllShares.ps1
