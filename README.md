@@ -288,11 +288,11 @@ Scripts that use the NMC API to list and control settings for paths. Nasuni prov
 1. [Refresh info about a given path:](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/post)
 Posting to this endpoint causes the NMC to request current information from the associated Edge Appliance for the path (statting it). Once this is done, the path is considered to be a "known path" for the Get info on a specific path endpoint. Known paths are only cached for 10 minutes before expiring.
 2. [GET info on a specific path (only valid for known paths):](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
-Calling this NMC API endpoint and specifying the Edge Appliance serial and path, asks the NMC to give the requestor information it has about the specified path. This only works if the path is a "known path"-- In other words, if the path has recently been enumerated/statted by the NMC file browser or API call (Using "Refresh info about a given path"). 
+Calling this NMC API endpoint and specifying the Edge Appliance serial and path asks the NMC to give the requestor information it has about the specified path. This only works if the path is a "known path"-- In other words, if the path has recently been enumerated/statted by the NMC file browser or API call (Using "Refresh info about a given path"). 
 
-Finally, the [Get a list of all known paths with a specific volume and filer](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1paths~1/get/), can be used to get a list of paths that are "known"--in other words, have recently been statted by POSTing to the "refresh info about a given path" endpoint. A directory reported as being reported as "known" lets you know that it is eligible to be used with the "GET info on a specific path" endpoint. Known paths expire from the NMC after 10 minutes.
+Finally, the [Get a list of all known paths with a specific volume and filer](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1paths~1/get/), can be used to get a list of paths that are "known"--in other words, have recently been statted by POSTing to the "refresh info about a given path" endpoint. A directory being reported as "known" lets you know it is eligible for use with the "GET info on a specific path" endpoint. Known paths expire from the NMC after 10 minutes.
 
-Note: Paths are case-sensitive. The paths and path status endpoints will not return results if the wrong case is specified.
+Note: Paths are case-sensitive. The paths and path status endpoints will only return results if the correct case is specified.
 
 ## Get Path Info
 This script uses the NMC API to get info for the specified path. It first calls the "refresh info" endpoint to update stats for the path and then calls the "get info" endpoint.\
@@ -300,7 +300,7 @@ This script uses the NMC API to get info for the specified path. It first calls 
 * [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
 * [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path - The path should start with a "/" and is the path as displayed in the volume file browser and is not related to the share path--it should start at the volume root. Path is case sensitive.\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path - The path should start with a "/" and is the path as displayed in the volume file browser and is not related to the share path--it should start at the volume root. Path is case sensitive.\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: GetPathInfo.ps1, GetPathInfo.png
 
@@ -316,29 +316,29 @@ This script uses the NMC API to bring the specified path into cache. By default,
 ## Set Pinning for a Path
 This script uses the NMC API to configure pinning for the specified volume path and Edge Appliance. Can be used to configure the pinning of metadata and data or metadata only.\
 **NMC API Endpoint Used**: [Set Pinning Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1pinned-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1pinned-folders~1/post) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetPinning.ps1
 
 ## Set Auto Cache for a Path
 This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cache of metadata and data or metadata only.\
 **NMC API Endpoint Used**: [Set Auto Caching Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1auto-cached-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1auto-cached-folders~1/post) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetAutoCache.ps1
 
 ## Set Global File Lock and Mode for a Path
 This script uses the NMC API to set Global File Lock and mode for the specified path. Since GFL cannot be set while snapshots are running, the script includes a retry delay and retry limit that will automatically retry setting GFL. The script will return an error when setting GFL if the path is invalid (paths are case sensitive.\
 **NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, path, mode, RetryLimit, RetryDelay.\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, path, mode, RetryLimit, RetryDelay.\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed to be set if any Edge Appliance is running a snapshot for the volume. Disabling GFL is not currently supported via NMC API.\
+**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Disabling GFL is not currently supported via NMC API.\
 **Name**: SetGFLandMode.ps1
 
 ## Set Global File Lock and Mode for Multiple Paths
 This script uses the NMC API to enable Global File Lock with the specified paths.\
 **NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, base path, sub paths, mode\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshot contention, but that could be added.\
 **Name**: SetGFLandModeForMultiplePaths.ps1
@@ -347,7 +347,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 This script uses the NMC API to create a folder using the provided volume path on the specified volume and Edge Appliance. The volume path is the path to the folder from the volume's root and does not include the SMB share or NFS export name.
 
 **NMC API Endpoint Used**: [Create Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1make-dir-path~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1make-dir-path~1/post) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Folders created are owned by the root POSIX user and do not include NTFS permissions. NTFS permissions must be applied before the folder is visible on NTFS Exclusive volumes.\
 **Name**: CreateFolder.ps1
@@ -355,21 +355,21 @@ This script uses the NMC API to create a folder using the provided volume path o
 ## Disable Pinning for a Path
 This script uses the NMC API to disable pinning for the specified volume path and Edge Appliance.\
 **NMC API Endpoint Used**: [Disable Pinning Mode on a Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1pinned-folder~1%7Bpath%7D/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1pinned-folder~1{path}/delete) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: DisablePinning.ps1
 
 ## Disable Auto Cache for a Path
 This script uses the NMC API to disable Auto Cache for the specified volume path and Edge Appliance.\
 **NMC API Endpoint Used**: [Disable Auto Cache Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1auto-cached-folder~1%7Bpath%7D/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1auto-cached-folder~1{path}/delete) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path \
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path \
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: DisableAutocache.ps1
 
 ## Export Auto Cache Folders to CSV
 Exports a list of Auto Cache-enabled folders to CSV.\
 **NMC API Endpoint Used**: [List Auto Cache Enabled Folders](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1auto-cached-folders~1/get/#tag/Volumes/paths/~1volumes~1filers~1auto-cached-folders~1/get) \
-**Required Inputs**: NMC hostname, username, password, limit\
+**Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: volume_guid, filer_serial_number, path, autocache mode\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportAutoCacheFoldersToCSV.ps1
@@ -377,7 +377,7 @@ Exports a list of Auto Cache-enabled folders to CSV.\
 ## Export Pinned Folders to CSV
 Exports a list of pinned folders to CSV.\
 **NMC API Endpoint Used**: [List Pinned Folders](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1pinned-folders~1/get/#tag/Volumes/paths/~1volumes~1filers~1pinned-folders~1/get) \
-**Required Inputs**: NMC hostname, username, password, limit\
+**Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: volume_guid, filer_serial_number, path, pinning mode\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportPinnedFoldersToCSV.ps1
