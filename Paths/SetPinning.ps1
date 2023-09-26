@@ -1,21 +1,19 @@
-﻿# Set Pinning for the specified volume path and Edge Appliance
-# Uses Set Pinning Mode Endpoint - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#set-pinning-mode
+<﻿# Set Pinning for the specified volume path and Edge Appliance
+Uses Set Pinning Mode Endpoint - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#set-pinning-mode #>
   
 # populate NMC hostname and credentials
 $hostname = "insertNMChostnameHere"
   
-# username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ).
-# Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
  
 # specify Volume GUID and Edge Appliance Serial Number
 $volume_guid = "InsertVolumeGuid"
 $filer_serial = "InsertFilerSerial"
  
-# Set the path on which to enable pinning. The path should start with a "\" and is the case sensitive path as displayed in the file browser
-# and is not related to the share path. If you want to enable pinning of metadata for the entire volume, set this to "\".
+<# Set the path on which to enable pinning. The path should start with a "\" and is the case-sensitive path displayed in the file browser
+and is unrelated to the share path. If you want to enable metadata pinning for the entire volume, set this to "\". #>
 $FolderPath = "\Folder1"
 
 # Set the mode for Pinning - valid options: metadata_and_data, metadata
@@ -54,17 +52,13 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
  } }
   
-# build JSON headers
+#build JSON headers
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-  
-# construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-  
-# Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+ 
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
  
 # Set the URL for the folder update NMC API endpoint
