@@ -15,9 +15,6 @@ $limit = 1000
 
 #end variables
 
-#build credentials
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
-
 #Request token and build connection headers
 # Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
