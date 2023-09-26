@@ -1,16 +1,15 @@
 <# Sets GFL Snapshot Status for the path provided and retries using a delay until complete
 Does not check snapshot status before attempting to set GFL
-Checks the message status after submitting GFL request to see if the operation completed successfully
+Checks the message status after submitting GFL request to see if the operation was completed successfully
 Writes the following info to the console: path, retry number, status
 Includes error handling for invalid paths #>
   
 #populate NMC hostname and credentials
 $hostname = "InsertNMCHostname"
   
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required).
-#Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<#Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
  
 #specify Volume GUID
 $volume_guid = "insertVolumeGUID"
@@ -21,16 +20,13 @@ $path = "/folder1/folder2"
 #Set the desired GFL mode - "optimized, advanced, or asynchronous"
 $mode = "optimized"
 
-#Specify Number of times to retry before giving up
+#Specify the number of times to retry before giving up
 $RetryLimit = 20
 
-#Specify delay between retries in seconds
+#Specify the delay between retries in seconds
 $RetryDelay = 30
 
 #end variables
-
-#combine credentials for NMC authentication
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
   
 #Request token and build connection headers
 # Allow untrusted SSL certs
@@ -65,18 +61,14 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-  
-#construct Uri for login
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-  
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+ 
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
 #start working on setting GFL
 
-#set the RetryCount to 1 before begging the loop
+#set the RetryCount to 1 before beginning the loop
 $RetryCount = 1
 
 write-output "Setting $mode GFL mode on: $path"
