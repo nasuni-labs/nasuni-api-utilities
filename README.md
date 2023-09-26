@@ -307,9 +307,9 @@ This script uses the NMC API to get info for the specified path. It first calls 
 ![GetPathInfoOutput](/Paths/GetPathInfo.PNG)
 
 ## Bring Path into Cache
-This script uses the NMC API to bring the specified path into cache. By default, both the metadata and data for the specified path are brought into cache. Bringing only the metadata into cache is an option if $MetadataOnly is set to "true".\
+This script uses the NMC API to bring the specified path into cache. By default, the metadata and data for the specified path are brought into cache. Bringing only the metadata into cache is an option if $MetadataOnly is set to "true".\
 **NMC API Endpoint Used**: [Bring Path Into Cache](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1cache-path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1cache-path~1{path}/post) \
-**Required Inputs**: NMC hostname, username, password, volume_guid, filer_serial, path, metadata only, force\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path, metadata only, force\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: BringPathIntoCache.ps1
 
