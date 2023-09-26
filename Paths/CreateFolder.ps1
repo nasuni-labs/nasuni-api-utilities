@@ -52,11 +52,6 @@ $headers.Add("Content-Type", 'application/json')
 #Read the token from a file and add it to the headers for the request
 $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
-  
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
-$headers.Add("Authorization","Token " + $token)
  
 #Set the URL for the folder creation NMC API endpoint
 $url="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/make-dir-path/"
