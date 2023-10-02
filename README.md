@@ -26,21 +26,21 @@ This is a simple script to validate NMC API connectivity and obtain a token that
 **Name**: GetToken.ps1
 
 ## Request a Token - Prompt for Credentials
-Works the same way as the "Request a Token" script but prompts the user for credentials using PowerShell's Get-Credential cmdlet rather than relying on hardcoded credentials in the script. \
+It works the same way as the "Request a Token" script but prompts the user for credentials using PowerShell's Get-Credential cmdlet rather than relying on hardcoded credentials in the script. \
 **Required Inputs**: NMC hostname, tokenFile\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: GetTokenCredPrompt.ps1
 
 ## Better Error Handling
-PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of an error. PowerShell 6+ and PowerShell core support a newer method for error handling, while older versions of PowerShell require the use of GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
+PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of an error. PowerShell 6+ and PowerShell core support a newer method for error handling, while older versions of PowerShell require GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
 
-The code snippet below can be used as an example for modifying the PowerShell code examples. You should add the function (lines 1-13) to your script before referencing it, since functions must be defined before calling them in PowerShell. Line 15 of this script is an example of using try/catch with a command and should not be directly copied to your script since the variable names will not match. Instead, modify the Invoke-RestMethod line of the script that you would like to get better errors for by adding "try" and the matching open and close curly braces followed by the "catch" command and "Failure" within curly braces.\
+The code snippet below can be used as an example for modifying the PowerShell code examples. You should add the function (lines 1-13) to your script before referencing it since functions must be defined before calling them in PowerShell. Line 15 of this script is an example of using try/catch with a command and should not be directly copied to your script since the variable names will not match. Instead, modify the Invoke-RestMethod line of the script that you would like to get better errors for by adding "try" and the matching open and close curly braces followed by the "catch" command and "Failure" within curly braces.\
 **Name**: BetterErrorHandling.ps1
 
 ## Allow Untrusted SSL Certificates
-A valid SSL certificate for the NMC is a best practice, but test/dev or new environments may not yet have a valid SSL certificate. Fortunately, there's a way to skip SSL certificate checks, which is included in most of the PowerShell examples we provide. You can remove this code block from the provided examples if you have a valid SSL certificate for your NMC.
+A valid SSL certificate for the NMC is a best practice, but test/dev or new environments might not have a valid SSL certificate. Fortunately, there's a way to skip SSL certificate checks, which is included in most of our PowerShell examples. You can remove this code block from the provided examples if you have a valid SSL certificate for your NMC.
 
-If you are using PowerShell 6 or higher, the Invoke-RestMethod cmdlet natively includes a “-SkipCertificateCheck” option and this script changes the default for the Invoke-RestMethod cmdlet to skip certificate checks. Versions of PowerShell before version 6 and PowerShell core do not support a “-SkipCertificateCheck” option and must rely on the .Net subsystem to disable certificate checks.\
+If you are using PowerShell 6 or higher, the Invoke-RestMethod cmdlet natively includes a “-SkipCertificateCheck” option, and this script changes the default for the Invoke-RestMethod cmdlet to skip certificate checks. Versions of PowerShell before version 6 and PowerShell core do not support a “-SkipCertificateCheck” option and must rely on the .Net subsystem to disable certificate checks.\
 **Name**: AllowUntrustedSSLCerts.ps1
 
 ## Avoid NMC API Throttling
@@ -62,11 +62,11 @@ Most scripts support the bundled version of PowerShell that comes with Windows (
    ```
 
 ### Nasuni Version Troubleshooting
-Some NMC API endpoints require a specific NMC or Edge Appliance version, and if the request is made to the NMC the NMC API endpoint will return a message such as:
+Some NMC API endpoints require a specific NMC or Edge Appliance version, and if the request is made to the NMC, the NMC API endpoint will return a message such as:
 
 `Current filer version does not support this type of request. Please update your Edge Appliance to use this feature.`
 
-If the Edge Appliance version and NMC match what is documented for the NMC API endpoint and the error is still returned, it's possible that Edge Appliances were updated before upgrading the NMC. If this were to occur, the configurations that the Edge Appliances sent to the NMC would have contained information that the NMC couldn't process, causing the NMC to think the Edge Appliance doesn't meet the version criteria for the particular NMC API endpoint. The fix for this is to have the Edge Appliances resend their configurations once the NMC is running the current version–the "Refresh Managed Filers" button on the NMC overview page will do this.
+If the Edge Appliance version and NMC match what is documented for the NMC API endpoint and the error is still returned, it's possible that Edge Appliances were updated before upgrading the NMC. If this were to occur, the configurations that the Edge Appliances sent to the NMC would have contained information that the NMC couldn't process, causing the NMC to think the Edge Appliance doesn't meet the version criteria for the particular NMC API endpoint. The fix for this is to have the Edge Appliances resend their configurations once the NMC runs the current version–the "Refresh Managed Filers" button on the NMC overview page will do this.
 
 ### TLS Handshake Failure
 Beginning with NMC version 22.3, insecure ephemeral Diffie-Hellman ciphers PowerShell uses on older Windows OS versions (Server 2012R2 and older) are disabled. Callers impacted by the change could see the following error messages: `TLS handshake failure` or `The request was aborted: Could not create SSL/TLS secure channel.`  Upgrade to a supported Windows version (Server 2016, Windows 10, or newer) to resolve the issue. Contact Nasuni Customer Support and reference internal KB11989 to have insecure ciphers re-enabled for your NMC if needed to support older Windows versions. Linux and macOS PowerShell versions are not impacted.
@@ -85,7 +85,7 @@ PowerShell NMC API Scripts for working with access points. Access points include
 ## SMB (CIFS) Shares
 ### Create a Share
 Uses PowerShell to create a share by referencing an existing volume, Edge Appliance, and path. Useful as an example of how shares can be created using PowerShell.\
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, ShareName, Path\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, ShareName, Path\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt\
 **Name**: CreateShare.ps1
@@ -127,22 +127,22 @@ The filer_name, volume_name, share_name, path, comments, readonly, and browseabl
 **Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
 
 ### Set All Shares on an Edge Appliance to Read Only
-This script uses the NMC API to list all shares for an Edge Appliance and update the share properties for each share to set the shares to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
-**Required Inputs**: NMC hostname, username, password, Filer Serial, limit (set to 1000 by default)\
+This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to set the shares to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
+**Required Inputs**: NMC hostname, tokenFile, Filer Serial, limit (set to 1000 by default)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
 **Name**: SetFilerSharesToReadOnly.ps1
 
-### Enable Previous Versions for all Shares
+### Set Previous Versions for all Shares
 This script uses the NMC API to list all shares, check to see if previous versions are enabled, and update the share properties for each share without previous versions support so that previous versions support is enabled. It can also be used to disable previous versions support for all shares. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
-**Required Inputs**: NMC hostname, username, password, PreviousVersions (True/False)\
+**Required Inputs**: NMC hostname, tokenFile, PreviousVersions (True/False)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
-**Name**: EnablePreviousVersionsForAllShares.ps1
+**Name**: SetPreviousVersionsForAllShares.ps1
 
 ### Set block files for all shares on an Edge Appliance
 This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to match the supplied value for block files. The list of blocked files should be comma-separated.\
-**Required Inputs**: NMC hostname, username, password, FilerSerial, BlockFiles\
+**Required Inputs**: NMC hostname, tokenFile, FilerSerial, BlockFiles\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
 **Name**: SetBlockFilesForAllSharesOnaFiler.ps1
@@ -157,40 +157,40 @@ This script uses the NMC API to list all shares and update the share properties 
 ### Delete a Share
 Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) endpoint. \
 **NMC API Endpoint Used**: [Delete a share](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1shares~1%7Bshare_id%7D~1/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1shares~1{share_id}~1/delete) \
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, share_id\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, share_id\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: DeleteShare.ps1
 
 ### List Shares
 Lists shares for an account and exports results to the PowerShell console.\
 **NMC API Endpoint Used**: [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) \
-**Required Inputs**: NMC hostname, username, password, limit (number of shares to list)\
+**Required Inputs**: NMC hostname, tokenFile, limit (number of shares to list)\
 **Output**: shareid, Volume_GUID,filer_serial_number, share_name, path, comment, readonly, browseable, authall, ro_users, rw_users, ro_groups, rw_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ListShares.ps1
 
 ### Export CIFS Locks to CSV
 Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV.\
-**Required Inputs**: NMC hostname, username, password, filer_serial, reportFile, limit, nmcApiVersion\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, reportFile, limit, nmcApiVersion\
 **Output**: type, ip_address, hostname, share_id, path, user\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Name**: ExportCifsLocksToCSV.ps1
 
 ### Set Mac Support for all Shares
 This script uses the NMC API to list all shares, check for shares with or without Mac support, and update those shares to the desired Mac support setting. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
-**Required Inputs**: NMC hostname, username, password, FruitEnabled (True/False)\
+**Required Inputs**: NMC hostname, tokenFile, FruitEnabled (True/False)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: SetMacSupportForAllShares.ps1
 
 ### Export CIFS Clients to CSV
 Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. \
-**Required Inputs**: NMC hostname, username, password, reportFile, limit, nmcApiVersion\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit, nmcApiVersion\
 **Output**: Edge Appliance Serial Number, User Name, Client_Name, Share ID (one line for each connected client)\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
 **Name**: ExportCifsClientsToCSV.ps1
 
 ### Replicate Shares from Source to Destination Edge Appliance
-This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are not changed.\
+This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are kept the same.\
 **Required Inputs**: NMC hostname, tokenFile, SourceFilerSerialNumber, DestinationFilerSerialNumber\
 **Compatibility**: Nasuni 8.0 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Known Issues**: none\
@@ -199,53 +199,53 @@ This script uses the NMC API to list all shares for source Edge Appliance, compa
 ## NFS Exports
 ### Create an Export
 Uses PowerShell to create an NFS Export by referencing an existing volume, Edge Appliance, and path. Useful as an example of how exports can be created using PowerShell.\
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, exportName, Path\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, exportName, Path\
 **Compatibility**: NMC 21.2 or higher required\
 **Optional Inputs**: comment, readonly, hostspec, accessMode, perfMode, secOptions\
 **Name**: CreateExport.ps1
 
 ### Update an Export
 Uses PowerShell to update an NFS Export. You can use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id for an existing export. \
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, export_id, comment, readonly, hostspec, accessMode, perfMode, secOptions\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, export_id, comment, readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
 **Name**: UpdateExport.ps1
 
 ### Update Access Mode for All Exports
 Uses PowerShell to update the access mode for all exports.\
-**Required Inputs**: NMC hostname, username, password, accessMode, limit\
+**Required Inputs**: NMC hostname, tokenFile, accessMode, limit\
 **Compatibility**: NMC 21.2 or higher required\
 **Name**: UpdateAccessModeForAllExports.ps1
 
 ### Create an Export Host Option
 Uses PowerShell to add a host option to an existing NFS export. You can use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id for an existing export. \
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, export_id,readonly, hostspec, accessMode, perfMode, secOptions\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, export_id,readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
 **Name**: CreateExportHostOption.ps1
 
 ### Update Export Host Option
 Uses PowerShell to update an existing host option for an NFS export. Use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id and host_option_id. \
-**Required Inputs**: NMC hostname, username, password, filer_serial, volume_guid, export_id, host_option_id, readonly, hostspec, accessMode, perfMode, secOptions\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, export_id, host_option_id, readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
 **Notes**: The host option ID will change after updating NFS host options. Perform a new listing of exports/IDs before subsequent host options updates.\
 **Name**: UpdateExportHostOption.ps1
 
 ### Export All NFS Exports and Settings to CSV
 Uses PowerShell to export all NFS exports and configurable settings to CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 exports, but can be increased)\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit (preset to 1000 exports, but can be increased)\
 **Output CSV content**: exportId,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllNFSExportsToCSV.ps1
 
 ### Create Exports From CSV
 Uses CSV input to create exports. We recommend manually creating several exports along with desired settings and then use the ExportAllNFSExportsToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional exports. The exportId and nfs_hosts_options columns are ignored during import but must be present. Allowed hosts supports multiple entries--use a semicolon to separate entries.\
-**Required Inputs**: hostname, username, password, csvPath\
+**Required Inputs**: hostname, tokenFile, csvPath\
 **Compatibility**: Nasuni 21.2 or higher required\
 **CSV Contents**: exportID,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
 **Name**: CreateExportsFromCSV.ps1
 
 ### Create Export Host Options From CSV
 Uses CSV input to create new host options for existing exports. We recommend manually creating several exports with host options and then using the ExportAllNFSExportsToCSV.ps1 script to output a CSV. Use the exported CSV as a reference when creating a new host options CSV import file. Allowed hosts supports multiple entries--use a semicolon to separate entries.\
-**Required Inputs**: hostname, username, password, csvPath, limit\
+**Required Inputs**: hostname, tokenFile, csvPath, limit\
 **Compatibility**: Nasuni 21.2 or higher required\
 **CSV Contents**: filer_serial_number,export_name,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
 **Name**: CreateExportHostOptionsFromCSV.ps1
@@ -253,7 +253,7 @@ Uses CSV input to create new host options for existing exports. We recommend man
 ## FTP Directories
 ### Export All FTP Directories and Settings to CSV
 Uses PowerShell to export all FTP directories and configurable settings to CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile, limit (preset to 1000 FTP directories, but can be increased)\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit (preset to 1000 FTP directories, but can be increased)\
 **Output CSV content**: FtpId,Volume_GUID,filer_serial_number,ftp_name,path,comment,readonly,visibility,ip_restrictions,allowed_users,allowed_groups,allow_anonymous,anonymous_only,Permissions_on_new_files,hide_ownership,use_temporary_files_during_upload\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Name**: ExportAllFtpDirectoriesToCSV.ps1
@@ -263,20 +263,20 @@ PowerShell NMC API scripts to work with quotas.
 
 ## Create Folder Quota
 This script uses the NMC API to set a quota for the given path on the specified volume.\
-**Required Inputs**: NMC hostname, username, password, volume_guid, path, quota amount, email\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, path, quota amount, email\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: Quotas cannot be configured for a path with a quota configured at a lower level.\
 **Name**: SetQuota.ps1
 
 ## Update Folder Quota
 This script uses the NMC API to update an existing folder quota. The script lists all existing quotas to find the corresponding Quota ID and references it to update the existing quota.\
-**Required Inputs**: NMC hostname, username, password, path, quota amount\
+**Required Inputs**: NMC hostname, tokenFile, path, quota amount\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: UpdateQuota.ps1
 
 ## Export Folder Quotas to CSV
 Exports folder quotas and rules to CSV\
-**Required Inputs**: NMC hostname, username, password, limit\
+**Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: Quota ID, VolumeGuid, FilerSerial, Path, Quota Type, Quota Limit, Quota Usage, Email\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportFolderQuotasToCSV.ps1
@@ -386,7 +386,7 @@ Exports a list of pinned folders to CSV.\
 Use these NMC API scripts to help with reporting and chargeback.
 
 ## Recharge tracking/Volume Details
-This script can be used as a starting point for billing and recharge reporting. This script example provides a report of all volumes in an account.\
+This script can be a starting point for billing and recharge reporting. This script example provides a report of all volumes in an account.\
 **Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, provider\
 **Compatibility**: Nasuni 7.10 or higher required\
@@ -398,7 +398,7 @@ This script can be used to track the progress of data ingestion or data growth. 
 **Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Known Issues**: Might not work correctly if there is a disconnected volume in the account. \
+**Known Issues**: It might not work correctly if there is a disconnected volume in the account. \
 **Name**: ShowIngestProgress.ps1
 
 ## Volume Unprotected Data Alert
@@ -480,7 +480,7 @@ This script uses the NMC API to read the QoS settings for all NMC-managed Edge A
 **Name**: ExportQoSForAllFilers.ps1
 
 ## Unprotected Data Alert
-Customers can use this script to monitor all Edge Appliances and all Volumes for unprotected data that does not decrease after a user-specified time. Once this is exceeded, an email to the administrator is generated once daily at the time the user specifies. Results are also logged to an output file that is compared against the current status from the NMC API to determine if unprotected data is growing. This is designed to be run as a Windows scheduled task and could be run as frequently as every hour but should be run at least once per day. Requires an SMTP server for email alerting.\
+Customers can use this script to monitor all Edge Appliances and all Volumes for unprotected data that does not decrease after a user-specified time. Once this is exceeded, an email to the administrator is generated once daily at the time the user specifies. Results are also logged to an output file that is compared against the current status from the NMC API to determine if unprotected data is growing. This is designed to be run as a Windows scheduled task and could be run as frequently as every hour but should be run at least once daily. Requires an SMTP server for email alerting.\
 **Required Inputs**: NMC hostname, username, password, DayAlertValue, SendEmailTime, recipients, from, SMTP server, port, subject, body, ReportFileOrig\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s), volume(s), and amount of unprotected data for each Edge Appliance and Volume.\
@@ -491,19 +491,19 @@ Use the NMC API to manage and report on Volume Auditing.
 
 ## Export Volume Auditing Settings to CSV
 This script uses the NMC API to export volume auditing information for all volume and Edge Appliances in an Account to a CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile\
+**Required Inputs**: NMC hostname, tokenFile, reportFile\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportVolumeAuditingToCSV.ps1
 
 ## Set Volume Auditing
 This script uses the NMC API to set volume auditing information for the specified volume and Edge Appliance.\
-**Required Inputs**: NMC hostname, username, password, volume guid, filer serial, multiple auditing parameters\
+**Required Inputs**: NMC hostname, tokenFile, volume guid, filer serial, multiple auditing parameters\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetVolumeAuditing.ps1
 
 ## Set Volume Auditing for All Volumes and Edge Appliances in an Account
 This script uses the NMC API to find all Volumes and Edge Appliances and configure them to use the specified auditing settings.\
-**Required Inputs**: NMC hostname, username, password, multiple auditing parameters\
+**Required Inputs**: NMC hostname, tokenFile, multiple auditing parameters\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: SetAuditForAllVolumesAndFilers.ps1
 
@@ -523,14 +523,14 @@ The NMC API Messages endpoint currently logs activity performed by NMC GUI and N
 
 Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. To capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity daily using the ConcatenateNMCMessages.ps1 script.\
 **NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get) \
-**Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of messages to return).\
+**Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of messages to return).\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: ExportMessagesToCSV.ps1
 
 ## Export Health Monitor Status for All Edge Appliances
 Uses PowerShell to export a list of Health Monitor status for Edge Appliances and export the results to a CSV.\
 **NMC API Endpoints Used**: [List Health Status for all Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1health~1/get/#tag/Filers/paths/~1filers~1health~1/get) \
-**Required Inputs**: NMC hostname, username, password, reportFile, limit\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Output CSV content**: filer_serial_number, filer_name, last_updated, network, filesystem, CPU, nfs, memory, services, directoryservices, disk, smb\
 **Compatibility**: Nasuni 8.8 or higher required\
 **Name**: ExportHealthToCSV.ps1
@@ -538,7 +538,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 ## Export Edge Appliance Status to CSV
 The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
 **NMC API Endpoints Used**: [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get) \
-**Required Inputs**: NMC hostname, username, password, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
+**Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
 Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportEAStatusToCSV.ps1
@@ -546,13 +546,13 @@ Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpu
 ## List Cloud Credentials
 Lists cloud credentials for an account and exports results to the PowerShell console. \
 **NMC API Endpoint Used**: [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get) \
-**Required Inputs**: NMC hostname, username, password\
+**Required Inputs**: NMC hostname, tokenFile\
 **Output**: cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
 **Compatibility**: NMC API v1.2, NMC 22.2, and Edge Appliance 9.8 or higher required\
 **Name**: ListCloudCredentials.ps1
 
 ## Update Cloud Credentials
-This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script list all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
+This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script lists all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
 
 Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ Edge Appliances is synchronous. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync. \
 **NMC API Endpoint Used**: 
@@ -561,9 +561,9 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 * [Update Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1%7Bcred_uuid%7D~1filers~1%7Bfiler_serial%7D~1/patch/#tag/Account/paths/~1account~1cloud-credentials~1{cred_uuid}~1filers~1{filer_serial}~1/patch)
 * [Get Message](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1%7Bmessage_id%7D~1/get/#tag/Messages/paths/~1messages~1{message_id}~1/get)
 
-**Required Inputs**: NMC hostname, username, password, cred uuid \
+**Required Inputs**: NMC hostname, tokenFile, cred uuid \
 **Output**: Sync status summary \
-**Compatibility**: NMC API v1.2, NMC 22.2 and Edge Appliance 9.8 or higher required\
+**Compatibility**: NMC API v1.2, NMC 22.2, and Edge Appliance 9.8 or higher required\
 **Name**: UpdateCloudCredentials.ps1
 
 ## Get Message
@@ -590,14 +590,14 @@ This script exports all Edge Appliance settings applied on a per-Volume/per-Edge
 | File Alert Service | FileAlertService.csv | List of file alert service entries for all volumes and Edge Appliances | VolumeName, FilerName, Volume GUID, FilerSerialNumber, File Alerts Enabled, File Alert Patterns |
 | Snapshot Directory Access | SnapshotDirAccess.csv | List of the snapshot directory access configuration for all volumes and Edge Appliances | VolumeName, FilerName, Volume GUID, FilerSerialNumber, Snapshot Access Enabled |
 
-**Required Inputs**: NMC hostname, username, password, reportDirectory (where to save the CSV files), limit (limit to use for each API endpoint).\
+**Required Inputs**: NMC hostname, tokenFile, reportDirectory (where to save the CSV files), limit (limit to use for each API endpoint).\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportEaVolumeSettings.ps1
 
 ## Export NMC Notifications to CSV
 Exports NMC Notifications to CSV.\
 **NMC API Endpoints Used**: [List Notifications](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Notifications/paths/~1notifications~1/get/#tag/Notifications/paths/~1notifications~1/get) \
-**Required Inputs**: NMC hostname, username, password, ReportFileName, limit (number of notifications to return)\
+**Required Inputs**: NMC hostname, tokenFile, ReportFileName, limit (number of notifications to return)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: ExportNotificationsToCSV.ps1
 
@@ -613,7 +613,7 @@ PowerShell NMC API Scripts for working with volumes.
 
 ## Create a Volume
 Uses PowerShell to create a volume.\
-**Required Inputs**: NMC hostname, username, password, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, storage_class(optional), permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
+**Required Inputs**: NMC hostname, tokenFile, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, storage_class(optional), permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
 **Fields and values**: 
 * shortName: amazons3, azure, googles3 (9.0 version of the google connector), vipr (ecs)
 * location (case-sensitive):
@@ -633,7 +633,7 @@ Creating a volume using an existing encryption key: When referencing an existing
 
 New AWS regions should be opted-in before using them to create new volumes.
 
-Misleading terminology: The create volume API has an option that misleadingly references to “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (PGP), rather than Nasuni cloud credentials.
+Misleading terminology: The create volume API has an option that misleadingly references “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (PGP) rather than Nasuni cloud credentials.
 
 Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a credential to use with the create volume NMC API endpoint.\
 **Name**: CreateVolume.ps1
@@ -641,7 +641,7 @@ Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a cre
 ## List Volumes
 Lists volumes for an account and exports results to the console.\
 **NMC API Endpoint Used**: [List Volumes](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1/get/#tag/Volumes/paths/~1volumes~1/get) \
-**Required Inputs**: NMC hostname, username, password, limit\
+**Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: name, guid, filer_serial_number, case sensitive, permissions policy, protocols, remote access, remote access permissions, provider name, provider shortname, provider location\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ListVolumes.ps1
@@ -649,14 +649,14 @@ Lists volumes for an account and exports results to the console.\
 ## Export Volumes and Settings to CSV
 Lists volumes for an account and exports results to the specified CSV file.\
 **NMC API Endpoint Used**: [List Volumes](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1/get/#tag/Volumes/paths/~1volumes~1/get) \
-**Required Inputs**: NMC hostname, username, password, reportFile, limit\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Output**: name,guid,filer_serial_number,case sensitive,permissions policy,protocols,remote access,remote access permissions,snapshot retention,quota,compression,chunk_size,authenticated access,auth policy,auth policy label,provider name,provider shortname,provider location,provider storage class,bucket name, AV enabled,AV days,AV check immediately,AV allday,AV start,AV stop,AV frequency\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportVolumesToCSV.ps1
 
 ## Export Volume Snapshot and Sync Schedule to CSV
 Lists volumes for an account and exports snapshot and sync schedule for each Edge Appliance to the specified CSV file.\
-**Required Inputs**: NMC hostname, username, password, reportFile, limit\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Output**:VolumeName,FilerName,VolumeGuid,FilerSerialNumber,SnapSchedMon,SnapSchedTue,SnapSchedWed,SnapSchedThu,SnapSchedFri,SnapSchedSat,SnapSchedSun,SnapSchedAllday,SnapSchedStart,SnapSchedStop,SnapSchedFrequency,SyncSchedMon,SyncSchedTue,SyncSchedWed,SyncSchedThu,SyncSchedFri,SyncSchedSat,SyncSchedSun,SyncSchedAllday,SyncSchedStart,SyncSchedStop,SyncSchedFrequency,SyncSchedAutocacheAllowed,SyncSchedAutocacheMinFileSize\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportVolumeSnapshotAndSyncScheduleToCSV.ps1
