@@ -3,9 +3,9 @@
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
  
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
  
 #specify the volume name
 $volume_name = "insertVolumeName"
@@ -19,9 +19,9 @@ $provider_name = "Amazon S3"
 $shortname = "amazons3"
 <#location - AmazonS3: use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
 Google: use Google region codes. Example: us-west1 (Oregon): US-WEST1
-Oother S3 compatible cloud providers: use location as None #>
+Other S3 compatible cloud providers: use location as None #>
 $location = "us-east-2"
-#Storage class - Required for Google volumes. Optional for other storage providers. Example- STANDARD, NEARLINE, COLDLINE, and ARCHIVE
+#Storage class - Required for Google volumes. Optional for other storage providers. Examples: STANDARD, NEARLINE, COLDLINE, and ARCHIVE
 $storage_class = "STANDARD"
 #volume protocol - CIFS or NFS
 $volume_protocol = "CIFS"
@@ -34,7 +34,7 @@ $authenticated_access = "true"
 $policy = "ads"
 #policy label - Publicly Available,  Active Directory
 $policy_label = "Active Directory"
-#Auto Provision Credentials (This is encryption keys even though the API calls it credentials) - use existing cred or create new
+#Auto Provision Credentials (These are encryption keys even though the API calls it credentials) - use existing cred or create new
 $auto_provision_cred = "false"
 #Key Name - specify existing encryption key Name if autoprovision = false, should match key name
 $key_name = "insertExistingEncryptionKeyName"
@@ -44,7 +44,6 @@ $create_default_access_point = "true"
 $case_sensitive = "false"
 
 #end variables
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #function for error
 #Error Handling function - must appear in the script before it is referenced
@@ -96,19 +95,15 @@ $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
  
-#construct Uri
-$url = "https://"+$hostname+"/api/v1.2/auth/login/"
-  
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
  
 #Create the  volume
 $url = "https://"+$hostname+"/api/v1.2/volumes/"
  
  
-#Adding storage class to the provider object if cloud provider is Google
+#Adding storage class to the provider object if the cloud provider is Google
 if($provider_name -ieq "Google"){
     $provider = @"
     { 
