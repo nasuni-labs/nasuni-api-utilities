@@ -3,9 +3,9 @@
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
  
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
 
 #Number of Edge Appliances and Volumes to query
 $limit = 1000
@@ -37,9 +37,6 @@ $DaysToKeep = "90"
 $SyslogExport = "False"
 
 #end variables
-
-#combine credentials for token request
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #Request token and build connection headers
 # Allow untrusted SSL certs - remove if valid SSL cert is loaded for NMC
@@ -74,13 +71,9 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-  
-#construct Uri for authentication
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-   
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+ 
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
   
 #Configure Auditing
