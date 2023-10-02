@@ -1,12 +1,12 @@
-#Update Cloud Credentails for a given CRED_UUID
+#Update Cloud Credentials for a given CRED_UUID
 #Available for NMC API v1.2 and onward
 
 #populate NMC hostname and credentials
 $hostname = "insertHostname"
   
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
 
 #Number of Credentials to query
 $limit = 1000
@@ -20,7 +20,7 @@ $continueUpdate = $true
 #list of filers with pending filer status
 $updatePending = @{}
 
-#To track number of the API calls made per second
+#To track the number of API calls made per second
 $throttleControl = 1
 
 #Number of tries to recheck pending update status
@@ -51,7 +51,7 @@ $body = @"
 
 
 
-#combine credentails for authentication
+#combine credentials for authentication
 $credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #Request token and build connection headers
@@ -87,20 +87,10 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-
-#construct Uri
-$url="https://"+$hostname+"/api/v1.2/auth/login/"
-
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
-
-if($headers.ContainsKey("Authorization")){
-	$headers["Authorization"] = "Token " + $token
-}
-else{
-$headers.Add("Authorization","Token " + $token) 
-}
+ 
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
+$headers.Add("Authorization","Token " + $token)
 
 
 #List credentials
