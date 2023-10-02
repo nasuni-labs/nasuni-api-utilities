@@ -3,17 +3,15 @@
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
  
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
  
 #specify Nasuni volume guid and filer serial number
 $filer_serial = "InsertFilerSerialHere"
 $volume_guid = "InsertVolumeGuidHere"
 
 #end variables
-#build credentials from username and password
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
  
 #specify share information
 #share name
@@ -40,7 +38,7 @@ $RWGroups = ''
 $hosts_allow = ""
 #hide unreadable folders and files - default is "true"
 $hide_unreadable = "true"
-#enable previous versionsintegration for the share: true/false - default is "false"
+#enable previous versions integration for the share: true/false - default is "false"
 $enable_previous_vers = "false"
 #enable case sensitivity for the share: true/false - default is "false"
 $case_sensitive = "false"
@@ -110,12 +108,8 @@ $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
  
-#construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-  
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
  
 #Create the share
