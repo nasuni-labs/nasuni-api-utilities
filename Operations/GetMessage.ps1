@@ -44,9 +44,6 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-
-#construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
  
 #Read the token from a file and add it to the headers for the request
 $token = Get-Content $tokenFile
