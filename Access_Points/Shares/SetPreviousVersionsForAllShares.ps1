@@ -15,9 +15,6 @@ $limit = 1000
 
 #end variables
 
-#Connect to the List all shares for filer NMC API endpoint
-$url="https://"+$hostname+"/api/v1.1/volumes/filers/shares/?limit="+$limit+"&offset=0"
-
 # Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
 {
@@ -66,7 +63,9 @@ $UpdateBody = @"
 $FormatEnumerationLimit=-1
 $GetShareInfoUrl="https://"+$hostname+"/api/v1.1/volumes/filers/shares/?limit="+$limit+"&offset=0"
 $GetShareInfo = Invoke-RestMethod -Uri $GetShareInfoUrl -Method Get -Headers $headers
- 
+
+#if the script is Previous Versions to true-check shares where it is false and only update those
+if ($PreviousVersions -eq $true){ 
 foreach($i in 0..($GetShareInfo.items.Count-1)){
 	#loop through shares to find shares without previous versions enabled and set previous versions to true
 	if ($GetShareInfo.items[$i].enable_previous_vers -eq $false){
@@ -76,6 +75,19 @@ foreach($i in 0..($GetShareInfo.items.Count-1)){
     write-output $response | ConvertTo-Json
     Start-Sleep 1.1
 	}
+     $i++}
+}
 
-$i++}
-
+#if the script is Previous Versions to false-check shares where it is true and only update those
+if ($PreviousVersions -eq $false){ 
+foreach($i in 0..($GetShareInfo.items.Count-1)){
+	#loop through shares to find shares without previous versions enabled and set previous versions to true
+	if ($GetShareInfo.items[$i].enable_previous_vers -eq $true){
+    #Build the URL for updating shares
+    $UpdateShareURL="https://"+$hostname+"/api/v1.1/volumes/" + $($GetShareInfo.items[$i].Volume_Guid) + "/filers/" + $($GetShareInfo.items[$i].filer_serial_number) + "/shares/" + $($GetShareInfo.items[$i].id) + "/"
+    $response=Invoke-RestMethod -Uri $UpdateShareURL -Method Patch -Headers $headers -Body $UpdateBody
+    write-output $response | ConvertTo-Json
+    Start-Sleep 1.1
+	}
+     $i++}
+}
