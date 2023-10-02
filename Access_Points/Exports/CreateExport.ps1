@@ -30,8 +30,6 @@ $perfMode = "no_wdelay"
 $secOptions = "sys"
 
 #end variables
-#build credentials for later use
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #function for error
 function Failure {
