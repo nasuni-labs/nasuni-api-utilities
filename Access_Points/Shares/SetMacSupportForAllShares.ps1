@@ -3,9 +3,9 @@
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
   
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required). Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
 
 #Enable Mac Support - set to True to enable Mac Support; False to disable
 $FruitEnabled = "True"
@@ -14,9 +14,6 @@ $FruitEnabled = "True"
 $limit = 1000
 
 #end variables
-
-#build credentials
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #Connect to the List all shares for filer NMC API endpoint
 $url="https://"+$hostname+"/api/v1.1/volumes/filers/shares/?limit="+$limit+"&offset=0"
@@ -54,12 +51,8 @@ $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
  
-#construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-  
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
 #Build json body for share update
