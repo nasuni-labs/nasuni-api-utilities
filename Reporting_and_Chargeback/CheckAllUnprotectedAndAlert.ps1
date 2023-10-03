@@ -3,15 +3,14 @@
 #populate NMC hostname and credentials
 $hostname = "insertNMChostnameHere"
 
-#username format - Native account, use the account name. Domain account, use the UPN
-$username = "username"
-$password = 'password'
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
 
 #number of days to wait on unprotected data growth before alerting
 $DayAlertValue = 3
 
-#SendEmailTime accepted values are 1-24, indicating hour to send email
+#SendEmailTime accepted values are 1-24, indicating the hour to send the email
 $SendEmailTime = 9
 
 #Email Parameters
@@ -32,7 +31,7 @@ $limit = 1000
 $Now = Get-Date -UFormat "%m/%d/%Y %R %Z"
 $NowHour = Get-Date -Format "HH" $Now
 
-#Request token and build connection headers
+#Build connection headers
 # Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
 {
@@ -65,13 +64,9 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-
-#construct Uri for login
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+ 
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
 #List volumes using the NMC API
