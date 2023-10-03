@@ -3,9 +3,9 @@
 #populate NMC hostname and credentials
 $hostname = "insertHostname"
 
-#username format - Native account, use the account name. Domain account, use the UPN
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
 
 #path to CSV
 $reportFile = "c:\export\IngestReport.csv"
@@ -14,8 +14,6 @@ $reportFile = "c:\export\IngestReport.csv"
 $limit = 200
 
 #end variables
-#build credentials
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
 
 #Request token and build connection headers
 # Allow untrusted SSL certs
@@ -50,20 +48,16 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
-
-#construct Uri
-$url="https://"+$hostname+"/api/v1.1/auth/login/"
-
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+ 
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
 #List up to the number of volumes set in the limit
 $url="https://"+$hostname+"/api/v1.1/volumes/?limit="+$limit+"&offset=0"
 $getinfo = Invoke-RestMethod -Uri $url -Method Get -Headers $headers
 
-#initialize csv output file
+#Initialize CSV output file
 $csvHeader = "volume_name,volume_guid,filer_description,filer_serial_number,accessible data,unprotected data,last_snapshot_time,last_snapshot_version"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 
