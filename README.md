@@ -387,7 +387,7 @@ Use these NMC API scripts to help with reporting and chargeback.
 
 ## Recharge tracking/Volume Details
 This script can be a starting point for billing and recharge reporting. This script example provides a report of all volumes in an account.\
-**Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
+**Required Inputs**: NMC hostname, tokenFile, reportfile (path to the CSV output file)\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, provider\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Does not work correctly if there is a disconnected volume in the account.\
@@ -395,7 +395,7 @@ This script can be a starting point for billing and recharge reporting. This scr
 
 ## Show Ingest Progress
 This script can be used to track the progress of data ingestion or data growth. This script provides a report of all volumes in an account and the amount of accessible data alongside unprotected data on each Edge Appliance, the last snapshot time, and the last snapshot version. Run this daily and compare results to get data for ingest trending or data growth.\
-**Required Inputs**: NMC hostname, username, password, reportfile (path to the CSV output file)\
+**Required Inputs**: NMC hostname, tokenFile, reportfile (path to the CSV output file)\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: It might not work correctly if there is a disconnected volume in the account. \
@@ -403,14 +403,14 @@ This script can be used to track the progress of data ingestion or data growth. 
 
 ## Volume Unprotected Data Alert
 Customers can use this script to monitor all Edge Appliances connected to a volume for unprotected data that exceeds a user-configured threshold. Once this is exceeded, an email to the administrator is generated. This is designed to be run as a Windows scheduled task and can be run as frequently as every 10 minutes. Requires an SMTP server for email alerting.\
-**Required Inputs**: NMC hostname, username, password, volume_guid, recipients, from, SMTPserver, port, subject, body\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, recipients, from, SMTPserver, port, subject, body\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s) and amount of unprotected data for the Edge Appliance.\
 **Name**: VolumeUnprotectedDataAlert.ps1
 
 ## Export Full Path Info for the Provided List of Paths to CSV
 Export all path information for the inputs specified in the CSV to a new CSV output file.\
-**Required Inputs**: NMC hostname, username, password, csvInputPath, csvOutputPath, limit\
+**Required Inputs**: NMC hostname, tokenFile, csvInputPath, csvOutputPath, limit\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Input CSV content**:\
 Header: Volume_GUID,filer_serial_number,path\
@@ -421,7 +421,7 @@ Additonal lines containing that info for each path to list. Use backslashes (\) 
 
 ## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares with full path info, including current sizes, and exports the results to a CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile, limit, RetryLimit, Delay\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit, RetryLimit, Delay\
 **Required NMC Permissions**:
 * NMC API Access
 * Filer Permissions: Manage Shares, Exports, FTP and ISCSI
@@ -468,20 +468,20 @@ Get the size of subfolders within a path using the NMC API and export the result
 
 ## Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
-**Required Inputs**: NMC hostname, username, password, reportFile\
+**Required Inputs**: NMC hostname, tokenFile, reportFile\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: ExportAntivirusViolationsToCSV.ps1
 
 ## Export QoS Settings for all Edge Appliances
 This script uses the NMC API to read the QoS settings for all NMC-managed Edge Appliances and export them to a CSV.\
-**Required Inputs**: NMC hostname, username, password, limit, report_file\
+**Required Inputs**: NMC hostname, tokenFile, limit, report_file\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Setting QoS via the NMC API is not currently implemented and is in the backlog for the NMC.\
 **Name**: ExportQoSForAllFilers.ps1
 
 ## Unprotected Data Alert
 Customers can use this script to monitor all Edge Appliances and all Volumes for unprotected data that does not decrease after a user-specified time. Once this is exceeded, an email to the administrator is generated once daily at the time the user specifies. Results are also logged to an output file that is compared against the current status from the NMC API to determine if unprotected data is growing. This is designed to be run as a Windows scheduled task and could be run as frequently as every hour but should be run at least once daily. Requires an SMTP server for email alerting.\
-**Required Inputs**: NMC hostname, username, password, DayAlertValue, SendEmailTime, recipients, from, SMTP server, port, subject, body, ReportFileOrig\
+**Required Inputs**: NMC hostname, tokenFile, DayAlertValue, SendEmailTime, recipients, from, SMTP server, port, subject, body, ReportFileOrig\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s), volume(s), and amount of unprotected data for each Edge Appliance and Volume.\
 **Name**: CheckAllUnprotectedAndAlert.ps1
