@@ -567,12 +567,13 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 **Name**: UpdateCloudCredentials.ps1
 
 ## Get Message
-This script gives you an example using the message ID to look up the status of an action. The NMC is an asynchronous API and POST or UPDATE actions you initiate with the NMC API will return a “pending” status along with an ID that you can then check to see the status of the request once it has been processed. The screenshot below is the result of a POST request to the NMC API. The red box is the message ID you will use for the messageID in the script. The green box gives you the full URL to the messages NMC API endpoint, including the ID.\
+This script gives you an example using the message ID to look up the status of an action. The NMC is an asynchronous API, and POST or UPDATE actions you initiate with the NMC API will return a “pending” status along with an ID that you can then check to see the status of the request once it has been processed. The screenshot below results from a POST request to the NMC API. The red box is the message ID you will use for the messageID in the script. The green box gives you the full URL to the messages NMC API endpoint, including the ID.\
 **NMC API Endpoint Used**: [Get Message](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1%7Bmessage_id%7D~1/get/#tag/Messages/paths/~1messages~1{message_id}~1/get) \
 **Required Inputs**: NMC hostname, username, messageID\
 **Output**: The example below is of a message for an action that failed. A successful message will show “synced” as the status.\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: GetMessage.ps1
+![GetMessageOutput](/Operations/GetMessage.PNG)
 
 ## Export Edge Appliance Volume Settings to CSV
 This script exports all Edge Appliance settings applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud-to-cloud migration. The script exports the following settings and logs them to the listed file name:
