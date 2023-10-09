@@ -573,7 +573,8 @@ This script gives you an example using the message ID to look up the status of a
 **Output**: The example below is of a message for an action that failed. A successful message will show “synced” as the status.\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: GetMessage.ps1
-![GetMessageOutput](/Operations/GetMessage.PNG)
+
+![GetMessageOutput](/Operations/GetMessage.png)
 
 ## Export Edge Appliance Volume Settings to CSV
 This script exports all Edge Appliance settings applied on a per-Volume/per-Edge Appliance basis to CSV. The output of these scripts can be used as a reference for updating or validating settings when detaching and re-attaching volumes during cloud-to-cloud migration. The script exports the following settings and logs them to the listed file name:
