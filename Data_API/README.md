@@ -1,5 +1,5 @@
 # Data API Examples
-Utilities and scripts that use the Nasuni API to perform operations and generate reports
+Utilities and scripts that use the Nasuni Data API (different from the NMC API) to perform operations and generate reports
 
 # Support Statement
 
@@ -34,14 +34,14 @@ PowerShell NMC API Scripts for working with access points. Access points include
 ## Request a Token (PowerShell)
 Validates Nasuni Data API connectivity and obtains a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution is successful and writes the encoded token to the specified path.\
 **Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, deviceID, deviceType\
-**Name**: GetToken.ps1
+**Name**: DataAPI-GetToken.ps1
 
 ## List Folder Contents (PowerShell)
 This script loads the encoded credentials from the specified file path and then connects to the Get Items endpoint to return a listing of directory contents for the specified directory. The script writes the directory listing to the console.\
 **Required Inputs**: Edge Appliance hostname, username, password, dataTokenFile, folderPath\
-**Name**: ListFolderContents.ps1
+**Name**: DataAPI-ListFolderContents.ps1
 
 ## Request a Token and Get File Info (Bash)
 Validates Nasuni Data API connectivity using curl and obtain a token that can be used with other Nasuni Data API endpoints. The script writes the token to the console if execution succeeds and gets info for the specified file.\
 **Required Inputs**: Edge Appliance hostname, username, password, filepath\
-**Name**: GetTokenAndFileInfo.sh
+**Name**: DataAPI-GetTokenAndFileInfo.sh
