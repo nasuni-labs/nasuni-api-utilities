@@ -1,4 +1,4 @@
-#Request a Nasuni Data API token and store the output in the the specified file
+#Request a Nasuni Data API token and store the output in the specified file
     
 #populate Edge Appliance hostname
 $hostname = "InsertEdgeApplianceHostname"
