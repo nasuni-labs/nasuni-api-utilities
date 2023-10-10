@@ -23,25 +23,25 @@ Both native and domain accounts are supported for NMC API authentication (SSO ac
 This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful and outputs the token to the path specified in the tokenFile variable to be used for authentication for subsequent scripts. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
 **Required Inputs**: NMC hostname, username, password, tokenFile\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: GetToken.ps1
+**Name**: [/API_Basics/GetToken.ps1](/API_Basics/GetToken.ps1)
 
 ## Request a Token - Prompt for Credentials
 It works the same way as the "Request a Token" script but prompts the user for credentials using PowerShell's Get-Credential cmdlet rather than relying on hardcoded credentials in the script. \
 **Required Inputs**: NMC hostname, tokenFile\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: GetTokenCredPrompt.ps1
+**Name**: [/API_Basics/GetTokenCredPrompt.ps1](/API_Basics/GetTokenCredPrompt.ps1)
 
 ## Better Error Handling
 PowerShell's Invoke-RestMethod cmdlet only includes basic error handling by default, returning messages such as "400 Error Bad Request", while suppressing the full error message from the API endpoint. Fortunately, there is a way to get verbose error messages by using try/catch with Invoke-RestMethod and calling a function in case of an error. PowerShell 6+ and PowerShell core support a newer method for error handling, while older versions of PowerShell require GetResponseStream to capture errors. This script checks the PowerShell version to determine which method to use.
 
 The code snippet below can be used as an example for modifying the PowerShell code examples. You should add the function (lines 1-13) to your script before referencing it since functions must be defined before calling them in PowerShell. Line 15 of this script is an example of using try/catch with a command and should not be directly copied to your script since the variable names will not match. Instead, modify the Invoke-RestMethod line of the script that you would like to get better errors for by adding "try" and the matching open and close curly braces followed by the "catch" command and "Failure" within curly braces.\
-**Name**: BetterErrorHandling.ps1
+**Name**: [/API_Basics/BetterErrorHandling.ps1](/API_Basics/BetterErrorHandling.ps1)
 
 ## Allow Untrusted SSL Certificates
 A valid SSL certificate for the NMC is a best practice, but test/dev or new environments might not have a valid SSL certificate. Fortunately, there's a way to skip SSL certificate checks, which is included in most of our PowerShell examples. You can remove this code block from the provided examples if you have a valid SSL certificate for your NMC.
 
 If you are using PowerShell 6 or higher, the Invoke-RestMethod cmdlet natively includes a “-SkipCertificateCheck” option, and this script changes the default for the Invoke-RestMethod cmdlet to skip certificate checks. Versions of PowerShell before version 6 and PowerShell core do not support a “-SkipCertificateCheck” option and must rely on the .Net subsystem to disable certificate checks.\
-**Name**: AllowUntrustedSSLCerts.ps1
+**Name**: [/API_Basics/AllowUntrustedSSLCerts.ps1](/API_Basics/AllowUntrustedSSLCerts.ps1)
 
 ## Avoid NMC API Throttling
 Beginning with version 8.5, NMC API endpoints are throttled to preserve NMC performance and stability. NMC API endpoints are generally limited to 5 requests per second for "Get" actions and 1 request per second for "Post", "Update", or "Delete" actions. Nasuni recommends adding "sleep" or "wait" steps to existing API integrations to avoid exceeding the throttling defaults. The PowerShell Start-Sleep cmdlet can be used inside of your scripts to limit the speed of PowerShell Execution and to avoid throttling limits. For example, this command will pause execution for 1.1 seconds:
@@ -88,14 +88,14 @@ Uses PowerShell to create a share by referencing an existing volume, Edge Applia
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, ShareName, Path\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt\
-**Name**: CreateShare.ps1
+**Name**: [/Access_Points/Shares/CreateShare.ps1](/Access_Points/Shares/CreateShare.ps1)
 
 ### Export All Shares and Settings to CSV
 Uses PowerShell to export a list of all shares and configured share settings to a CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit (preset to 1000 shares, but can be increased)\
 **Output CSV content**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
-**Name**: ExportAllSharesToCSV.ps1
+**Name**: [/Access_Points/Shares/ExportAllSharesToCSV.ps1](/Access_Points/Shares/ExportAllSharesToCSV.ps1)
 
 ### Bulk Share Creation
 These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.\
@@ -108,11 +108,11 @@ Uses CSV input to create shares. We recommend manually creating several shares a
 **Variants**: This script has two variants: One with no input filtering and one that prompts for the filer serial and volume GUID to match.
 *   Variant 1: No input filtering (all shares in the CSV get created).
     - **Required Inputs**: hostname, tokenFile, csvPath
-    - **Name**: CreateSharesFromCSV-NoFilter.ps1
+    - **Name**: [/Access_Points/Shares/CreateSharesFromCSV-NoFilter.ps1](/Access_Points/Shares/CreateSharesFromCSV-NoFilter.ps1)
 *   Variant 2: Only CSV entries that match the supplied Filer Serial and Volume Guid get created.
     - **Required Inputs**: hostname, tokenFile, csvPath, matchFilerSN
     - **Optional Inputs**: matchVolumeGuid
-    - **Name**: CreateSharesFromCSV-WithFilter.ps1
+    - **Name**: [/Access_Points/Shares/CreateSharesFromCSV-WithFilter.ps1](/Access_Points/Shares/CreateSharesFromCSV-WithFilter.ps1)
 
 #### Step 2 - Export Shares to CSV (optional)
 use the "ExportAllSharesToCSV.ps1" script (documented above) to export all the shares you created to CSV.
@@ -120,46 +120,52 @@ use the "ExportAllSharesToCSV.ps1" script (documented above) to export all the s
 #### Step 3 - Update Share Permissions (optional)
 All share properties, including share permissions, can be set upon share creation. If you choose to implement share permissions during a bulk process, we recommend using a multi-step process with verification at each step since share permissions are very complex to implement. Note: While Nasuni supports share permissions, Nasuni recommends exclusively using NTFS permissions where possible. In most use cases, share permissions are not necessary. Our Permissions Best Practices Guide has more information about NTFS and Share permissions usage.
 
-Reads share information from a CSV file (starting from step 2 export is recommended) and uses the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
+Reads share information from a CSV file (starting from step 2 export is recommended) and uses the input to update share permissions for each share. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain groups or usernames should use this format: DOMAIN\sAMAccountName.\
 **Required Inputs**:  hostname, tokenFile, csvPath\
 **CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups\
 The filer_name, volume_name, share_name, path, comments, readonly, and browseable columns are ignored during import but must be present.\
-**Name**: UpdateSharePermissions.ps1, UpdateSharePermissions-Sample.csv
+**Name**: [/Access_Points/Shares/UpdateSharePermissions.ps1](/Access_Points/Shares/UpdateSharePermissions.ps1), [/Access_Points/Shares/UpdateSharePermissions-Sample.csv](/Access_Points/Shares/UpdateSharePermissions-Sample.csv)
 
 ### Set All Shares on an Edge Appliance to Read Only
 This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to set the shares to Read Only. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
 **Required Inputs**: NMC hostname, tokenFile, Filer Serial, limit (set to 1000 by default)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
-**Name**: SetFilerSharesToReadOnly.ps1
+**Name**: [/Access_Points/Shares/SetFilerSharesToReadOnly.ps1](/Access_Points/Shares/SetFilerSharesToReadOnly.ps1)
 
 ### Set Previous Versions for all Shares
 This script uses the NMC API to list all shares, check to see if previous versions are enabled, and update the share properties for each share without previous versions support so that previous versions support is enabled. It can also be used to disable previous versions support for all shares. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
 **Required Inputs**: NMC hostname, tokenFile, PreviousVersions (True/False)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
-**Name**: SetPreviousVersionsForAllShares.ps1
+**Name**: [/Access_Points/Shares/SetPreviousVersionsForAllShares.ps1](/Access_Points/Shares/SetPreviousVersionsForAllShares.ps1)
 
 ### Set block files for all shares on an Edge Appliance
 This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to match the supplied value for block files. The list of blocked files should be comma-separated.\
 **Required Inputs**: NMC hostname, tokenFile, FilerSerial, BlockFiles\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
-**Name**: SetBlockFilesForAllSharesOnaFiler.ps1
+**Name**: [/Access_Points/Shares/SetBlockFilesForAllSharesOnaFiler.ps1](/Access_Points/Shares/SetBlockFilesForAllSharesOnaFiler.ps1)
 
 ### Set hide unreadable for all shares
 This script uses the NMC API to list all shares and update the share properties for each share to match the supplied value for hide unreadable files.\
 **Required Inputs**: NMC hostname, tokenFile, hide_unreadable, limit\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
-**Name**: SetHideUnreadableForAllShares.ps1
+**Name**: [/Access_Points/Shares/SetHideUnreadableForAllShares.ps1](/Access_Points/Shares/SetHideUnreadableForAllShares.ps1)
+
+### Set Mac Support for all Shares
+This script uses the NMC API to list all shares, check for shares with or without Mac support, and update those shares to the desired Mac support setting. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
+**Required Inputs**: NMC hostname, tokenFile, FruitEnabled (True/False)\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Name**: [/Access_Points/Shares/SetMacSupportForAllShares.ps1](/Access_Points/Shares/SetMacSupportForAllShares.ps1)
 
 ### Delete a Share
 Deletes the specified share. Share must be referenced by share_id. Share_id can be obtained by using the [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) endpoint. \
 **NMC API Endpoint Used**: [Delete a share](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1shares~1%7Bshare_id%7D~1/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1shares~1{share_id}~1/delete) \
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, share_id\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Name**: DeleteShare.ps1
+**Name**: [/Access_Points/Shares/DeleteShare.ps1](/Access_Points/Shares/DeleteShare.ps1)
 
 ### List Shares
 Lists shares for an account and exports results to the PowerShell console.\
@@ -167,34 +173,28 @@ Lists shares for an account and exports results to the PowerShell console.\
 **Required Inputs**: NMC hostname, tokenFile, limit (number of shares to list)\
 **Output**: shareid, Volume_GUID,filer_serial_number, share_name, path, comment, readonly, browseable, authall, ro_users, rw_users, ro_groups, rw_groups, hosts_allow, hide_unreadable, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ListShares.ps1
+**Name**: [/Access_Points/Shares/ListShares.ps1](/Access_Points/Shares/ListShares.ps1)
 
 ### Export CIFS Locks to CSV
 Uses PowerShell to list CIFS locks for the specified Edge Appliance and exports the results to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, reportFile, limit, nmcApiVersion\
 **Output**: type, ip_address, hostname, share_id, path, user\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
-**Name**: ExportCifsLocksToCSV.ps1
-
-### Set Mac Support for all Shares
-This script uses the NMC API to list all shares, check for shares with or without Mac support, and update those shares to the desired Mac support setting. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
-**Required Inputs**: NMC hostname, tokenFile, FruitEnabled (True/False)\
-**Compatibility**: Nasuni 8.0 or higher required\
-**Name**: SetMacSupportForAllShares.ps1
+**Name**: [/Access_Points/Shares/ExportCifsLocksToCSV.ps1](/Access_Points/Shares/ExportCifsLocksToCSV.ps1)
 
 ### Export CIFS Clients to CSV
 Uses PowerShell to list CIFS clients for all Edge Appliance and exports the results to CSV. \
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit, nmcApiVersion\
 **Output**: Edge Appliance Serial Number, User Name, Client_Name, Share ID (one line for each connected client)\
 **Compatibility**: NMC API Version 1.2 (NMC 22.2 and higher), NMC API Version 1.1 (NMC 22.1 and older)\
-**Name**: ExportCifsClientsToCSV.ps1
+**Name**: [/Access_Points/Shares/ExportCifsClientsToCSV.ps1](/Access_Points/Shares/ExportCifsClientsToCSV.ps1)
 
 ### Replicate Shares from Source to Destination Edge Appliance
 This script uses the NMC API to list all shares for source Edge Appliance, compare a listing of those shares on the destination Edge Appliance, and create the missing shares on the destination. Shares for volumes that are not owned or connected to the destination Edge Appliance are skipped. All share settings are copied from the source to the destination. Shares that are already present on the destination are kept the same.\
 **Required Inputs**: NMC hostname, tokenFile, SourceFilerSerialNumber, DestinationFilerSerialNumber\
 **Compatibility**: Nasuni 8.0 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Known Issues**: none\
-**Name**: ReplicateMissingShares.ps1
+**Name**: [/Access_Points/Shares/ReplicateMissingShares.ps1](/Access_Points/Shares/ReplicateMissingShares.ps1)
 
 ## NFS Exports
 ### Create an Export
@@ -202,53 +202,53 @@ Uses PowerShell to create an NFS Export by referencing an existing volume, Edge 
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, exportName, Path\
 **Compatibility**: NMC 21.2 or higher required\
 **Optional Inputs**: comment, readonly, hostspec, accessMode, perfMode, secOptions\
-**Name**: CreateExport.ps1
+**Name**: [/Access_Points/Exports/CreateExport.ps1](/Access_Points/Exports/CreateExport.ps1)
 
 ### Update an Export
 Uses PowerShell to update an NFS Export. You can use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id for an existing export. \
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, export_id, comment, readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
-**Name**: UpdateExport.ps1
+**Name**: [/Access_Points/Exports/UpdateExport.ps1](/Access_Points/Exports/UpdateExport.ps1)
 
 ### Update Access Mode for All Exports
 Uses PowerShell to update the access mode for all exports.\
 **Required Inputs**: NMC hostname, tokenFile, accessMode, limit\
 **Compatibility**: NMC 21.2 or higher required\
-**Name**: UpdateAccessModeForAllExports.ps1
+**Name**: [/Access_Points/Exports/UpdateAccessModeForAllExports.ps1](/Access_Points/Exports/UpdateAccessModeForAllExports.ps1)
 
 ### Create an Export Host Option
 Uses PowerShell to add a host option to an existing NFS export. You can use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id for an existing export. \
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, export_id,readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
-**Name**: CreateExportHostOption.ps1
+**Name**: [/Access_Points/Exports/CreateExportHostOption.ps1](/Access_Points/Exports/CreateExportHostOption.ps1)
 
 ### Update Export Host Option
 Uses PowerShell to update an existing host option for an NFS export. Use the list exports NMC API endpoint or the ExportAllNFSExportsToCSV script to obtain the export_id and host_option_id. \
 **Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, export_id, host_option_id, readonly, hostspec, accessMode, perfMode, secOptions\
 **Compatibility**: NMC 21.2 or higher required\
 **Notes**: The host option ID will change after updating NFS host options. Perform a new listing of exports/IDs before subsequent host options updates.\
-**Name**: UpdateExportHostOption.ps1
+**Name**: [/Access_Points/Exports/UpdateExportHostOption.ps1](/Access_Points/Exports/UpdateExportHostOption.ps1)
 
 ### Export All NFS Exports and Settings to CSV
 Uses PowerShell to export all NFS exports and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit (preset to 1000 exports, but can be increased)\
 **Output CSV content**: exportId,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
-**Name**: ExportAllNFSExportsToCSV.ps1
+**Name**: [/Access_Points/Exports/ExportAllNFSExportsToCSV.ps1](/Access_Points/Exports/ExportAllNFSExportsToCSV.ps1)
 
 ### Create Exports From CSV
 Uses CSV input to create exports. We recommend manually creating several exports along with desired settings and then use the ExportAllNFSExportsToCSV.ps1 script to output a CSV. Use the exported CSV as template for creating additional exports. The exportId and nfs_hosts_options columns are ignored during import but must be present. Allowed hosts supports multiple entries--use a semicolon to separate entries.\
 **Required Inputs**: hostname, tokenFile, csvPath\
 **Compatibility**: Nasuni 21.2 or higher required\
 **CSV Contents**: exportID,Volume_GUID,filer_serial_number,export_name,path,comment,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
-**Name**: CreateExportsFromCSV.ps1
+**Name**: [/Access_Points/Exports/CreateExportsFromCSV.ps1](/Access_Points/Exports/CreateExportsFromCSV.ps1)
 
 ### Create Export Host Options From CSV
 Uses CSV input to create new host options for existing exports. We recommend manually creating several exports with host options and then using the ExportAllNFSExportsToCSV.ps1 script to output a CSV. Use the exported CSV as a reference when creating a new host options CSV import file. Allowed hosts supports multiple entries--use a semicolon to separate entries.\
 **Required Inputs**: hostname, tokenFile, csvPath, limit\
 **Compatibility**: Nasuni 21.2 or higher required\
 **CSV Contents**: filer_serial_number,export_name,readonly,allowed_hosts,access_mode,perf_mode,sec_options,nfs_host_options\
-**Name**: CreateExportHostOptionsFromCSV.ps1
+**Name**: [/Access_Points/Exports/CreateExportHostOptionsFromCSV.ps1](/Access_Points/Exports/CreateExportHostOptionsFromCSV.ps1)
 
 ## FTP Directories
 ### Export All FTP Directories and Settings to CSV
@@ -256,7 +256,7 @@ Uses PowerShell to export all FTP directories and configurable settings to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit (preset to 1000 FTP directories, but can be increased)\
 **Output CSV content**: FtpId,Volume_GUID,filer_serial_number,ftp_name,path,comment,readonly,visibility,ip_restrictions,allowed_users,allowed_groups,allow_anonymous,anonymous_only,Permissions_on_new_files,hide_ownership,use_temporary_files_during_upload\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
-**Name**: ExportAllFtpDirectoriesToCSV.ps1
+**Name**: [/Access_Points/FTP_Directories/ExportAllFtpDirectoriesToCSV.ps1](/Access_Points/FTP_Directories/ExportAllFtpDirectoriesToCSV.ps1)
 
 # Quotas
 PowerShell NMC API scripts to work with quotas.
