@@ -14,6 +14,9 @@ $reportFile = "c:\export\ShareInfo.csv"
 $filer_serial = "InsertFilerSerialHere"
 $volume_guid = "InsertVolumeGuidHere"
 
+#Number of shares to return
+$limit = 1000
+
 #end variables
 
 #Request token and build connection headers
@@ -55,9 +58,8 @@ $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
 #Connect to the List all shares for filer NMC API endpoint
-$url="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/shares/"
+$url="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/shares/?limit=" + $limit + "&offset=0"
 
-#List volumes
 $FormatEnumerationLimit=-1
 $getinfo = Invoke-RestMethod -Uri $url -Method Get -Headers $headers
 
