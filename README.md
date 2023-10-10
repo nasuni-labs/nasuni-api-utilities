@@ -266,20 +266,20 @@ This script uses the NMC API to set a quota for the given path on the specified 
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, path, quota amount, email\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: Quotas cannot be configured for a path with a quota configured at a lower level.\
-**Name**: SetQuota.ps1
+**Name**: [/Quotas/SetQuota.ps1](/Quotas/SetQuota.ps1)
 
 ## Update Folder Quota
 This script uses the NMC API to update an existing folder quota. The script lists all existing quotas to find the corresponding Quota ID and references it to update the existing quota.\
 **Required Inputs**: NMC hostname, tokenFile, path, quota amount\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Name**: UpdateQuota.ps1
+**Name**: [/Quotas/UpdateQuota.ps1](/Quotas/UpdateQuota.ps1)
 
 ## Export Folder Quotas to CSV
 Exports folder quotas and rules to CSV\
 **Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: Quota ID, VolumeGuid, FilerSerial, Path, Quota Type, Quota Limit, Quota Usage, Email\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportFolderQuotasToCSV.ps1
+**Name**: [/Quotas/ExportFolderQuotasToCSV.ps1](/Quotas/ExportFolderQuotasToCSV.ps1)
 
 # Paths
 ## Working With Paths
@@ -302,7 +302,7 @@ This script uses the NMC API to get info for the specified path. It first calls 
 
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path - The path should start with a "/" and is the path as displayed in the volume file browser and is not related to the share path--it should start at the volume root. Path is case sensitive.\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: GetPathInfo.ps1, GetPathInfo.png
+**Name**: [/Paths/GetPathInfo.ps1](/Paths/GetPathInfo.ps1)
 
 ![GetPathInfoOutput](/Paths/GetPathInfo.PNG)
 
@@ -311,21 +311,21 @@ This script uses the NMC API to bring the specified path into cache. By default,
 **NMC API Endpoint Used**: [Bring Path Into Cache](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1cache-path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1cache-path~1{path}/post) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path, metadata only, force\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: BringPathIntoCache.ps1
+**Name**: [/Paths/BringPathIntoCache.ps1](/Paths/BringPathIntoCache.ps1)
 
 ## Set Pinning for a Path
 This script uses the NMC API to configure pinning for the specified volume path and Edge Appliance. Can be used to configure the pinning of metadata and data or metadata only.\
 **NMC API Endpoint Used**: [Set Pinning Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1pinned-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1pinned-folders~1/post) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: SetPinning.ps1
+**Name**: [/Paths/SetPinning.ps1](/Paths/SetPinning.ps1)
 
 ## Set Auto Cache for a Path
 This script uses the NMC API to configure Auto Cache for the specified volume path and Edge Appliance. Can be used to configure the Auto Cache of metadata and data or metadata only.\
 **NMC API Endpoint Used**: [Set Auto Caching Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1auto-cached-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1auto-cached-folders~1/post) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path, mode (metadata_and_data, metadata)\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: SetAutoCache.ps1
+**Name**: [/Paths/SetAutoCache.ps1](/Paths/SetAutoCache.ps1)
 
 ## Set Global File Lock and Mode for a Path
 This script uses the NMC API to set Global File Lock and mode for the specified path. Since GFL cannot be set while snapshots are running, the script includes a retry delay and retry limit that will automatically retry setting GFL. The script will return an error when setting GFL if the path is invalid (paths are case sensitive.\
@@ -333,7 +333,7 @@ This script uses the NMC API to set Global File Lock and mode for the specified 
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, path, mode, RetryLimit, RetryDelay.\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Disabling GFL is not currently supported via NMC API.\
-**Name**: SetGFLandMode.ps1
+**Name**: [/Paths/SetGFLandMode.ps1](/Paths/SetGFLandMode.ps1)
 
 ## Set Global File Lock and Mode for Multiple Paths
 This script uses the NMC API to enable Global File Lock with the specified paths.\
@@ -341,7 +341,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshot contention, but that could be added.\
-**Name**: SetGFLandModeForMultiplePaths.ps1
+**Name**: [/Paths/SetGFLandModeForMultiplePaths.ps1](/Paths/SetGFLandModeForMultiplePaths.ps1)
 
 ## Create Folder
 This script uses the NMC API to create a folder using the provided volume path on the specified volume and Edge Appliance. The volume path is the path to the folder from the volume's root and does not include the SMB share or NFS export name.
@@ -350,21 +350,21 @@ This script uses the NMC API to create a folder using the provided volume path o
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Folders created are owned by the root POSIX user and do not include NTFS permissions. NTFS permissions must be applied before the folder is visible on NTFS Exclusive volumes.\
-**Name**: CreateFolder.ps1
+**Name**: [/Paths/CreateFolder.ps1](/Paths/CreateFolder.ps1)
 
 ## Disable Pinning for a Path
 This script uses the NMC API to disable pinning for the specified volume path and Edge Appliance.\
 **NMC API Endpoint Used**: [Disable Pinning Mode on a Folder](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1pinned-folder~1%7Bpath%7D/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1pinned-folder~1{path}/delete) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: DisablePinning.ps1
+**Name**: [/Paths/DisablePinning.ps1](/Paths/DisablePinning.ps1)
 
 ## Disable Auto Cache for a Path
 This script uses the NMC API to disable Auto Cache for the specified volume path and Edge Appliance.\
 **NMC API Endpoint Used**: [Disable Auto Cache Mode](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1auto-cached-folder~1%7Bpath%7D/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1auto-cached-folder~1{path}/delete) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial, path \
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: DisableAutocache.ps1
+**Name**: [/Paths/DisableAutoCache.ps1](/Paths/DisableAutoCache.ps1)
 
 ## Export Auto Cache Folders to CSV
 Exports a list of Auto Cache-enabled folders to CSV.\
@@ -372,7 +372,7 @@ Exports a list of Auto Cache-enabled folders to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: volume_guid, filer_serial_number, path, autocache mode\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportAutoCacheFoldersToCSV.ps1
+**Name**: [/Paths/ExportAutoCacheFoldersToCSV.ps1](/Paths/ExportAutoCacheFoldersToCSV.ps1)
 
 ## Export Pinned Folders to CSV
 Exports a list of pinned folders to CSV.\
@@ -380,7 +380,7 @@ Exports a list of pinned folders to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: volume_guid, filer_serial_number, path, pinning mode\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportPinnedFoldersToCSV.ps1
+**Name**: [/Paths/ExportPinnedFoldersToCSV.ps1](/Paths/ExportPinnedFoldersToCSV.ps1)
 
 # Reporting and Chargeback
 Use these NMC API scripts to help with reporting and chargeback.
