@@ -211,7 +211,7 @@ Uses PowerShell to update an NFS Export. You can use the list exports NMC API en
 **Name**: [/Access_Points/Exports/UpdateExport.ps1](/Access_Points/Exports/UpdateExport.ps1)
 
 ### Update Access Mode for All Exports
-Uses PowerShell to update the access mode for all exports.\
+Uses PowerShell to update the access mode for all exports. Allowed access modes: root_squash (default), no_root_squash (All Users Permitted), all_squash (Anonymize All Users)\
 **Required Inputs**: NMC hostname, tokenFile, accessMode, limit\
 **Compatibility**: NMC 21.2 or higher required\
 **Name**: [/Access_Points/Exports/UpdateAccessModeForAllExports.ps1](/Access_Points/Exports/UpdateAccessModeForAllExports.ps1)
@@ -645,6 +645,14 @@ Misleading terminology: The create volume API has an option that misleadingly re
 
 Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a credential to use with the create volume NMC API endpoint.\
 **Name**: [/Volumes/CreateVolume.ps1](/Volumes/CreateVolume.ps1)
+
+
+## Set Volume Remote Access
+Set Remote Access for a Volume.\
+**NMC API Endpoint Used**: [Update Volume](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1/patch/)\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, remoteAccessEnabled, remoteAccessPermissions\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Name**: [/Volumes/SetVolumeRemoteAccess.ps1](/Volumes/SetVolumeRemoteAccess.ps1)
 
 ## List Volumes
 Lists volumes for an account and exports results to the console.\
