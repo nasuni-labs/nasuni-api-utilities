@@ -1,9 +1,10 @@
-#Loads the data API token from disk and lists the contents of the supplied directory
+<# Loads the data API token (different from the NMC API) from disk and lists the contents of the supplied directory
+Nasuni Data API: http://b.link/Nasuni_API_Documentation  #>
     
 #populate Edge Appliance hostname
 $hostname = "InsertEdgeApplianceHostname"
  
-#Path to token input file
+#Path to the token input file
 $dataTokenFile = "c:\nasuni\dataToken.txt"
   
 #path to list - path to list - path is case sensitive and includes the share name followed by the path, separated using forward slashes (/)
