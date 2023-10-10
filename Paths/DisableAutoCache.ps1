@@ -1,5 +1,5 @@
-# Disables autocache for the specified volume path and Edge Appliance.
-# Uses the Disable Auto Cache Mode Endpoint - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#disable-auto-cache-mode-on-a-folder
+<# Disables Auto Cache for the specified volume path and Edge Appliance.
+Uses the Disable Auto Cache Mode Endpoint - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#disable-auto-cache-mode-on-a-folder #>
    
 # populate NMC hostname and credentials
 $hostname = "insertNMChostnameHere"
