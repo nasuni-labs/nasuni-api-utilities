@@ -10,7 +10,7 @@ $tokenFile = "c:\nasuni\token.txt"
 $volume_guid = "insertVolumeGuid"
 
 #Remote Access settings
-#Enable Auditing - True/False
+#Enable Remote Access - True/False
 $remoteAccessEnabled = "True"
 #Remote Access Permissions: readwrite (all have RW access), readonly (all have R access), custom (requires per Edge Appliance settings and further script development)
 $remoteAccessPermissions = "readwrite"
