@@ -391,7 +391,7 @@ This script can be a starting point for billing and recharge reporting. This scr
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, provider\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Does not work correctly if there is a disconnected volume in the account.\
-**Name**: ExportVolumeDetailToCSV.ps1
+**Name**: [/Reporting_and_Chargeback/ExportVolumeDetailToCSV.ps1](/Reporting_and_Chargeback/ExportVolumeDetailToCSV.ps1)
 
 ## Show Ingest Progress
 This script can be used to track the progress of data ingestion or data growth. This script provides a report of all volumes in an account and the amount of accessible data alongside unprotected data on each Edge Appliance, the last snapshot time, and the last snapshot version. Run this daily and compare results to get data for ingest trending or data growth.\
@@ -399,14 +399,14 @@ This script can be used to track the progress of data ingestion or data growth. 
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: It might not work correctly if there is a disconnected volume in the account. \
-**Name**: ShowIngestProgress.ps1
+**Name**: [/Reporting_and_Chargeback/ShowIngestProgress.ps1](/Reporting_and_Chargeback/ShowIngestProgress.ps1)
 
 ## Volume Unprotected Data Alert
 Customers can use this script to monitor all Edge Appliances connected to a volume for unprotected data that exceeds a user-configured threshold. Once this is exceeded, an email to the administrator is generated. This is designed to be run as a Windows scheduled task and can be run as frequently as every 10 minutes. Requires an SMTP server for email alerting.\
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, recipients, from, SMTPserver, port, subject, body\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s) and amount of unprotected data for the Edge Appliance.\
-**Name**: VolumeUnprotectedDataAlert.ps1
+**Name**: [/Reporting_and_Chargeback/VolumeUnprotectedDataAlert.ps1](/Reporting_and_Chargeback/VolumeUnprotectedDataAlert.ps1)
 
 ## Export Full Path Info for the Provided List of Paths to CSV
 Export all path information for the inputs specified in the CSV to a new CSV output file.\
@@ -417,7 +417,7 @@ Header: Volume_GUID,filer_serial_number,path\
 Additonal lines containing that info for each path to list. Use backslashes (\) as delimiters within paths.\
 **Output CSV content**: volume_name,volume_guid,filer_name,filer_serial,share_name,path,cache_resident,protected,owner,size,pinning_enabled,pinning_mode,pinning_inherited,autocache_enabled,autocache_mode,autocache_inherited,quota_enabled,quota_type,quota_email,quota_usage,quota_limit,quota_inherited,global_locking_enabled,global_locking_inherited,global_locking_mode\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher.\
-**Name**: CsvPathReport.ps1
+**Name**: [/Reporting_and_Chargeback/CsvPathReport.ps1](/Reporting_and_Chargeback/CsvPathReport.ps1)
 
 ## Export All Shares and Path Info, Including Sizes to CSV
 Uses PowerShell to export a list of all shares with full path info, including current sizes, and exports the results to a CSV.\
@@ -430,7 +430,7 @@ Uses PowerShell to export a list of all shares with full path info, including cu
 **Compatibility**: Nasuni 8.5 or higher required\
 **Output CSV content**: shareid,volume_name,volume_guid,filer_name,filer_serial,share_name,path,comment,cache_resident,protected,owner,size,pinning_enabled,pinning_mode,pinning_inherited,autocache_enabled,autocache_mode,autocache_inherited,quota_enabled,quota_type,quota_email,quota_usage,quota_limit,quota_inherited,global_locking_enabled,global_locking_inherited,global_locking_mode\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve share size.\
-**Name**: ExportAllSharesAndSizes.ps1
+**Name**: [/Reporting_and_Chargeback/ExportAllSharesAndSizes.ps1](/Reporting_and_Chargeback/ExportAllSharesAndSizes.ps1)
 
 ## Export Top-level Folder Sizes to CSV
 Get the size of top-level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top-level folders within the share — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
@@ -445,11 +445,11 @@ Get the size of top-level folders within a share using the NMC API and export th
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
 **Compatibility**: Nasuni 8.5 or higher required; Required PowerShell Version: 7.0 or higher\
 **Required Permissions**: 
-* NMC API: Perform File Restores/Access Versions and access to the Filer used for listing.
+* NMC API: Perform File Restores/Access Versions and access to the Edge Appliance used for listing.
 * Data API: The Data API user must have NTFS permissions for the listed folders.
   
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve folder size. \
-**Name**: ExportTopLevelFolderSizesToCSV.ps1
+**Name**: [/Reporting_and_Chargeback/ExportTopLevelFolderSizesToCSV.ps1](/Reporting_and_Chargeback/ExportTopLevelFolderSizesToCSV.ps1)
 
 ## Subfolder Size Report
 Get the size of subfolders within a path using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of subfolders within the path. The 'Sync and Mobile Access' share-level Advanced Setting must be enabled for the Data API to work.
@@ -464,27 +464,27 @@ Get the size of subfolders within a path using the NMC API and export the result
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
-**Name**: SubfolderSizeReport.ps1
+**Name**: [/Reporting_and_Chargeback/SubfolderSizeReport.ps1](/Reporting_and_Chargeback/SubfolderSizeReport.ps1)
 
 ## Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportAntivirusViolationsToCSV.ps1
+**Name**: [/Reporting_and_Chargeback/ExportAntivirusViolationsToCSV.ps1](/Reporting_and_Chargeback/ExportAntivirusViolationsToCSV.ps1)
 
 ## Export QoS Settings for all Edge Appliances
 This script uses the NMC API to read the QoS settings for all NMC-managed Edge Appliances and export them to a CSV.\
 **Required Inputs**: NMC hostname, tokenFile, limit, report_file\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Known Issues**: Setting QoS via the NMC API is not currently implemented and is in the backlog for the NMC.\
-**Name**: ExportQoSForAllFilers.ps1
+**Name**: [/Reporting_and_Chargeback/ExportQoSForAllFilers.ps1](/Reporting_and_Chargeback/ExportQoSForAllFilers.ps1)
 
 ## Unprotected Data Alert
 Customers can use this script to monitor all Edge Appliances and all Volumes for unprotected data that does not decrease after a user-specified time. Once this is exceeded, an email to the administrator is generated once daily at the time the user specifies. Results are also logged to an output file that is compared against the current status from the NMC API to determine if unprotected data is growing. This is designed to be run as a Windows scheduled task and could be run as frequently as every hour but should be run at least once daily. Requires an SMTP server for email alerting.\
 **Required Inputs**: NMC hostname, tokenFile, DayAlertValue, SendEmailTime, recipients, from, SMTP server, port, subject, body, ReportFileOrig\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Email Content**: Email contains Edge Appliance name(s), volume(s), and amount of unprotected data for each Edge Appliance and Volume.\
-**Name**: CheckAllUnprotectedAndAlert.ps1
+**Name**: [/Reporting_and_Chargeback/CheckAllUnprotectedAndAlert.ps1](/Reporting_and_Chargeback/CheckAllUnprotectedAndAlert.ps1)
 
 # Volume Auditing
 Use the NMC API to manage and report on Volume Auditing.
@@ -493,19 +493,19 @@ Use the NMC API to manage and report on Volume Auditing.
 This script uses the NMC API to export volume auditing information for all volume and Edge Appliances in an Account to a CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportVolumeAuditingToCSV.ps1
+**Name**: [/Volume_Auditing/ExportVolumeAuditingToCSV.ps1](/Volume_Auditing/ExportVolumeAuditingToCSV.ps1)
 
 ## Set Volume Auditing
 This script uses the NMC API to set volume auditing information for the specified volume and Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, volume guid, filer serial, multiple auditing parameters\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: SetVolumeAuditing.ps1
+**Name**: [/Volume_Auditing/SetVolumeAuditing.ps1](/Volume_Auditing/SetVolumeAuditing.ps1)
 
 ## Set Volume Auditing for All Volumes and Edge Appliances in an Account
 This script uses the NMC API to find all Volumes and Edge Appliances and configure them to use the specified auditing settings.\
 **Required Inputs**: NMC hostname, tokenFile, multiple auditing parameters\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: SetAuditForAllVolumesAndFilers.ps1
+**Name**: [/Volume_Auditing/SetAuditForAllVolumesAndFilers.ps1](/Volume_Auditing/SetAuditForAllVolumesAndFilers.ps1)
 
 # Operations
 PowerShell NMC API Scripts to assist with daily Nasuni operations.
@@ -516,7 +516,7 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 **Required Inputs**: NMC hostname, tokenfile, StatusCode, StatusType, limit\
 **Status codes**: set GFL for path (fsbrowser_globallock_edit); Refresh info for path (fsbrowser_stat_item); Create a Share (volumes_shares_add)\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Name**: DeleteSyncErrors.ps1
+**Name**: [/Operations/DeleteSyncErrors.ps1](/Operations/DeleteSyncErrors.ps1)
 
 ## Export NMC Messages to CSV
 The NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all currently available messages in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
@@ -525,7 +525,7 @@ Note: NMC Messages will only show recent activity since a cron runs on the NMC e
 **NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get) \
 **Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of messages to return).\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Name**: ExportMessagesToCSV.ps1
+**Name**: [/Operations/ExportMessagesToCSV.ps1](/Operations/ExportMessagesToCSV.ps1)
 
 ## Export Health Monitor Status for All Edge Appliances
 Uses PowerShell to export a list of Health Monitor status for Edge Appliances and export the results to a CSV.\
@@ -533,7 +533,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Output CSV content**: filer_serial_number, filer_name, last_updated, network, filesystem, CPU, nfs, memory, services, directoryservices, disk, smb\
 **Compatibility**: Nasuni 8.8 or higher required\
-**Name**: ExportHealthToCSV.ps1
+**Name**: [/Operations/ExportHealthToCSV.ps1](/Operations/ExportHealthToCSV.ps1)
 
 ## Export Edge Appliance Status to CSV
 The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
@@ -541,7 +541,7 @@ The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, a
 **Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
 Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportEAStatusToCSV.ps1
+**Name**: [/Operations/ExportEAStatusToCSV.ps1](/Operations/ExportEAStatusToCSV.ps1)
 
 ## List Cloud Credentials
 Lists cloud credentials for an account and exports results to the PowerShell console. \
@@ -549,7 +549,7 @@ Lists cloud credentials for an account and exports results to the PowerShell con
 **Required Inputs**: NMC hostname, tokenFile\
 **Output**: cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
 **Compatibility**: NMC API v1.2, NMC 22.2, and Edge Appliance 9.8 or higher required\
-**Name**: ListCloudCredentials.ps1
+**Name**: [/Operations/ListCloudCredentials.ps1](/Operations/ListCloudCredentials.ps1)
 
 ## Update Cloud Credentials
 This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script lists all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
@@ -578,7 +578,7 @@ This script gives you an example using the message ID to look up the status of a
 ![GetMessageOutput](/Operations/GetMessageOutput.png)
 
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: GetMessage.ps1
+**Name**: [/Operations/GetMessage.ps1](/Operations/GetMessage.ps1)
 
 
 
@@ -600,21 +600,21 @@ This script exports all Edge Appliance settings applied on a per-Volume/per-Edge
 
 **Required Inputs**: NMC hostname, tokenFile, reportDirectory (where to save the CSV files), limit (limit to use for each API endpoint).\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportEaVolumeSettings.ps1
+**Name**: [/Operations/ExportEaVolumeSettings.ps1](/Operations/ExportEaVolumeSettings.ps1)
 
 ## Export NMC Notifications to CSV
 Exports NMC Notifications to CSV.\
 **NMC API Endpoints Used**: [List Notifications](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Notifications/paths/~1notifications~1/get/#tag/Notifications/paths/~1notifications~1/get) \
 **Required Inputs**: NMC hostname, tokenFile, ReportFileName, limit (number of notifications to return)\
 **Compatibility**: Nasuni 8.0 or higher required\
-**Name**: ExportNotificationsToCSV.ps1
+**Name**: [/Operations/ExportNotificationsToCSV.ps1](/Operations/ExportNotificationsToCSV.ps1)
 
 ## Set Edge Appliance Escrow Passphrase
 Sets Edge Appliance Escrow Passphrase.\
 **NMC API Endpoints Used**: [Update Edge Appliance](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1%7Bfiler_serial%7D~1/patch/#tag/Filers/paths/~1filers~1{filer_serial}~1/patch) \
 **Required Inputs**: NMC hostname, tokenFile (provided by `GetToken.ps1`), filer_serial_number, EscrowPassphrase \
 **Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encryption keys with Nasuni. \
-**Name**: SetEscrowPassphrase.ps1
+**Name**: [/Operations/SetEscrowPassphrase.ps1](/Operations/SetEscrowPassphrase.ps1)
 
 # Volumes
 PowerShell NMC API Scripts for working with volumes. 
@@ -644,7 +644,7 @@ New AWS regions should be opted-in before using them to create new volumes.
 Misleading terminology: The create volume API has an option that misleadingly references “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (PGP) rather than Nasuni cloud credentials.
 
 Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a credential to use with the create volume NMC API endpoint.\
-**Name**: CreateVolume.ps1
+**Name**: [/Volumes/CreateVolume.ps1](/Volumes/CreateVolume.ps1)
 
 ## List Volumes
 Lists volumes for an account and exports results to the console.\
@@ -652,7 +652,7 @@ Lists volumes for an account and exports results to the console.\
 **Required Inputs**: NMC hostname, tokenFile, limit\
 **Output**: name, guid, filer_serial_number, case sensitive, permissions policy, protocols, remote access, remote access permissions, provider name, provider shortname, provider location\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ListVolumes.ps1
+**Name**: [/Volumes/ListVolumes.ps1](/Volumes/ListVolumes.ps1)
 
 ## Export Volumes and Settings to CSV
 Lists volumes for an account and exports results to the specified CSV file.\
@@ -660,14 +660,14 @@ Lists volumes for an account and exports results to the specified CSV file.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Output**: name,guid,filer_serial_number,case sensitive,permissions policy,protocols,remote access,remote access permissions,snapshot retention,quota,compression,chunk_size,authenticated access,auth policy,auth policy label,provider name,provider shortname,provider location,provider storage class,bucket name, AV enabled,AV days,AV check immediately,AV allday,AV start,AV stop,AV frequency\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportVolumesToCSV.ps1
+**Name**: [/Volumes/ExportVolumesToCSV.ps1](/Volumes/ExportVolumesToCSV.ps1)
 
 ## Export Volume Snapshot and Sync Schedule to CSV
 Lists volumes for an account and exports snapshot and sync schedule for each Edge Appliance to the specified CSV file.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Output**:VolumeName,FilerName,VolumeGuid,FilerSerialNumber,SnapSchedMon,SnapSchedTue,SnapSchedWed,SnapSchedThu,SnapSchedFri,SnapSchedSat,SnapSchedSun,SnapSchedAllday,SnapSchedStart,SnapSchedStop,SnapSchedFrequency,SyncSchedMon,SyncSchedTue,SyncSchedWed,SyncSchedThu,SyncSchedFri,SyncSchedSat,SyncSchedSun,SyncSchedAllday,SyncSchedStart,SyncSchedStop,SyncSchedFrequency,SyncSchedAutocacheAllowed,SyncSchedAutocacheMinFileSize\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: ExportVolumeSnapshotAndSyncScheduleToCSV.ps1
+**Name**: [/Volumes/ExportVolumeSnapshotAndSyncScheduleToCSV.ps1](/Volumes/ExportVolumeSnapshotAndSyncScheduleToCSV.ps1)
 
 # Ransomware
 PowerShell NMC API Scripts to assist with ransomware mitigation and blocked client IP address reporting.
@@ -676,28 +676,28 @@ PowerShell NMC API Scripts to assist with ransomware mitigation and blocked clie
 Blocks a client IP address for the specified Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: BlockIpOnAnNEA.ps1
+**Name**: [/Ransomware/BlockIpOnAnNEA.ps1](/Ransomware/BlockIpOnAnNEA.ps1)
 
 ## Unblock Client IP Address on an Edge Appliance
 Unblocks a client IP address for the specified Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: UnblockIpOnAnNEA.ps1
+**Name**: [/Ransomware/UnblockIpOnAnNEA.ps1](/Ransomware/UnblockIpOnAnNEA.ps1)
 
 ## Block Client IP Address on all Edge Appliances
 Blocks a client IP address on all NMC-managed Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: BlockIpOnAllNEAs.ps1
+**Name**: [/Ransomware/BlockIpOnAllNEAs.ps1](/Ransomware/BlockIpOnAllNEAs.ps1)
 
 ## Unblock Client IP Address on all Edge Appliances
 Unblocks a client IP address on all NMC-managed Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: UnblockIpOnAllNEAs.ps1
+**Name**: [/Ransomware/UnblockIpOnAllNEAs.ps1](/Ransomware/UnblockIpOnAllNEAs.ps1)
 
 ## Export Block Client IP Addresses to CSV
 Exports list of blocked client IP Addresses to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, blockedIpsReport\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: ExportBlockedIpsToCSV.ps1
+**Name**: [/Ransomware/ExportBlockedIpsToCSV.ps1](/Ransomware/ExportBlockedIpsToCSV.ps1)
