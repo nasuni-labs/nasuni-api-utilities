@@ -1,5 +1,6 @@
-#Request a Nasuni Data API token and store the output in the specified file
-    
+<# Request a Nasuni Data API token (different from the NMC API) and store the output in the specified file
+Nasuni Data API: http://b.link/Nasuni_API_Documentation  #>
+
 #populate Edge Appliance hostname
 $hostname = "InsertEdgeApplianceHostname"
    
@@ -7,7 +8,7 @@ $hostname = "InsertEdgeApplianceHostname"
 $username = "InsertUsername"
 $password = 'InsertPassword'
  
-#Path to token output file
+#Path to the token output file
 $dataTokenFile = "c:\nasuni\dataToken.txt"
  
 #specify device ID and type for authentication
@@ -59,10 +60,10 @@ $url="https://"+$hostname+"/mobileapi/1/auth/login"
 $result = Invoke-WebRequest -Uri $url -Method Post -Body $headers
 $dataToken= $result.Headers.'X-Secret-Key'
  
-#write the token to the console to verify script ouput
+#write the token to the console to verify the script ouput
 write-output "Obtained token: $dataToken "
  
-#combine the token with device ID and encode before saving for re-use
+#combine the token with the device ID and encode before saving for re-use
 $pair = "$($deviceID):$($dataToken)"
 $encodedCreds = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($pair))
  
