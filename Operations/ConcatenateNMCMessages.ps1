@@ -1,4 +1,5 @@
-#Concatenate, Sort and Remove duplicate entries from NMC Messages CSV files
+<# Concatenate, sort, and remove duplicate entries from Export NMC Messages CSV files.
+Uses today's date to match and combine files. #>
 
 #path for the CSVs
 $ReportFilePath = "C:\logs\NMCmessages"
