@@ -528,11 +528,16 @@ While the NMC UI does not expose a way to bulk delete/acknowledge sync errors, c
 ## Export NMC Messages to CSV
 The NMC API Messages endpoint currently logs activity performed by NMC GUI and NMC API, including the action performed and the user that initiated it. This script lists all currently available messages in the NMC API messages list, sorts them by send_time, and exports them to timestamped CSV.
 
-Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. To capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all of the NMC activity daily using the ConcatenateNMCMessages.ps1 script.\
+Note: NMC Messages will only show recent activity since a cron runs on the NMC every 20 minutes that removes messages that are transient and 20 minutes old. To capture a full picture of NMC events for logging, run this script every 5 minutes using a cron or Windows Scheduled Task. The exported CSVs of NMC messages can be concatenated and sorted to show all the NMC activity daily using the ConcatenateNMCMessages.ps1 script.\
 **NMC API Endpoints Used**: [List Messages](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Messages/paths/~1messages~1/get/#tag/Messages/paths/~1messages~1/get) \
 **Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of messages to return).\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: [/Operations/ExportMessagesToCSV.ps1](/Operations/ExportMessagesToCSV.ps1)
+
+## Concatenate NMC Messages
+Concatenates, sorts, and remove duplicate entries from Export NMC Messages CSV files. Uses today's date to match and combine files.\
+**Required Inputs**: NMC hostname, tokenFile, ReportFilePath (path with NMC message CSV files), ReportFile (report file name).\
+**Name**: [/Operations/ConcatenateNMCMessages.ps1](/Operations/ConcatenateNMCMessages.ps1)
 
 ## Export Health Monitor Status for All Edge Appliances
 Uses PowerShell to export a list of Health Monitor status for Edge Appliances and export the results to a CSV.\
