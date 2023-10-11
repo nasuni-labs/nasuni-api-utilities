@@ -89,10 +89,10 @@ Shares support a long list of configuration parameters in the UI and API. The fo
 | -------- | ------- | ----------- | -------- | ------- | -------------- |
 filer_serial_number | Filer | Filer where the share will be created. | Yes | | 
 volume_guid | Volume | Volume where the share will created. | Yes | none | 
-path | Folder | Path to folder within the volume. Use two ""\\"" rather than one to separate directories in a path. | Yes | none | 
+path | Folder | Path to folder within the volume. Use two "\\\\" rather than one to separate directories in a path. | Yes | none | 
 comment | Comment | Share comment | No | none | 
 readonly | Read Only | When enabled, users cannot change the share contents. | No | false | true, false |
-browseable | Visible Share | "When enabled |  this share will appear when browsing." | No | true | true, false |
+browseable | Visible Share | When enabled, this share will appear when browsing. | No | true | true, false |
 authall | Authentication | Authenticate (Allow) All Users share permission. If authentication for only specified Users and Groups is selected (authall=false), no users will have access to the share until a user, or a group the user is a member of, is added below. | No | true | true, false |
 ROUsers | Read-Only Users | Users with read-only access to the share. | No | none | 
 ROGroups | Read-Only Groups | Groups with read-only access to the share. | No | none | 
