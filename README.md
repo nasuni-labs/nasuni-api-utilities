@@ -87,42 +87,42 @@ Shares support a long list of configuration parameters in the UI and API. The fo
 
 | API Name | UI Name | Description | Required | Default | Allowed Values |
 | -------- | ------- | ----------- | -------- | ------- | -------------- |
-| filer_serial_number | Filer | Filer where the share will be created. | Yes | | 
-| volume_guid | Volume | Volume where the share will created. | Yes | none | 
-| path | Folder | Path to the folder within the volume. Use two "\\\\" rather than one to separate directories in a path. | Yes | none | 
-| comment | Comment | Share comment | No | none | 
-| readonly | Read Only | When enabled, users cannot change the share contents. | No | false | true, false |
-| browseable | Visible Share | When enabled, this share will appear when browsing. | No | true | true, false |
-| authall | Authentication | Authenticate (Allow) All Users share permission. If authentication for only specified Users and Groups is selected (authall=false), no users will have access to the share until a user, or a group the user is a member of, is added below. | No | true | true, false |
-| ROUsers | Read-Only Users | Users with read-only access to the share. | No | none | 
-| ROGroups | Read-Only Groups | Groups with read-only access to the share. | No | none | 
-| RWUsers | Read-Write Users | Users with read-write access to the share. | No | none | 
-| RWGroups | Read-Write Groups | Groups with read-write access to the share. | No | none | 
-| hosts_allow | Allowed Hosts | Specify a list of allowed hosts. Null value for no restrictions. | No | none | | 
-| hide_unreadable | Hide Unreadable Files | Hide unreadable folders and files. | No | true | true, false |
-| enable_previous_vers | Enable Previous Versions | Enable Windows Previous Versions support. | No | false | true, false |
-| case_sensitive | Case-Sensitive Paths | Enable case sensitivity for the share. | No | false | true, false |
-| enable_snapshot_dirs | Enable Snapshot Directories | Enable snapshot directories. | No | false | true, false |
-| homedir_support | User Folders Support | Enable home directory access. | No | 0 (disabled), 1 (enabled) |
-| aio_enabled | Enable Asynchronous I/O | Enable Asynchronous I/O. Allows concurrent read/write access per client connection to improve performance. | No | true | true, false |
-| veto_files | Block Files | Pattern of files to block. Files and directories matching the pattern will be made invisible and inaccessible. | No | blank (none) | 
-| fruit_enabled | Enhanced Support for Mac OS X | Enable Enhanced Support for Mac OS X Clients. | No | false | true, false |
-| smb_encrypt | SMB Encryption | Control SMB Encryption requirements for clients. | No | blank - optional | optional, desired, required |
-| agl_oplocks | Enable Oplocks for Advanced Global Locking | Level 2 (or shared) oplocks indicate multiple stream readers and no writers. This supports client read caching and can accelerate some applications. Only applies to 9.12+ NEAs using Advanced Global File Lock. | No | true | true, false |
-| mobile | Sync and Mobile Access | Enable Mobile Access for the share. Required for the Nasuni Data API. | No | false | true, false |
-| browser_access | Web Access | Enable Web Access for the share. | No | false | true, false |
-| shared_links_enabled | Web Access: Enable Shared Links | Allow creating shared links to Web Access. | No | false | true, false |
-| link_force_password | Web Access: Require Password  | Require passwords for all shared links. | No | true | true, false |
-| link_allow_rw | Web Access: Allow Writeable Shared Links to Directories | Allow creating links with write access. | No | false | true, false |
-| external_share_url | Web Access: External Hostname | Optionally specify an external hostname for shared links. | No | false | true, false |
-| link_expire_limit | Web Access: Maximum Expiration | Maximum number of days until shared links expire. Set to 0 for unlimited. | No | 30 | Number of days |
-| link_auth.authall | Web Access: Shared Link Permissions: Allow all Users and Groups | Allow all users to create shared links. | No | true | true, false |
-| link_auth.allow_groups_ro | Web Access: Shared Link Permissions: RO Groups | Groups allowed to create Read Only links. | No | none |
-| link_auth.allow_groups_rw | Web Access: Shared Link Permissions: RW Groups | Groups allowed to create Read Write links. | No | none |
-| link_auth.deny_groups | Web Access: Shared Link Permissions: Deny Groups | Groups denied from creating links. | No | none |
-| link_auth.allow_users_ro  | Web Access: Shared Link Permissions: RO Users | Users allowed to create Read Only links. | No | none |
-| link_auth.allow_users_rw | Web Access: Shared Link Permissions: RW Users | Users allowed to create Read Write links. | No | none |
-| link_auth.deny_users | Web Access: Shared Link Permissions: Deny Users | Users denied from creating links. | No | none |
+filer_serial_number | Filer | Filer where the share will be created. | Yes | | 
+volume_guid | Volume | Volume where the share will created. | Yes | none | 
+path | Folder | Path to the folder within the volume. Use two "\\\\" rather than one to separate directories in a path. | Yes | none | 
+comment | Comment | Share comment | No | none | 
+readonly | Read Only | When enabled, users cannot change the share contents. | No | false | true, false |
+browseable | Visible Share | When enabled, this share will appear when browsing. | No | true | true, false |
+authall | Authentication | Authenticate (Allow) All Users share permission. If authentication for only specified Users and Groups is selected (authall=false), no users will have access to the share until a user, or a group the user is a member of, is added below. | No | true | true, false |
+ROUsers | Read-Only Users | Users with read-only access to the share. | No | none | 
+ROGroups | Read-Only Groups | Groups with read-only access to the share. | No | none | 
+RWUsers | Read-Write Users | Users with read-write access to the share. | No | none | 
+RWGroups | Read-Write Groups | Groups with read-write access to the share. | No | none | 
+hosts_allow | Allowed Hosts | Specify a list of allowed hosts. Null value for no restrictions. | No | none | | 
+hide_unreadable | Hide Unreadable Files | Hide unreadable folders and files. | No | true | true, false |
+enable_previous_vers | Enable Previous Versions | Enable Windows Previous Versions support. | No | false | true, false |
+case_sensitive | Case-Sensitive Paths | Enable case sensitivity for the share. | No | false | true, false |
+enable_snapshot_dirs | Enable Snapshot Directories | Enable snapshot directories. | No | false | true, false |
+homedir_support | User Folders Support | Enable home directory access. | No | 0 (disabled), 1 (enabled) |
+aio_enabled | Enable Asynchronous I/O | Enable Asynchronous I/O. Allows concurrent read/write access per client connection to improve performance. | No | true | true, false |
+veto_files | Block Files | Pattern of files to block. Files and directories matching the pattern will be made invisible and inaccessible. | No | blank (none) | 
+fruit_enabled | Enhanced Support for Mac OS X | Enable Enhanced Support for Mac OS X Clients. | No | false | true, false |
+smb_encrypt | SMB Encryption | Control SMB Encryption requirements for clients. | No | blank - optional | optional, desired, required |
+agl_oplocks | Enable Oplocks for Advanced Global Locking | Level 2 (or shared) oplocks indicate multiple stream readers and no writers. This supports client read caching and can accelerate some applications. Only applies to 9.12+ NEAs using Advanced Global File Lock. | No | true | true, false |
+mobile | Sync and Mobile Access | Enable Mobile Access for the share. Required for the Nasuni Data API. | No | false | true, false |
+browser_access | Web Access | Enable Web Access for the share. | No | false | true, false |
+shared_links_enabled | Web Access: Enable Shared Links | Allow creating shared links to Web Access. | No | false | true, false |
+link_force_password | Web Access: Require Password  | Require passwords for all shared links. | No | true | true, false |
+link_allow_rw | Web Access: Allow Writeable Shared Links to Directories | Allow creating links with write access. | No | false | true, false |
+external_share_url | Web Access: External Hostname | Optionally specify an external hostname for shared links. | No | false | true, false |
+link_expire_limit | Web Access: Maximum Expiration | Maximum number of days until shared links expire. Set to 0 for unlimited. | No | 30 | Number of days |
+link_auth.authall | Web Access: Shared Link Permissions: Allow all Users and Groups | Allow all users to create shared links. | No | true | true, false |
+link_auth.allow_groups_ro | Web Access: Shared Link Permissions: RO Groups | Groups allowed to create Read Only links. | No | none |
+link_auth.allow_groups_rw | Web Access: Shared Link Permissions: RW Groups | Groups allowed to create Read Write links. | No | none |
+link_auth.deny_groups | Web Access: Shared Link Permissions: Deny Groups | Groups denied from creating links. | No | none |
+link_auth.allow_users_ro  | Web Access: Shared Link Permissions: RO Users | Users allowed to create Read Only links. | No | none |
+link_auth.allow_users_rw | Web Access: Shared Link Permissions: RW Users | Users allowed to create Read Write links. | No | none |
+link_auth.deny_users | Web Access: Shared Link Permissions: Deny Users | Users denied from creating links. | No | none |
 
 
 ### Create a Share
