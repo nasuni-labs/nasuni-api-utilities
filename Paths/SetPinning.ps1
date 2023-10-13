@@ -1,4 +1,4 @@
-<﻿# Set Pinning for the specified volume path and Edge Appliance
+<# Set Pinning for the specified volume path and Edge Appliance
 Uses Set Pinning Mode Endpoint - http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#set-pinning-mode #>
   
 # populate NMC hostname and credentials
