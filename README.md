@@ -481,8 +481,29 @@ Uses PowerShell to export a list of all shares with full path info, including cu
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve share size.\
 **Name**: [/Reporting_and_Chargeback/ExportAllSharesAndSizes.ps1](/Reporting_and_Chargeback/ExportAllSharesAndSizes.ps1)
 
-## Export Top-level Folder Sizes to CSV
-Get the size of top-level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top-level folders within the share — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
+## Export Top-level Folder Sizes to CSV - Supports Multiple Volumes
+Uses a volume list (one volume name per line) for input and exports the top level folder sizes for each volume to CSV. Uses the Edge Appliance Data API to provide the list of top level folders within the volume.
+Assumes each specified volume has a share at the root level of the volume, and the 'Sync and Mobile Access' share-level Advanced Setting is enabled (needed for the Data API) for each of those shares.
+
+**API Endpoints Used**:  
+* NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
+* NMC API: [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/post)
+* NMC API: [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/get)
+* Data API: [Get items (GET)](http://b.link/Nasuni_API_Documentation)
+
+**Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Volume List Path, Report File, Data API Token File, Domain Suffix, Limit\
+**Output CSV content**: volume_name, volume_guid, filer_name, filer_serial_number, path, size\
+**Compatibility**: Nasuni 8.5 or higher required; Required PowerShell Version: 7.0 or higher\
+**Required Permissions**: 
+* NMC API: Perform File Restores/Access Versions, and access to the Edge Appliance used for listing.
+* Data API: The Data API user must have NTFS permissions for the listed folders.
+  
+**Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve folder size. \
+**Name**: [/Reporting_and_Chargeback/ExportVolumeTopLevelFolderSizesToCsv.ps1](/Reporting_and_Chargeback/ExportVolumeTopLevelFolderSizesToCsv.ps1)
+
+
+## Export Top-level Folder Sizes to CSV - Single Volume and Share
+Get the size of top-level folders within a share using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of top-level folders within the one share on a volume — assumes all shares are connected to the Edge Appliance specified in the script. Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
 
 **API Endpoints Used**:  
 * NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
@@ -494,7 +515,7 @@ Get the size of top-level folders within a share using the NMC API and export th
 **Output CSV content**: volume_guid, filer_serial_number, path, size\
 **Compatibility**: Nasuni 8.5 or higher required; Required PowerShell Version: 7.0 or higher\
 **Required Permissions**: 
-* NMC API: Perform File Restores/Access Versions and access to the Edge Appliance used for listing.
+* NMC API: Perform File Restores/Access Versions, and access to the Edge Appliance used for listing.
 * Data API: The Data API user must have NTFS permissions for the listed folders.
   
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve folder size. \
