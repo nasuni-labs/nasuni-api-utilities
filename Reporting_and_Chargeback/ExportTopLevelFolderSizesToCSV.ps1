@@ -1,20 +1,21 @@
-#Get the size of top level folders within a share using the NMC API and export the results to CSV.
-#Uses the Edge Appliance Data API to provide the list of top level folders within a share - assumes all shares are connected to the Edge Appliance specified in the script
-#Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares.
+<# Get the size of top level folders within one share using the NMC API and export the results to CSV.
+Uses the Edge Appliance Data API to provide the list of top level folders within a share - assumes all shares are connected to the Edge Appliance specified in the script
+Shares to query for Top Level folders need to have the 'Sync and Mobile Access' share-level Advanced Setting enabled. Leave this off for other shares. #>
 
 #populate NMC hostname and credentials
 $nmcHostname = "insertNMChostnameHere"
  
-#NMC API username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ). Nasuni Native user accounts are also supported.
+<# NMC API username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required ).
+Nasuni Native user accounts are also supported. #>
 $nmcUsername = "username@domain.com"
 $nmcPassword = 'password'
 
 #populate Edge Appliance hostname or IP address for the Data API
 $dataHostname = "insertEdgeApplianceHostnameHere"
 
-#Authenticate to get a Data API token
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\samaccountname formats. Nasuni Native user accounts are also supported.
-#the account used for the data API must have the ability to login/access the data using the SMB protocol
+<# Authenticate to get a Data API token
+username for AD accounts supports both UPN (user@domain.com) and DOMAIN\samaccountname formats. Nasuni Native user accounts are also supported.
+the account used for the data API must have the ability to login/access the data using the SMB protocol #>
 $dataUsername = 'username@domain.com'
 $dataPassword = 'password'
 
