@@ -611,11 +611,11 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 **Name**: [/Operations/ExportHealthToCSV.ps1](/Operations/ExportHealthToCSV.ps1)
 
 ## Export Edge Appliance Status to CSV
-The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of Edge Appliance settings, but that could easily be added in a future version. \
+The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of evert Edge Appliance settings, but that could easily be added in a future version. \
 **NMC API Endpoints Used**: [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get) \
 **Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
-Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed\
-**Compatibility**: Nasuni 7.10 or higher required\
+Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed, Hostname, DefaultGateway, IpAddresses, DnsServers, SearchDomains, RemoteSupportConnected, RemoteSupportRunning ,RemoteSupportEnabled, RemoteSupportTimeout \
+**Compatibility**: Nasuni 7.10 or higher required. Network details (hostname, IP Address, etc.) requires NMC 23.3+ and NEA 9.14+; Required PowerShell Version: 6.2 or higher.\
 **Name**: [/Operations/ExportEAStatusToCSV.ps1](/Operations/ExportEAStatusToCSV.ps1)
 
 ## List Cloud Credentials
