@@ -344,7 +344,7 @@ Finally, the [Get a list of all known paths with a specific volume and filer](ht
 Note: Paths are case-sensitive. The paths and path status endpoints will only return results if the correct case is specified.
 
 ## Get Path Info
-This script uses the NMC API to get info for the specified path. It first calls the "refresh info" endpoint to update stats for the path and then calls the "get info" endpoint.\
+This script uses the NMC API to get info for the specified path. It first calls the "refresh info" endpoint to update stats for the path and then calls the "get info" endpoint. Beginning with NMC 23.3 and NEA 9.14, the cache resident property is only reported for files and is not available for folders.\
 **NMC API Endpoints Used**:  
 * [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
 * [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
