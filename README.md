@@ -611,7 +611,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 **Name**: [/Operations/ExportHealthToCSV.ps1](/Operations/ExportHealthToCSV.ps1)
 
 ## Export Edge Appliance Status to CSV
-The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of every Edge Appliance settings, but that could easily be added in a future version. \
+The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of every Edge Appliance setting, but that could easily be added in a future version. \
 **NMC API Endpoints Used**: [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get) \
 **Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
 Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed, Hostname, DefaultGateway, IpAddresses, DnsServers, SearchDomains, RemoteSupportConnected, RemoteSupportRunning ,RemoteSupportEnabled, RemoteSupportTimeout \
