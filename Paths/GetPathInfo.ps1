@@ -1,4 +1,4 @@
-#Get Path Info for a path
+#Get Path Info
   
 #populate NMC hostname and credentials
 $hostname = "insertNMChostnameHere"
@@ -11,9 +11,9 @@ $tokenFile = "c:\nasuni\token.txt"
 $volume_guid = "InsertVolumeGuid"
 $filer_serial = "InsertFilerSerial"
  
-<#Set the path for GetPathInfo. The path should start with a "/" and is the path as displayed in the file browser
+<#Set the file or folder path for GetPathInfo. The path should start with a "/" and is the path as displayed in the file browser
 and is not related to the share path. #>
-$FolderPath = "/Insert/path/here"
+$path = "/top"
   
 #Request token and build connection headers
 # Allow untrusted SSL certs
@@ -54,7 +54,7 @@ $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
   
 #Build the URL for the endpoints
-$PathInfoURL="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + "$filer_serial" + "/path" + $FolderPath
+$PathInfoURL="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + "$filer_serial" + "/path" + $Path
  
 #Refresh Stats on the supplied path
 $Refresh=Invoke-RestMethod -Uri $PathInfoURL -Method POST -Headers $headers
@@ -65,5 +65,5 @@ Start-Sleep -s 5
 #Get Path Info
 $getinfo = Invoke-RestMethod -Uri $PathInfoURL -Method Get -Headers $headers
  
-write-host "Folder Path: " $FolderPath
+write-host "Path: " $Path
 write-output $getinfo | Format-List
