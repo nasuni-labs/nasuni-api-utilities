@@ -1,4 +1,4 @@
-<# This script disables GFL on all the paths provided in a CSV file. 
+<# TThis script disables GFL on all the paths provided in a CSV file. 
 The script seeks acknowledgment before disabling GFL, as it also affects subfolders. 
 If GFL status is inherited from up the directory tree, GFL won't be disabled on the path. 
 The script outputs a CSV file with details of GFL status for each path pre and post-execution. 
@@ -8,10 +8,9 @@ Note: Disabling GFL can affect end-users. We recommend running this script when 
 #populate NMC hostname and credentials
 $hostname = "insertNMChostnameHere"
   
-#username for AD accounts supports both UPN (user@domain.com) and DOMAIN\\samaccountname formats (two backslashes required).
-#Nasuni Native user accounts are also supported.
-$username = "username"
-$password = 'password'
+<# Path to the NMC API authentication token file--use GetTokenCredPrompt/GetToken scripts to get a token.
+Tokens expire after 8 hours #>
+$tokenFile = "c:\nasuni\token.txt"
  
 #specify Volume GUID
 $volume_guid = "InsertVolumeGuidHere"
@@ -46,7 +45,7 @@ function Get-Message {
     #Message Status Retry Counter
     $RetryCounter = 10
     
-    #initial wait for message to process
+    #initial wait for the message to process
     start-sleep -Seconds 1
 
     $Message = Invoke-RestMethod -Uri $Response.message.links.self.href -Method Get -Headers $headers
@@ -85,7 +84,7 @@ function Get-Message {
     elseif ($RetryCounter -eq 0 -and $Message.status -eq "pending") {
         $result = @{
             result_status      = $Message.status
-            result_description = "Request is taking longer than expected to sync. Please check the NMC for status change."
+            result_description = "Request is taking longer than expected to sync. Please check the NMC for status change"
         }
     }
     else {  
@@ -121,10 +120,7 @@ function DisableGFL {
 
 
 #Begin execution
-#Login
-#combine credentials for NMC authentication
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
-  
+
 #Request token and build connection headers
 # Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') {
@@ -161,12 +157,8 @@ $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Accept", 'application/json')
 $headers.Add("Content-Type", 'application/json')
   
-#construct Uri for login
-$url = "https://" + $hostname + "/api/v1.1/auth/login/"
-  
-#Use credentials to request and store a session token from NMC for later use
-$result = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $credentials
-$token = $result.token
+#Read the token from a file and add it to the headers for the request
+$token = Get-Content $tokenFile
 $headers.Add("Authorization", "Token " + $token)
 
 ######
@@ -181,8 +173,8 @@ $data = Import-Csv -Path $inputFilePath
 Write-Output "$($data.Length) file paths detected"
 
 #Add warning-
-Write-Output "Disabling GFL on a given path will disable it for all subfolders."
-Write-Output "Note: In case GFL is inherited from up the directory, GFL will remain enabled on the path."
+Write-Output "Disabling GFL on a given path can disable diable on all subfolders"
+Write-Output "Note: In case GFL is inherited from up the directory, GFL will remain enabled on the path"
 
 $confirmSelection = Read-Host "Do you want to disable GFL on all the paths in the CSV file? (Y/N):"
 
@@ -190,7 +182,7 @@ if ($confirmSelection -ieq "Y") {
 
     # Iterate over the data
 
-    Write-Output "Getting current information on all the paths."
+    Write-Output "Getting current information on all the paths"
     foreach ($item in $data) {
     
         $gflObject = [PSCustomObject]@{
@@ -236,7 +228,7 @@ if ($confirmSelection -ieq "Y") {
         $gflObjectList += $gflObject
     }
 
-    Write-Output "Disabling GFL on all GFL-enabled paths."
+    Write-Output "Disabling GFL on all GFL-enabled paths"
     #disabling GFL
     foreach ($item in $gflObjectList) {
 
@@ -261,7 +253,7 @@ if ($confirmSelection -ieq "Y") {
         }
     }
 
-    #checking status change for disable GFL requests
+    #checking status change for Disable GFL requests
     foreach ($item in $gflObjectList) {
 
         if ($item.message_status -eq "pending") {
@@ -277,16 +269,16 @@ if ($confirmSelection -ieq "Y") {
         }
     }
 
-    Write-Output "To reflect GFL status changes, a snapshot is required."
+    Write-Output "To reflect GFL status changes, a snapshot is required"
 
     #A snapshot is required to reflect GFL status changes. 
-    #triggering a snapshot to save the change in GFL status
+    #triggering a snapshot to save change in GFL status
     $SnapshotURL = "https://" + $hostname + "/api/v1.2/volumes/" + $volume_guid + "/filers/" + $filer_serial_number + "/snapshots/"
 
     #Boolean variable to check if an existing snapshot is running
     $snapshot_in_progress = $true
 
-    #Boolean variable to check is snapshot complete successfully
+    #Boolean variable to check if the snapshot was completed successfully
     $snapshot_pending = $true
         
     #counter to check snapshot status. Increase the value for long-running snapshots
@@ -299,14 +291,14 @@ if ($confirmSelection -ieq "Y") {
      
         if ($SnapshotStatus.items[0].snapshot_status -in ("pending", "in_progress")) {
 
-            Write-Output "An existing snapshot is in progress or pending."
+            Write-Output "An existing snapshot is in progress or pending"
 
             #Wait time for the snapshot to complete
             start-sleep -Seconds 15
             $snapshot_status_check_counter--
         }
         else {
-\            #No existing snapshots running
+            #No existing snapshots running
             $snapshot_in_progress = $false
             break
         }   
@@ -327,7 +319,7 @@ if ($confirmSelection -ieq "Y") {
 
         if ($SnapshotRequestStatus.result_status -eq "synced") {
 
-            #Boolean variable to check is snapshot complete successfully
+            #Boolean variable to check if the snapshot was completed successfully
             $snapshot_pending = $true
         
             #counter to retry 
@@ -357,9 +349,9 @@ if ($confirmSelection -ieq "Y") {
                 }   
                 
             }
-            #In case the snapshot was initiated but hasn't finished processing
+            #In case snapshot was initiated but hasn't finished processing
             if ($snapshot_pending -and $snapshot_status_check_counter -eq 0) {
-                Write-Output "Snapshot is in progress. It may take a while to complete. Please check the NMC for change in status."
+                Write-Output "Snapshot is in progress. It may take a while to complete. Please check the NMC for change in status"
             }
                     
         }
@@ -371,7 +363,7 @@ if ($confirmSelection -ieq "Y") {
         }
         else {
             #Snapshot request is still pending
-            Write-Output: "Snapshot initiation is taking longer than expected. Check NMC"
+            Write-Output "Snapshot initiation is taking longer than expected. Check NMC"
         }
 
 
@@ -381,7 +373,7 @@ if ($confirmSelection -ieq "Y") {
     #Update GFL status for the list paths
     if ($snapshot_pending -eq $false) {
 
-        Write-Output "Updating GFL status for all the listed paths."
+        Write-Output "Updating GFL status for all the listed paths"
         foreach ($item in $gflObjectList) {
 
             $InfoUrl = "https://" + $hostname + "/api/v1.2/volumes/" + $volume_guid + "/filers/" + $filer_serial_number + "/path" + $item.path
@@ -417,3 +409,4 @@ if ($confirmSelection -ieq "Y") {
     $selectedAttributes | Export-Csv -Path $outputFilePath -NoTypeInformation
 
 }
+
