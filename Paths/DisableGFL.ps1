@@ -36,7 +36,7 @@ function Get-Message {
         [object]$Response
     )
     
-    #Message Status Retry Counterer
+    #Message Status Retry Counter
     $RetryCounter = 10
     
     #initial wait for message to process
@@ -161,7 +161,7 @@ $token = $result.token
 $headers.Add("Authorization", "Token " + $token)
 
 
-#Boolean variable to iterate while gfl status is enabled
+#Boolean variable to iterate while GFL status is enabled
 $originalPathGFLStatus = "enabled"
 
 while ($originalPathGFLStatus -ne "disabled") {
@@ -169,14 +169,14 @@ while ($originalPathGFLStatus -ne "disabled") {
     #Boolean variable to track the path where GFL was set in the directory tree
     $gflPathFound = $false
     
-    #Temporary path variable to track directory tree traversal incase of inheritance
+    #Temporary path variable to track directory tree traversal in case of inheritance
     $gflEnabledPath = $path
 
     #counter to track the directory tree depth at which GL was set and inherited from
-    #counter value higher than 0 indicates, GFL status was inherited
+    #counter value higher than 0 indicates GFL status was inherited
     $gflStatusInherited = 0
 
-    #Loop through the directory tree untill path where GFL was enabled is found
+    #Loop through the directory tree until path where GFL was enabled is found
     while (($gflPathFound -ne $true) -and ($gflEnabledPath.Length -gt 1)) {
 
        
@@ -216,7 +216,7 @@ while ($originalPathGFLStatus -ne "disabled") {
                 #incrementing counter to track inheritance status
                 $gflStatusInherited++
 
-                Write-Output "GFL is inheritied on the path: $gflEnabledPath" 
+                Write-Output "GFL is inherited on the path: $gflEnabledPath" 
             
                 #Fetching the parent directory path
                 $gflEnabledPath = $gflEnabledPath.Substring(0, $gflEnabledPath.LastIndexOf("/"))
@@ -236,7 +236,7 @@ while ($originalPathGFLStatus -ne "disabled") {
 
             Write-Output "Error while refreshing information on path: $gflEnabledPath"
             Write-Output "Error Code: $($MessageStatus.result_error_code) "
-            Write-Output "Decription: $($MessageStatus.result_description) "
+            Write-Output "Description: $($MessageStatus.result_description) "
 
             #Setting boolean as false to exit while loop
             $originalPathGFLStatus = "disabled"
@@ -369,7 +369,7 @@ while ($originalPathGFLStatus -ne "disabled") {
                     }
                     else {
                         #Snapshot request is still pending
-                        Write-Output "Snashot initiation is taking longer than expected. Check NMC"
+                        Write-Output "Snapshot initiation is taking longer than expected. Check NMC"
                     }
 
 
