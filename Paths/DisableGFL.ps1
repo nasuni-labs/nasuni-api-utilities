@@ -176,7 +176,7 @@ while ($originalPathGFLStatus -ne "disabled") {
     #counter value higher than 0 indicates GFL status was inherited
     $gflStatusInherited = 0
 
-    #Loop through the directory tree until path where GFL was enabled is found
+    #Loop through the directory tree until the path where GFL was enabled is found
     while (($gflPathFound -ne $true) -and ($gflEnabledPath.Length -gt 1)) {
 
        
@@ -205,7 +205,7 @@ while ($originalPathGFLStatus -ne "disabled") {
                 if ($gflEnabledPath -eq $Path) {
 
                     $originalPathGFLStatus = "disabled"
-                    Write-Output "GFL is disabled on the requested path "
+                    Write-Output "GFL is disabled on the requested path."
                     break
                 }
 
@@ -275,7 +275,7 @@ while ($originalPathGFLStatus -ne "disabled") {
                 #triggering a snapshot to save change in GFL status
                 $SnapshotURL = "https://" + $hostname + "/api/v1.2/volumes/" + $volume_guid + "/filers/" + $filer_serial_number + "/snapshots/"
 
-                #checking if an existing snapshot is in-progress
+                #checking if an existing snapshot is in progress
 
                 #Boolean variable to check if an existing snapshot is running
                 $snapshot_in_progress = $true
@@ -283,7 +283,7 @@ while ($originalPathGFLStatus -ne "disabled") {
                 #Boolean variable to check is snapshot complete successfully
                 $snapshot_pending = $true
         
-                #counter to check snapshot status. Increase the value for long running snapshots
+                #counter to check snapshot status. Increase the value for long-running snapshots
                 $snapshot_status_check_counter = 5
  
                 #checking if an existing snapshot running status
@@ -308,9 +308,9 @@ while ($originalPathGFLStatus -ne "disabled") {
                 }
                 #In case an existing snapshot was initiated but hasn't finished processing, end the script and initiate a manual snapshot
                 if ($snapshot_in_progress -and $snapshot_status_check_counter -eq 0) {
-                    Write-Output "An existing snapshot is in-progress. It may take a while to complete. Please check the NMC and initiate another snapshot"
+                    Write-Output "An existing snapshot is in progress. It may take a while to complete. Please check the NMC and initiate another snapshot."
                  
-                    #breaking the primary loop as snapshot is taking too long to complete
+                    #breaking the primary loop as the snapshot is taking too long to complete
                     $originalPathGFLStatus = "disabled"
                 }
                 else {
@@ -337,7 +337,7 @@ while ($originalPathGFLStatus -ne "disabled") {
 
                             if ($SnapshotStatus.items[0].snapshot_status -in ("pending", "in_progress")) {
 
-                                #Wait time for snapshot to complete
+                                #Wait time for the snapshot to complete
                                 start-sleep -Seconds 15
             
                                 $snapshot_status_check_counter--
@@ -345,18 +345,18 @@ while ($originalPathGFLStatus -ne "disabled") {
                             }
                             else {
 
-                                Write-Output "Requested snapshot has completed"
+                                Write-Output "Requested snapshot has completed."
                                 #Snapshot has successfully completed
                                 $snapshot_pending = $false
                                 break
                             }   
                 
                         }
-                        #In case snapshot was inititated but hasn't finished processing
+                        #In case snapshot was initiated but hasn't finished processing
                         if ($snapshot_pending -and $snapshot_status_check_counter -eq 0) {
-                            Write-Output "Snapshot is in-progress. It may take a while to complete. Please check the NMC for change in status"
+                            Write-Output "Snapshot is in progress. It may take a while to complete. Please check the NMC for change in status."
                         
-                            #breaking the primary loop as snapshot is taking too long to complete
+                            #breaking the primary loop as the snapshot is taking too long to complete
                             $originalPathGFLStatus = "disabled"
                         }
                     
