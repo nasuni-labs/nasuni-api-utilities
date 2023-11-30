@@ -89,7 +89,7 @@ Shares support a long list of configuration parameters in the UI and API. The fo
 | -------- | ------- | ----------- | -------- | ------- | -------------- |
 filer_serial_number | Filer | Filer where the share will be created. | Yes | | 
 volume_guid | Volume | Volume where the share will created. | Yes | none | 
-path | Folder | Path to the folder within the volume. Use two "\\\\" rather than one to separate directories in a path. | Yes | none | 
+path | Folder | Path to the folder within the volume. Use two "\\\\" rather than one to separate directories in a path. The path must already exist. | Yes | none | 
 comment | Comment | Share comment | No | none | 
 readonly | Read Only | When enabled, users cannot change the share contents. | No | false | true, false |
 browseable | Visible Share | When enabled, this share will appear when browsing. | No | true | true, false |
@@ -127,7 +127,7 @@ link_auth.deny_users | Web Access: Shared Link Permissions: Deny Users | Users d
 
 ### Create a Share
 Uses PowerShell to create a share by referencing an existing volume, Edge Appliance, and path. Useful as an example of how shares can be created using PowerShell.\
-**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, ShareName, Path\
+**Required Inputs**: NMC hostname, tokenFile, filer_serial, volume_guid, ShareName, Path (the path must already exist or create share will return a sync error)\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Optional Inputs**: comment, readonly, browseable (visible), auth, ro_users, ro_groups, rw_users, rw_groups, hosts_allow, hide_unreadable (access based enumeration, enable_previous_vers, case_sensitive, enable_snapshot_dirs, homedir_support, mobile, browser_access, aio_enabled, veto_files, fruit_enabled, smb_encrypt\
 **Name**: [/Access_Points/Shares/CreateShare.ps1](/Access_Points/Shares/CreateShare.ps1)
