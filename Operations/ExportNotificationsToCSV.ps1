@@ -13,9 +13,7 @@ $ReportFileName = "c:\export\NMCMessages.csv"
 #set the number of notifications to return
 $limit = "1000"
   
-#Request token and build connection headers
-#build credentials
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
+#end variables
 
 #Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
