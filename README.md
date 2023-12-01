@@ -773,6 +773,14 @@ Blocks a client IP address on all NMC-managed Edge Appliance.\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
 **Name**: [/Ransomware/BlockIpOnAllNEAs.ps1](/Ransomware/BlockIpOnAllNEAs.ps1)
 
+## Detect Ransomware and Block Client IP Address on all Edge Appliances
+Reads NMC Notifications to find new Ransomware Incidents and blocks the IP address on all NEAs.
+Designed to run as a Windows Scheduled task. Will also need to run the GetToken script as a scheduled task
+since NMC API tokens expire after 8 hours.\
+**Required Inputs**: NMC hostname, tokenFile, limit, minutesAgo\
+**Compatibility**: NMC 23.3 with NEA 9.14 or higher required\
+**Name**: [/Ransomware/DetectAndBlockIpOnAllNEAs.ps1](/Ransomware/DetectAndBlockIpOnAllNEAs.ps1)
+
 ## Unblock Client IP Address on all Edge Appliances
 Unblocks a client IP address on all NMC-managed Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, ipAddress\
