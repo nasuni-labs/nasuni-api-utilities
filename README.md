@@ -491,9 +491,9 @@ Assumes each specified volume has a share at the root level of the volume, and t
 * NMC API: [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/get)
 * Data API: [Get items (GET)](http://b.link/Nasuni_API_Documentation)
 
-**Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Volume List Path, Report File, Data API Token File, Domain Suffix, Limit\
+**Required Inputs**: NMC hostname, NMC username, NMC password, Data API username, Data API Password, Volume List Path, Report File, Data API Token File, Limit\
 **Output CSV content**: volume_name, volume_guid, filer_name, filer_serial_number, path, size\
-**Compatibility**: Nasuni 8.5 or higher required; Required PowerShell Version: 7.0 or higher\
+**Compatibility**: NMC 23.3 or higher required; Required PowerShell Version: 7.0 or higher\
 **Required Permissions**: 
 * NMC API: Perform File Restores/Access Versions, and access to the Edge Appliance used for listing.
 * Data API: The Data API user must have NTFS permissions for the listed folders.
