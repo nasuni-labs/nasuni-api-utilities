@@ -399,7 +399,7 @@ This script uses the NMC API to disable Global File Lock on the specified path. 
 * [Get Info on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 * [Disable global locking on a specified path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1%7Bpath%7D/delete/)
 * [Request a snapshot](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
-* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)\
+* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, path\
 **Compatibility**: Nasuni 8.5 or higher required\
@@ -414,7 +414,7 @@ Note: Disabling GFL can affect end-users. We recommend running this script when 
 * [Get Info on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 * [Disable global locking on a specified path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1%7Bpath%7D/delete/)
 * [Request a snapshot](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
-* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)\
+* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, inputFilePath, outputFilePath\
 **Compatibility**: Nasuni 8.5 or higher required\
