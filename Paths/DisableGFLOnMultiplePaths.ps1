@@ -1,4 +1,4 @@
-<# TThis script disables GFL on all the paths provided in a CSV file. 
+<# This script disables GFL on all the paths provided in a CSV file. 
 The script seeks acknowledgment before disabling GFL, as it also affects subfolders. 
 If GFL status is inherited from up the directory tree, GFL won't be disabled on the path. 
 The script outputs a CSV file with details of GFL status for each path pre and post-execution. 
