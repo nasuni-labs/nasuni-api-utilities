@@ -393,13 +393,13 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 **Name**: [/Paths/SetGFLandModeForMultiplePaths.ps1](/Paths/SetGFLandModeForMultiplePaths.ps1)
 
 ## Disable Global File Lock on a given Path
-This script uses the NMC API to disable Global File Lock on the specified path. The script iteratively checks whether Global File Lock is inherited from a parent directory; if so, Global File Lock is disabled on the parent directory, post user confirmation. The script initiates a snapshot and waits for its completion to confirm a successful change in GFL status.
+This script uses the NMC API to disable Global File Lock on the specified path. The script iteratively checks whether Global File Lock is inherited from a parent directory; if so, Global File Lock is disabled on the parent directory, post user confirmation. The script initiates a snapshot and waits for its completion to confirm a successful change in GFL status.\
 **NMC API Endpoint Used**: 
 * [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
 * [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 * [Disable global locking on a specified path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1%7Bpath%7D/delete/)
-* [Request a snapshot (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)]
-* [List snapshot statuses(GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)]
+* [Request a snapshot (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
+* [List snapshot statuses(GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)\
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, path\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: [/Paths/DisableGFL.ps1](/Paths/DisableGFL.ps1)
@@ -407,13 +407,13 @@ This script uses the NMC API to disable Global File Lock on the specified path. 
 
 ## Disable Global File Lock on a Multiple Paths
 This script disables Global File Lock(GFL) on all the paths provided in a CSV file. The script seeks acknowledgment before disabling GFL, as it also affects subfolders. If GFL status is inherited from a parent directory, GFL won't be disabled on the path. Script requests a snapshot to confirm the change in GFL status on the requested paths. The script outputs a CSV file with details of GFL status for each path pre and post-execution. 
-Note: Disabling GFL can affect end-users. We recommend running this script when there is no end-user activity on the path.
+Note: Disabling GFL can affect end-users. We recommend running this script when there is no end-user activity on the path.\
 **NMC API Endpoint Used**: 
 * [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
 * [Get Info on a Path (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 * [Disable global locking on a specified path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1%7Bpath%7D/delete/)
-* [Request a snapshot (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)]
-* [List snapshot statuses(GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)]
+* [Request a snapshot (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
+* [List snapshot statuses(GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)\
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, inputFilePath, outputFilePath\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Name**: [/Paths/DisableGFLOnMultiplePaths.ps1](/Paths/DisableGFLOnMultiplePaths.ps1)
