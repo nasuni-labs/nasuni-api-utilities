@@ -1,5 +1,4 @@
 ﻿#Sets a quota for the specified path. Does not create quota rules.
-#See http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#create-folder-quota for reference
 
 #populate NMC hostname
 $hostname = "host.domain.com"
@@ -20,7 +19,7 @@ $NewQuota = "InsertAmountHere"
 #Specify the email address for quota reports
 $Email = "InsertEmailAddressHere"
 
-#Request token and build connection headers
+#end variables
 # Allow untrusted SSL certs if required
 if ("TrustAllCertsPolicy" -as [type]) {} else {   
         Add-Type -TypeDefinition @"
