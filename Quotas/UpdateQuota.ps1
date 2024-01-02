@@ -1,6 +1,5 @@
-﻿#Update the quota for an existing Path. Lists all quotas in place and finds the matching quota ID for the specified path
-#and uses that as a reference to update the quota.
-#See http://docs.api.nasuni.com/nmc/api/1.1.0/index.html#update-folder-quota for reference
+﻿<# Update the quota for an existing Path. Lists all quotas in place, finds the matching quota ID for the specified path, 
+and uses that as a reference to update the quota. #>
 
 #populate NMC hostname
 $hostname = "host.domain.com"
@@ -18,7 +17,7 @@ $NewQuota = "InsertAmountHere"
 #Number of Quota entries to query. Should be greater than the number of configured quotas
 $limit = 1000
 
-#Request token and build connection headers
+#end variables
 # Allow untrusted SSL certs if required
 if ("TrustAllCertsPolicy" -as [type]) {} else {   
         Add-Type -TypeDefinition @"
