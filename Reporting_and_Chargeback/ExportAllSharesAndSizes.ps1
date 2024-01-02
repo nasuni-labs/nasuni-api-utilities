@@ -21,9 +21,6 @@ $Delay = 5
 
 #end variables
 
-#combine credentials for token request
-$credentials = '{"username":"' + $username + '","password":"' + $password + '"}'
-
 # Allow untrusted SSL certs - remove if valid NMC SSL cert is installed
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
 {
