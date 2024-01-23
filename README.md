@@ -381,7 +381,7 @@ This script uses the NMC API to set Global File Lock and mode for the specified 
 **NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, path, mode, RetryLimit, RetryDelay.\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Disabling GFL is not currently supported via NMC API.\
+**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Disabling GFL is supported using the NMC API but requires NMC version 23.3 or higher.\
 **Name**: [/Paths/SetGFLandMode.ps1](/Paths/SetGFLandMode.ps1)
 
 ## Set Global File Lock and Mode for Multiple Paths
