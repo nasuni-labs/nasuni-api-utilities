@@ -69,4 +69,4 @@ $body = @{
 
 #set folder properties
 $response=Invoke-RestMethod -Uri $CacheUrl -Method Post -Headers $headers -Body (ConvertTo-Json -InputObject $body)
-write-output $response | ConvertTo-Json
+write-output $response | ConvertTo-Json -depth 3
