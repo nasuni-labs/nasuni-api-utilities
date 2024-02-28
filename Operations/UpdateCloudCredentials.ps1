@@ -1,5 +1,9 @@
 #Update Cloud Credentials for a given CRED_UUID
 #Available for NMC API v1.2 and onward
+#Description: The script updates one credential at a time. The script updates all online Filers using the credential. 
+#CRED UUID is used to identify cloud credentials. To find the CRED UUID, use the list cloud credential NMC API or the ListCloudCredential.ps1 Powershell script in the Nasuni Labs repo.  
+
+
 
 #populate NMC hostname and credentials
 $hostname = "insertHostname"
