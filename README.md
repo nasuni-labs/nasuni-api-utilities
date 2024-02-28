@@ -668,7 +668,8 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 **Required Inputs**: NMC hostname, tokenFile, cred uuid \
 **Output**: Sync status summary \
 **Compatibility**: NMC API v1.2, NMC 22.2, and Edge Appliance 9.8 or higher required\
-**Name**: UpdateCloudCredentials.ps1
+**Name**: [/Operations/UpdateCloudCredentials.ps1](/Operations/UpdateCloudCredentials.ps1)
+
 
 ## Get Message
 This script gives you an example using the message ID to look up the status of an action. The NMC is an asynchronous API, and POST or UPDATE actions you initiate with the NMC API will return a “pending” status along with an ID that you can then check to see the request's status once it has been processed. The screenshot below results from a POST request to the NMC API. The red box is the message ID you will use for the messageID in the script. The green box gives you the full URL to the messages NMC API endpoint, including the ID.
