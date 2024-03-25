@@ -567,7 +567,7 @@ Get the size of subfolders within a path using the NMC API and export the result
 
 ## Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
-**Required Inputs**: NMC hostname, tokenFile, reportFile\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: [/Reporting_and_Chargeback/ExportAntivirusViolationsToCSV.ps1](/Reporting_and_Chargeback/ExportAntivirusViolationsToCSV.ps1)
 
