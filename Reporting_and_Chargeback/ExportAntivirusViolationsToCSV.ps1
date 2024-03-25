@@ -10,6 +10,9 @@ $tokenFile = "c:\nasuni\token.txt"
 #path to CSV
 $reportFile = "c:\export\AntivirusViolationsExport.CSV"
 
+#Number of antivirus violations, NEAs, and volumes to query in lookups
+$limit = 1000
+
 #end variables
 
 #Request token and build connection headers 
@@ -51,19 +54,19 @@ $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
  
 #initialize csv output file
-$csvHeader = "VolumeName,VolumeGUID,FilerName,FilerSerial,VirusName,VirusPath"
+$csvHeader = "VolumeName,VolumeGUID,FilerName,FilerSerial,VirusName,VirusPath,ViolationID"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
  
-#List up to the first 200 filers - adjust limit in the URL if more are required
-$FilersUrl="https://"+$hostname+"/api/v1.1/filers/?limit=200&offset=0"
+#List NEAs to get NEA names rather than SNs only
+$FilersUrl="https://"+$hostname+"/api/v1.1/filers/?limit="+$limit+"&offset=0"
 $GetFilerInfo = Invoke-RestMethod -Uri $FilersUrl -Method Get -Headers $headers 
   
-#List up to the first 200 volumes - adjust limit in the URL if more are required
-$VolumeUrl="https://"+$hostname+"/api/v1.1/volumes/?limit=200&offset=0"
+#List volumes to get friendly volume names
+$VolumeUrl="https://"+$hostname+"/api/v1.1/volumes/?limit="+$limit+"&offset=0"
 $GetVolumeInfo = Invoke-RestMethod -Uri $VolumeUrl -Method Get -Headers $headers 
 
-#List up the first 200 AV Violations - adjust limit in the URL if more are required
-$AvUrl="https://"+$hostname+"/api/v1.1/volumes/filers/antivirus-violations/?limit=200&offset=0"
+#List AV Violations
+$AvUrl="https://"+$hostname+"/api/v1.1/volumes/filers/antivirus-violations/?limit="+$limit+"&offset=0"
 $GetAvInfo = Invoke-RestMethod -Uri $AvUrl -Method Get -Headers $headers 
   
 foreach($i in 0..($GetAvInfo.items.Count-1)){
@@ -86,21 +89,18 @@ foreach($i in 0..($GetAvInfo.items.Count-1)){
         $FilerSerial = $GetAvInfo.items[$i].filer_serial_number
         $VirusName = $GetAvInfo.items[$i].vname
         $VirusPath = $GetAvInfo.items[$i].fpath
+        $ViolationID = $GetAvInfo.items[$i].id
 
         #write the output to a variable
-        $datastring = "$VolumeName,$VolumeGUID,$FilerName,$FilerSerial,$VirusName,$VirusPath"
+        $datastring = "$VolumeName,$VolumeGUID,$FilerName,$FilerSerial,$VirusName,$VirusPath,$ViolationID"
         #write the output to a file
         Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
 
         #clear variables for next loop
-        $ClearVar = ("VolumeName", "VolumeGUID", "FilerName", "FilerSerial", "VirusName", "VirusPath")
+        $ClearVar = ("VolumeName", "VolumeGUID", "FilerName", "FilerSerial", "VirusName", "VirusPath", "ViolationID")
         foreach ($Item in $ClearVar) {
         Get-Variable $Item | Remove-Variable
         }
 
 $i++
 }
-
-
-
-
