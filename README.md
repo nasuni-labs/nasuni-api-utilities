@@ -190,8 +190,8 @@ This script uses the NMC API to list all shares, check to see if previous versio
 **Name**: [/Access_Points/Shares/SetPreviousVersionsForAllShares.ps1](/Access_Points/Shares/SetPreviousVersionsForAllShares.ps1)
 
 ### Set block files for all shares on an Edge Appliance
-This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to match the supplied value for block files. The list of blocked files should be comma-separated.\
-**Required Inputs**: NMC hostname, tokenFile, FilerSerial, BlockFiles\
+This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to match the supplied value for block files. The list of blocked files should be comma-separated. Limit is set to 1000 by default. Increase if there are more than 1000 shares in your environment.\
+**Required Inputs**: NMC hostname, tokenFile, FilerSerial, BlockFiles, limit\
 **Compatibility**: Nasuni 8.0 or higher required\
 **Known Issues**: none\
 **Name**: [/Access_Points/Shares/SetBlockFilesForAllSharesOnaFiler.ps1](/Access_Points/Shares/SetBlockFilesForAllSharesOnaFiler.ps1)
