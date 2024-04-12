@@ -87,8 +87,8 @@ ForEach ($share in $shares) {
     $share_name = $($share.share_name)
     $path = $($share.path) -replace '\\','\\'
     $comment = $($share.comment)
-    $readonly = $($share.readonly).ToLower()
-    $browseable = $($share.browseable).ToLower()
+    if (!$share.readonly){$readonly = "false"} else {$readonly = $($share.readonly).ToLower()}
+    if (!$share.browseable) {$browseable = "true"} else {$browseable = $($share.browseable).ToLower()}
     if (!$share.authAuthall) {$authAuthall = "true"} else {$authAuthall = $($share.authAuthall).ToLower()}
     if (!$share.authRo_users) {Clear-Variable authRo_users -ErrorAction SilentlyContinue} else {$authRo_users = "'"+$($share.authRo_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
     if (!$share.authRw_users) {Clear-Variable authRw_users -ErrorAction SilentlyContinue} else {$authRw_users = "'"+$($share.authRw_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
