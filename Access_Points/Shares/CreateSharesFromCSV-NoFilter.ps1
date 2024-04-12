@@ -1,9 +1,5 @@
-#creates shares from a CSV with some hard coded presets for shares
+#creates shares from a CSV with some hard-coded presets for shares
 #CSV column order - shareid(skipped for during share creation),Volume_GUID,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthAll,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_auth.authall,link_authAllow_groups_ro,link_auth.allow_groups_rw,link_auth.deny_groups,link_auth.allow_users_ro,link_auth.allow_users_rw,link_auth.deny_users
-
-#The following variables are accepted on the commandline: matchFilerSN (mandatory), matchVolumeSN (optional)
-#match shares based on the specified commandline parameters
-#param ([Parameter(Mandatory)]$matchFilerSN,$matchVolumeGuid)
 
 #populate NMC hostname or IP address
 $hostname = "InsertNMChostname"
@@ -65,8 +61,8 @@ ForEach ($share in $shares) {
     $share_name = $($share.share_name)
     $path = $($share.path) -replace '\\','\\'
     $comment = $($share.comment)
-    $readonly = $($share.readonly).ToLower()
-    $browseable = $($share.browseable).ToLower()
+    if (!$share.readonly){$readonly = "false"} else {$readonly = $($share.readonly).ToLower()}
+    if (!$share.browseable) {$browseable = "true"} else {$browseable = $($share.browseable).ToLower()}
     if (!$share.authAuthall) {$authAuthall = "true"} else {$authAuthall = $($share.authAuthall).ToLower()}
     if (!$share.authRo_users) {Clear-Variable authRo_users -ErrorAction SilentlyContinue} else {$authRo_users = "'"+$($share.authRo_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
     if (!$share.authRw_users) {Clear-Variable authRw_users -ErrorAction SilentlyContinue} else {$authRw_users = "'"+$($share.authRw_users)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
@@ -75,17 +71,17 @@ ForEach ($share in $shares) {
     if (!$share.authRw_groups) {Clear-Variable authRw_groups -ErrorAction SilentlyContinue} else {$authRw_groups = "'"+$($share.authRw_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
     if (!$share.authDeny_groups) {Clear-Variable authDeny_groups -ErrorAction SilentlyContinue} else {$authDeny_groups = "'"+$($share.authDeny_groups)+"'" -replace '\\','\\' -replace ';',''',''' -replace "'",'"'}
     $hosts_allow = $($share.hosts_allow) -replace ";"," "
-    $hide_unreadable = $($share.hide_unreadable).ToLower()
-    $enable_previous_vers = $($share.enable_previous_vers).ToLower()
-    $case_sensitive = $($share.case_sensitive).ToLower()
-    $enable_snapshot_dirs = $($share.enable_snapshot_dirs).ToLower()
-    $homedir_support = $($share.homedir_support)
-    $mobile = $($share.mobile).ToLower()
-    $browser_access = $($share.browser_access).ToLower()
-    $aio_enabled = $($share.aio_enabled).ToLower()
+    if (!$share.hide_unreadable){$hide_unreadable = "true"} else {$hide_unreadable = $($share.hide_unreadable).ToLower()}
+    if (!$share.enable_previous_vers){$enable_previous_vers = "false"} else {$enable_previous_vers = $($share.enable_previous_vers).ToLower()}
+    if (!$share.case_sensitive){$case_sensitive = "false"} else {$case_sensitive = $($share.case_sensitive).ToLower()}
+    if (!$share.enable_snapshot_dirs){$enable_snapshot_dirs = "false"} else {$enable_snapshot_dirs = $($share.enable_snapshot_dirs).ToLower()}
+    if (!$share.homedir_support){$homedir_support = "0"} else {$homedir_support = $($share.homedir_support)}
+    if (!$share.mobile){$mobile = "false"} else {$mobile = $($share.mobile).ToLower()}
+    if (!$share.browser_access) {$browser_access = "false"} else {$browser_access = $($share.browser_access).ToLower()}
+    if (!$share.aio_enabled) {$aio_enabled = "true"} else {$aio_enabled = $($share.aio_enabled).ToLower()}
     $veto_files = $($share.veto_files) -replace ";", "\r\n"
-    $fruit_enabled = $($share.fruit_enabled).ToLower()
-    $smb_encrypt = $($share.smb_encrypt)
+    if (!$share.fruit_enabled){$fruit_enabled = "false"} else {$fruit_enabled = $($share.fruit_enabled).ToLower()}
+    if (!$share.smb_encrypt){$smb_encrypt = ""} else {$smb_encrypt = $($share.smb_encrypt)}
     if (!$share.shared_links_enabled) {$shared_links_enabled = "false"} else {$shared_links_enabled = $($share.shared_links_enabled).ToLower()}
     if (!$share.link_force_password) {$link_force_password = "true"} else {$link_force_password = $($share.link_force_password).ToLower()}
     if (!$share.link_allow_rw) {$link_allow_rw = "false"} else {$link_allow_rw = $($share.link_allow_rw).ToLower()}
