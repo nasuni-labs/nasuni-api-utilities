@@ -216,6 +216,13 @@ Deletes the specified share. Share must be referenced by share_id. Share_id can 
 **Compatibility**: Nasuni 8.0 or higher required\
 **Name**: [/Access_Points/Shares/DeleteShare.ps1](/Access_Points/Shares/DeleteShare.ps1)
 
+### Delete Shares
+Deletes the shares specified in the input CSV. Begin by exporting the full list of shares using the ExportAllSharesToCSV.ps1 script, copy the output to a new file named DeleteShares.CSV, and remove lines corresponding to the shares you want to retain. Only shares you intend to delete should remain in the CSV. \
+**NMC API Endpoint Used**: [Delete a share](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1shares~1%7Bshare_id%7D~1/delete/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1shares~1{share_id}~1/delete) \
+**Required Inputs**: NMC hostname, tokenFile, csvPath, shareid, Volume_GUID, filer_serial_number, filer_name, share_name\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Name**: [/Access_Points/Shares/DeleteSharesFromCSV.ps1](/Access_Points/Shares/DeleteSharesFromCSV.ps1)
+
 ### List Shares
 Lists shares for an account and exports results to the PowerShell console.\
 **NMC API Endpoint Used**: [List Shares](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/) \
