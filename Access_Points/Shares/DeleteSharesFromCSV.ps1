@@ -70,7 +70,7 @@ ForEach ($share in $shares) {
     $response=Invoke-RestMethod -Uri $url -Method Delete -Headers $headers
 
     #write the response of each share deletion request to the console
-    $output = "Share Name: " + $share_name + ", Edge Name: " + $filer_name + ", Volume GUID: " + $volume_guid + ", Message Status: " + $response.message.status + ", Message ID: " + $response.message.id
+    $output = "Share ID: " + $share_id + ", Share Name: " + $share_name + ", Edge Name: " + $filer_name + ", Volume GUID: " + $volume_guid + ", Message Status: " + $response.message.status + ", Message ID: " + $response.message.id
     write-output $output
 
     #sleep between deleting shares to avoid NMC API throttling
