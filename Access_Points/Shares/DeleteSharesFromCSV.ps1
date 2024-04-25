@@ -1,6 +1,6 @@
 <# Deletes shares using a CSV for input--use ExportAllSharesToCSV script to generate the CSV and
 edit the CSV to remove the lines for shares you want to retain. The CSV input file should only contains the shares to delete.
-CSV column order - shareid,Volume_GUID,filer_serial_number,filer_name,share_name #>
+CSV column order - shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name #>
 
 #populate NMC hostname or IP address
 $hostname = "InsertNMChostname"
