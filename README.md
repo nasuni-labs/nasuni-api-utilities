@@ -315,6 +315,24 @@ Uses PowerShell to export all FTP directories and configurable settings to CSV.\
 **Compatibility**: Nasuni 7.10 or higher required; Required PowerShell Version: 7.0 or higher.\
 **Name**: [/Access_Points/FTP_Directories/ExportAllFtpDirectoriesToCSV.ps1](/Access_Points/FTP_Directories/ExportAllFtpDirectoriesToCSV.ps1)
 
+
+# Cyber Resilience-Antivirus
+PowerShell NMC API Scripts to manage antivirus violations. 
+
+## Export Antivirus Violations to CSV
+This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
+**Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
+**Compatibility**: Nasuni 7.10 or higher required\
+**Name**: [/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1](/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1)
+
+
+## Ignore or Delete Antivirus Violation
+This script uses the NMC API to ignore or delete an antivirus violation.\
+**Required Inputs**: NMC hostname, tokenFile, antivirus violation ID, limit\
+**Compatibility**: NMC API Version 1.2 and NMC 24.1+ required\
+**Name**: [/Cyber_Resilience/Antivirus/IgnoreOrDeleteAvViolations.ps1](/Cyber_Resilience/Antivirus/IgnoreOrDeleteAvViolations.ps1)
+
+
 # Quotas
 PowerShell NMC API scripts to work with quotas.
 
@@ -572,12 +590,6 @@ Get the size of subfolders within a path using the NMC API and export the result
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Edge Appliances must be online, NMC managed, and running Nasuni 8.5 or higher to retrieve folder size. The Data API user must have NTFS permissions to the folders being listed.\
 **Name**: [/Reporting_and_Chargeback/SubfolderSizeReport.ps1](/Reporting_and_Chargeback/SubfolderSizeReport.ps1)
-
-## Export Antivirus Violations to CSV
-This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
-**Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
-**Compatibility**: Nasuni 7.10 or higher required\
-**Name**: [/Reporting_and_Chargeback/ExportAntivirusViolationsToCSV.ps1](/Reporting_and_Chargeback/ExportAntivirusViolationsToCSV.ps1)
 
 ## Export QoS Settings for all Edge Appliances
 This script uses the NMC API to read the QoS settings for all NMC-managed Edge Appliances and export them to a CSV.\
