@@ -325,12 +325,59 @@ This script uses the NMC API to export antivirus violations for all volume and E
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: [/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1](/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1)
 
-
 ## Ignore or Delete Antivirus Violation
 This script uses the NMC API to ignore or delete an antivirus violation.\
-**Required Inputs**: NMC hostname, tokenFile, antivirus violation ID, limit\
+**Required Inputs**: NMC hostname, tokenFile, antivirus violation ID, action, limit\
 **Compatibility**: NMC API Version 1.2 and NMC 24.1+ required\
 **Name**: [/Cyber_Resilience/Antivirus/IgnoreOrDeleteAvViolations.ps1](/Cyber_Resilience/Antivirus/IgnoreOrDeleteAvViolations.ps1)
+
+## Update all Antivirus Violations
+This script uses the NMC API to ignore or delete all antivirus violations.\
+**Required Inputs**: NMC hostname, tokenFile, reportFile(CSV file containing AV violations), action, limit\
+**Compatibility**: NMC API Version 1.2 and NMC 24.1+ required\
+**Name**: [/Cyber_Resilience/Antivirus/UpdateAllAntivirusViolations.ps1](/Cyber_Resilience/Antivirus/UpdateAllAntivirusViolations.ps1)
+
+
+# Cyber Resilience-Ransomware
+PowerShell NMC API Scripts to assist with ransomware mitigation and blocked client IP address reporting.
+
+## Block Client IP Address on an Edge Appliance
+Blocks a client IP address for the specified Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: [/Cyber_Resilience/Ransomware/BlockIpOnAnNEA.ps1](/Cyber_Resilience/Ransomware/BlockIpOnAnNEA.ps1)
+
+## Unblock Client IP Address on an Edge Appliance
+Unblocks a client IP address for the specified Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: [/Cyber_Resilience/Ransomware/UnblockIpOnAnNEA.ps1](/Cyber_Resilience/Ransomware/UnblockIpOnAnNEA.ps1)
+
+## Block Client IP Address on all Edge Appliances
+Blocks a client IP address on all NMC-managed Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: [/Cyber_Resilience/Ransomware/BlockIpOnAllNEAs.ps1](/Cyber_Resilience/Ransomware/BlockIpOnAllNEAs.ps1)
+
+## Detect Ransomware and Block Client IP Address on all Edge Appliances
+Reads NMC Notifications to find new Ransomware Incidents and blocks the IP address on all NEAs.
+Designed to run as a Windows Scheduled task. Will also need to run the GetToken script as a scheduled task
+since NMC API tokens expire after 8 hours.\
+**Required Inputs**: NMC hostname, tokenFile, limit, minutesAgo\
+**Compatibility**: NMC 23.3 with NEA 9.14 or higher required\
+**Name**: [/Cyber_Resilience/Ransomware/DetectAndBlockIpOnAllNEAs.ps1](/Cyber_Resilience/Ransomware/DetectAndBlockIpOnAllNEAs.ps1)
+
+## Unblock Client IP Address on all Edge Appliances
+Unblocks a client IP address on all NMC-managed Edge Appliance.\
+**Required Inputs**: NMC hostname, tokenFile, ipAddress\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: [/Cyber_Resilience/Ransomware/UnblockIpOnAllNEAs.ps1](/Cyber_Resilience/Ransomware/UnblockIpOnAllNEAs.ps1)
+
+## Export Block Client IP Addresses to CSV
+Exports list of blocked client IP Addresses to CSV.\
+**Required Inputs**: NMC hostname, tokenFile, blockedIpsReport\
+**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
+**Name**: [/Cyber_Resilience/Ransomware/ExportBlockedIpsToCSV.ps1](/Cyber_Resilience/Ransomware/ExportBlockedIpsToCSV.ps1)
 
 
 # Quotas
@@ -741,6 +788,13 @@ Sets Edge Appliance Escrow Passphrase.\
 **Compatibility**: Nasuni 9.3 or higher required. Beginning with 9.3, escrow passphrases are required for customers that escrow encryption keys with Nasuni. \
 **Name**: [/Operations/SetEscrowPassphrase.ps1](/Operations/SetEscrowPassphrase.ps1)
 
+## Upload an Encryption Key
+Upload an encryption key to an NEA with or without a passphrase.\
+**Required Inputs**: NMC hostname, tokenFile (provided by `GetToken.ps1`), filer_serial_number, encyrptionKeyPath, passphrase \
+**Compatibility**: NMC API version 1.2 and NMC 24.1+. \
+**Name**: [/Operations/UploadEncryptionKey.ps1](/Operations/UploadEncryptionKey.ps1)
+
+
 # Volumes
 PowerShell NMC API Scripts for working with volumes. 
 
@@ -802,43 +856,3 @@ Lists volumes for an account and exports snapshot and sync schedule for each Edg
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: [/Volumes/ExportVolumeSnapshotAndSyncScheduleToCSV.ps1](/Volumes/ExportVolumeSnapshotAndSyncScheduleToCSV.ps1)
 
-# Ransomware
-PowerShell NMC API Scripts to assist with ransomware mitigation and blocked client IP address reporting.
-
-## Block Client IP Address on an Edge Appliance
-Blocks a client IP address for the specified Edge Appliance.\
-**Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
-**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: [/Ransomware/BlockIpOnAnNEA.ps1](/Ransomware/BlockIpOnAnNEA.ps1)
-
-## Unblock Client IP Address on an Edge Appliance
-Unblocks a client IP address for the specified Edge Appliance.\
-**Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
-**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: [/Ransomware/UnblockIpOnAnNEA.ps1](/Ransomware/UnblockIpOnAnNEA.ps1)
-
-## Block Client IP Address on all Edge Appliances
-Blocks a client IP address on all NMC-managed Edge Appliance.\
-**Required Inputs**: NMC hostname, tokenFile, ipAddress\
-**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: [/Ransomware/BlockIpOnAllNEAs.ps1](/Ransomware/BlockIpOnAllNEAs.ps1)
-
-## Detect Ransomware and Block Client IP Address on all Edge Appliances
-Reads NMC Notifications to find new Ransomware Incidents and blocks the IP address on all NEAs.
-Designed to run as a Windows Scheduled task. Will also need to run the GetToken script as a scheduled task
-since NMC API tokens expire after 8 hours.\
-**Required Inputs**: NMC hostname, tokenFile, limit, minutesAgo\
-**Compatibility**: NMC 23.3 with NEA 9.14 or higher required\
-**Name**: [/Ransomware/DetectAndBlockIpOnAllNEAs.ps1](/Ransomware/DetectAndBlockIpOnAllNEAs.ps1)
-
-## Unblock Client IP Address on all Edge Appliances
-Unblocks a client IP address on all NMC-managed Edge Appliance.\
-**Required Inputs**: NMC hostname, tokenFile, ipAddress\
-**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: [/Ransomware/UnblockIpOnAllNEAs.ps1](/Ransomware/UnblockIpOnAllNEAs.ps1)
-
-## Export Block Client IP Addresses to CSV
-Exports list of blocked client IP Addresses to CSV.\
-**Required Inputs**: NMC hostname, tokenFile, blockedIpsReport\
-**Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
-**Name**: [/Ransomware/ExportBlockedIpsToCSV.ps1](/Ransomware/ExportBlockedIpsToCSV.ps1)
