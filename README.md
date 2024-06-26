@@ -316,50 +316,54 @@ Uses PowerShell to export all FTP directories and configurable settings to CSV.\
 **Name**: [/Access_Points/FTP_Directories/ExportAllFtpDirectoriesToCSV.ps1](/Access_Points/FTP_Directories/ExportAllFtpDirectoriesToCSV.ps1)
 
 
-# Cyber Resilience-Antivirus
+# Cyber Resilience
+
+## Antivirus
 PowerShell NMC API Scripts to manage antivirus violations. 
 
-## Export Antivirus Violations to CSV
+### Export Antivirus Violations to CSV
 This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: [/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1](/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1)
 
-## Ignore or Delete Antivirus Violation
+### Ignore or Delete Antivirus Violation
 This script uses the NMC API to ignore or delete an antivirus violation.\
 **Required Inputs**: NMC hostname, tokenFile, antivirus violation ID, action, limit\
 **Compatibility**: NMC API Version 1.2 and NMC 24.1+ required\
 **Name**: [/Cyber_Resilience/Antivirus/IgnoreOrDeleteAvViolations.ps1](/Cyber_Resilience/Antivirus/IgnoreOrDeleteAvViolations.ps1)
 
-## Update all Antivirus Violations
+### Update all Antivirus Violations
 This script uses the NMC API to ignore or delete all antivirus violations.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile(CSV file containing AV violations), action, limit\
 **Compatibility**: NMC API Version 1.2 and NMC 24.1+ required\
 **Name**: [/Cyber_Resilience/Antivirus/UpdateAllAntivirusViolations.ps1](/Cyber_Resilience/Antivirus/UpdateAllAntivirusViolations.ps1)
 
 
-# Cyber Resilience-Ransomware
+# Cyber Resilience
+
+## Ransomware
 PowerShell NMC API Scripts to assist with ransomware mitigation and blocked client IP address reporting.
 
-## Block Client IP Address on an Edge Appliance
+### Block Client IP Address on an Edge Appliance
 Blocks a client IP address for the specified Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
 **Name**: [/Cyber_Resilience/Ransomware/BlockIpOnAnNEA.ps1](/Cyber_Resilience/Ransomware/BlockIpOnAnNEA.ps1)
 
-## Unblock Client IP Address on an Edge Appliance
+### Unblock Client IP Address on an Edge Appliance
 Unblocks a client IP address for the specified Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, filerSerial, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
 **Name**: [/Cyber_Resilience/Ransomware/UnblockIpOnAnNEA.ps1](/Cyber_Resilience/Ransomware/UnblockIpOnAnNEA.ps1)
 
-## Block Client IP Address on all Edge Appliances
+### Block Client IP Address on all Edge Appliances
 Blocks a client IP address on all NMC-managed Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
 **Name**: [/Cyber_Resilience/Ransomware/BlockIpOnAllNEAs.ps1](/Cyber_Resilience/Ransomware/BlockIpOnAllNEAs.ps1)
 
-## Detect Ransomware and Block Client IP Address on all Edge Appliances
+### Detect Ransomware and Block Client IP Address on all Edge Appliances
 Reads NMC Notifications to find new Ransomware Incidents and blocks the IP address on all NEAs.
 Designed to run as a Windows Scheduled task. Will also need to run the GetToken script as a scheduled task
 since NMC API tokens expire after 8 hours.\
@@ -367,13 +371,13 @@ since NMC API tokens expire after 8 hours.\
 **Compatibility**: NMC 23.3 with NEA 9.14 or higher required\
 **Name**: [/Cyber_Resilience/Ransomware/DetectAndBlockIpOnAllNEAs.ps1](/Cyber_Resilience/Ransomware/DetectAndBlockIpOnAllNEAs.ps1)
 
-## Unblock Client IP Address on all Edge Appliances
+### Unblock Client IP Address on all Edge Appliances
 Unblocks a client IP address on all NMC-managed Edge Appliance.\
 **Required Inputs**: NMC hostname, tokenFile, ipAddress\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
 **Name**: [/Cyber_Resilience/Ransomware/UnblockIpOnAllNEAs.ps1](/Cyber_Resilience/Ransomware/UnblockIpOnAllNEAs.ps1)
 
-## Export Block Client IP Addresses to CSV
+### Export Block Client IP Addresses to CSV
 Exports list of blocked client IP Addresses to CSV.\
 **Required Inputs**: NMC hostname, tokenFile, blockedIpsReport\
 **Compatibility**: NMC 22.3 with NEA 9.9 or higher required\
