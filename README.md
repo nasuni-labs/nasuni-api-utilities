@@ -339,9 +339,6 @@ This script uses the NMC API to ignore or delete all antivirus violations.\
 **Compatibility**: NMC API Version 1.2 and NMC 24.1+ required\
 **Name**: [/Cyber_Resilience/Antivirus/UpdateAllAntivirusViolations.ps1](/Cyber_Resilience/Antivirus/UpdateAllAntivirusViolations.ps1)
 
-
-# Cyber Resilience
-
 ## Ransomware
 PowerShell NMC API Scripts to assist with ransomware mitigation and blocked client IP address reporting.
 
