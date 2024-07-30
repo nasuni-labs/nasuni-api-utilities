@@ -19,7 +19,9 @@ $filer_serial = 'InsertFilerSerial'
 #Use the list AV violation endpoints to get all AV violations
 $antivirus_id = "AvViolationID"
 
-#Specify the action to perform (delete_file or ignore_violation)
+<# Specify the action to perform (delete_file or ignore_violation).
+"delete_file" deletes the associated file and the av violation. This is useful for confirmed AV violations.
+"ignore_violation" tells Nasuni to ignore the violation and does not impact the associated file. This is useful for false positives. #>
 $action = "delete_file" 
 
 #end variables
