@@ -1,5 +1,5 @@
 #!/bin/bash
-#Request a Nasuni Data API token and store the output in a variable. Also get info for a file.
+#Request a Nasuni Data API token and store the output in a variable. Also, get info for a file.
 
 #populate Edge Appliance hostname
 hostname=InsertHostname
@@ -17,6 +17,6 @@ token=$(curl -s -k -i -F username=$username -F password=$password -F device_id=l
 #output the token to the console
 echo "$token"
 
-#get infor for an item
+#get information for an item
 get=$(curl -s -k -i -u "linux001:$token" https://${hostname}:443/mobileapi/1/fs/$filepath | sed -n '/ *X-Size: / {s///;p;}' )
 echo "$get"
