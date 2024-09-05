@@ -697,7 +697,7 @@ Uses PowerShell to export a list of Health Monitor status for Edge Appliances an
 The NMC List Edge Appliances endpoint lists all Edge Appliances, their status, and the settings configured for each. This script lists all Edge Appliances in an account and their status and exports them to CSV. The script does not include the enumeration and export of every Edge Appliance setting, but that could easily be added in a future version. \
 **NMC API Endpoints Used**: [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get) \
 **Required Inputs**: NMC hostname, tokenFile, ReportFile (where to save the CSV), limit (number of Edge Appliances to return).\
-Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed, Hostname, DefaultGateway, IpAddresses, DnsServers, SearchDomains, RemoteSupportConnected, RemoteSupportRunning ,RemoteSupportEnabled, RemoteSupportTimeout \
+Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpuFrequency, cpuSockets, Memory, ManagementState, Offline, OsVersion, Uptime, UpdatesAvailable, CurrentVersion, NewVersion, PlatformName, cacheSize, cacheUsed, cacheDirty, cacheFree, cachePercentUsed, Hostname, DefaultGateway, IpAddresses, DnsServers, SearchDomains, RemoteSupportConnected, RemoteSupportRunning, RemoteSupportEnabled, RemoteSupportTimeout \
 **Compatibility**: Nasuni 7.10 or higher required. Network details (hostname, IP Address, etc.) requires NMC 23.3+ and NEA 9.14+; Required PowerShell Version: 6.2 or higher.\
 **Name**: [/Operations/ExportEAStatusToCSV.ps1](/Operations/ExportEAStatusToCSV.ps1)
 
@@ -712,7 +712,7 @@ Lists cloud credentials for an account and exports results to the PowerShell con
 ## Update Cloud Credentials
 This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script lists all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
 
-Note: Cred_UUID information can be found using the list cloud credential scripts. Updating only the access key and the secret on the 9.8+ Edge Appliances is synchronous. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync. \
+Note: Cred_UUID information can be found using the list cloud credential scripts. Only the access key and the secret on the 9.8+ Edge Appliances are updated synchronously. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync. \
 **NMC API Endpoint Used**: 
 * [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get)
 * [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get)
