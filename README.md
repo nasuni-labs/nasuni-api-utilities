@@ -148,7 +148,7 @@ These scripts demonstrate how shares can be created, exported, and subsequently 
 Uses CSV input to create shares. We recommend manually creating several shares along with desired settings and then use the ExportAllSharesToCSV.ps1 script to output a CSV. Use the exported CSV as a template for creating additional shares. The shareid, filer_name, volume_name columns are ignored during import but must be present. If more than one user or group is present for a share permissions element, separate them with semicolons. Domain group or usernames should use this format: DOMAIN\sAMAccountName.\
 **CSV Contents**: shareid,volume_guid,volume_name,filer_serial_number,filer_name,share_name,path,comment,readonly,browseable,authAuthall,authRo_users,authRw_users,authDeny_users,authRo_groups,authRw_groups,authDeny_groups,hosts_allow,hide_unreadable,enable_previous_vers,case_sensitive,enable_snapshot_dirs,homedir_support,mobile,browser_access,aio_enabled,veto_files,fruit_enabled,smb_encrypt,shared_links_enabled,link_force_password,link_allow_rw,external_share_url,link_expire_limit,link_authAuthall,link_authAllow_groups_ro,link_authAllow_groups_rw,link_authDeny_groups,link_authAllow_users_ro,link_authAllow_users_rw,link_authDeny_users\
 **Required Inputs**: hostname, tokenFile, csvPath\
-**Name**: [/Access_Points/Shares/CreateSharesFromCSV-NoFilter.ps1](/Access_Points/Shares/CreateSharesFromCSV-NoFilter.ps1)
+**Name**: [/Access_Points/Shares/CreateSharesFromCSV.ps1](/Access_Points/Shares/CreateSharesFromCSV.ps1)
 
 #### Step 2 - Export Shares to CSV (optional)
 use the "ExportAllSharesToCSV.ps1" script (documented above) to export all the shares you created to CSV.
