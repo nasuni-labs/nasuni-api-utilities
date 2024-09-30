@@ -1,5 +1,5 @@
 # nmc-api-utilities
-Utilities and scripts that use the NMC API to perform operations and generate reports
+Utilities and scripts that use the NMC API ([documentation](https://docs.api.nasuni.com/)) to perform operations and generate reports
 
 # Support Statement
 
