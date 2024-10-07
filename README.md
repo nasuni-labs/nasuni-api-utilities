@@ -613,6 +613,18 @@ Get the size of top-level folders within a share using the NMC API and export th
 ## Subfolder Size Report
 Get the size of subfolders within a path using the NMC API and export the results to CSV. Uses the Edge Appliance Data API to provide the list of subfolders within the path. The 'Sync and Mobile Access' share-level Advanced Setting must be enabled for the Data API to work.
 
+The chargeback script functions as follows:
+
+* The script identifies each network share and locates the corresponding filesystem path. For instance, if a share is named "share1," the script matches it to the filesystem path /top/share1.
+
+* Administrators can specify a subfolder path within the share that they want to analyze. For example, if there's a subfolder named "project1" at the top level of the share, the admin provides this subfolder path.
+
+* The script combines the share path and the specified subfolder path to form the complete path. In this case, it would join /top/share1 and project1 to create /top/share1/project1.
+
+* The script then reports on the sizes of folders within the specified path.
+
+This approach enables detailed reporting on subfolder sizes within a share by dynamically generating the full filesystem path.
+
 **API Endpoints Used**:  
 * NMC API: [List Shares (GET)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1shares~1/get/#tag/Volumes/paths/~1volumes~1filers~1shares~1/get)
 * NMC API: [Refresh Info on Path (POST)](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1filers~1{filer_serial}~1path~1{path}/post)
