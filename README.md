@@ -453,7 +453,7 @@ This script uses the NMC API to enable Global File Lock with the specified paths
 * [Get Info on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 * [Enable GFL on a specified](https://docs.api.nasuni.com/api/nmc/v110/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/)
 * [Request a snapshot](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
-* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/) \
+* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/) 
 
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
