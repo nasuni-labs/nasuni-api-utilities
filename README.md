@@ -441,16 +441,24 @@ This script uses the NMC API to set Global File Lock and mode for the specified 
 **NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, path, mode, RetryLimit, RetryDelay.\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Disabling GFL is supported using the NMC API but requires NMC version 23.3 or higher.\
-**Name**: [/Paths/SetGFLandMode.ps1](/Paths/SetGFLandMode.ps1)
+**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Disabling GFL is supported using the NMC API but requires NMC version 23.3 or higher. \
+**Name**: [/Paths/SetGFLandMode.ps1](/Paths/GFL/SetGFLandMode.ps1)
+**NMC API Endpoint Used**: 
+* [Enable GFL on a specified](https://docs.api.nasuni.com/api/nmc/v110/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/)
 
-## Set Global File Lock and Mode for Multiple Paths
+## Enable Global File Lock and Mode for Multiple Paths
 This script uses the NMC API to enable Global File Lock with the specified paths.\
 **NMC API Endpoint Used**: [Enable GFL on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/#tag/Volumes/paths/~1volumes~1{volume_guid}~1global-lock-folders~1/post) \
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, base path, sub paths, mode\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Known Issues**: Global File Lock must be licensed. This script does not incorporate retries to avoid snapshot contention, but that could be added.\
-**Name**: [/Paths/SetGFLandModeForMultiplePaths.ps1](/Paths/SetGFLandModeForMultiplePaths.ps1)
+**Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Global File Acceleration (GFA) can interrupt the script by initiating snapshots. We recommend using GFA enablement window to temporary hault GFA while executing this script.\
+**Name**: [/Paths/SetGFLandModeForMultiplePaths.ps1](/Paths/GFL/EnableGFLandModeForMultiplePaths.ps1)
+**NMC API Endpoint Used**: 
+* [Refresh Info on Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
+* [Get Info on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
+* [Enable GFL on a specified](https://docs.api.nasuni.com/api/nmc/v110/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/)
+* [Request a snapshot](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
+* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/)
 
 ## Disable Global File Lock on a given Path
 This script uses the NMC API to disable Global File Lock on the specified path. The script iteratively checks whether Global File Lock is inherited from a parent directory; if so, Global File Lock is disabled on the parent directory, post user confirmation. The script initiates a snapshot and waits for its completion to confirm a successful change in GFL status.\
@@ -463,12 +471,13 @@ This script uses the NMC API to disable Global File Lock on the specified path. 
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, path\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: [/Paths/DisableGFL.ps1](/Paths/DisableGFL.ps1)
+**Name**: [/Paths/DisableGFL.ps1](/Paths/GFL?DisableGFL.ps1)
 
 
 ## Disable Global File Lock on a Multiple Paths
 This script disables Global File Lock(GFL) on all the paths provided in a CSV file. The script seeks acknowledgment before disabling GFL, as it also affects subfolders. If GFL status is inherited from a parent directory, GFL won't be disabled on the path. Script requests a snapshot to confirm the change in GFL status on the requested paths. The script outputs a CSV file with details of GFL status for each path pre and post-execution. 
 Note: Disabling GFL can affect end-users. We recommend running this script when there is no end-user activity on the path.\
+**Known Issues**: Global File Acceleration (GFA) can interrupt the script by initiating snapshots. We recommend using GFA enablement window to temporary hault GFA while executing this script.
 **NMC API Endpoint Used**: 
 * [Refresh Info on Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
 * [Get Info on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
@@ -478,7 +487,7 @@ Note: Disabling GFL can affect end-users. We recommend running this script when 
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, inputFilePath, outputFilePath\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: [/Paths/DisableGFLOnMultiplePaths.ps1](/Paths/DisableGFLOnMultiplePaths.ps1)
+**Name**: [/Paths/DisableGFLOnMultiplePaths.ps1](/Paths/GFL/DisableGFLOnMultiplePaths.ps1)
 
 
 ## Create Folder
