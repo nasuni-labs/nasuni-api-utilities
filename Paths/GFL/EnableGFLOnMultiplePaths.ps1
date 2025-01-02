@@ -31,9 +31,9 @@ $gflObjectList = @()
 
 #Path to CSV files
 #specify folder path using slashes (/) - do not include a trailing slash
-$inputFilePath = "\Users\abiswas\inputGFLFilePaths.csv"
+$inputFilePath = "c:\GFL\inputGFLFilePaths.csv"
 
-$outputFilePath = "\Users\abiswas\outputGFLFilePaths.csv"
+$outputFilePath = "c:\GFL\outputGFLFilePaths.csv"
 
 #end variables
 
