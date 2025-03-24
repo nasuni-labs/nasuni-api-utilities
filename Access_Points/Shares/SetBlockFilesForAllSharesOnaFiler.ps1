@@ -11,7 +11,7 @@ $tokenFile = "c:\nasuni\token.txt"
 $FilerSerial = "insertFilerSerial"
 
 # Comma-separated list of files to block
-$BlockFiles = "thumbs.db,.DS_Store"
+$BlockFiles = "Thumbs.db,Desktop.ini,.DS_Store"
 
 #Number of shares to query
 $limit = 1000
