@@ -12,11 +12,11 @@ password=InsertPassword
 filepath=share/folder/filename
 
 #get the token
-token=$(curl -s -k -i -F username=$username -F password=$password -F device_id=linux001 -F device_type=linux https://${hostname}:443/mobileapi/1/auth/login | sed -n '/ *X-Secret-Key: / {s///;p;}')
+token=$(curl -s -k -i -F username=$username -F password=$password -F device_id=linux001 -F device_type=linux https://${hostname}:443/mobileapi/1/auth/login | grep -i '^[xX]-[xS]ecret-[kK]ey:' | cut -d' ' -f2- | tr -d '\r')
 
 #output the token to the console
 echo "$token"
 
 #get information for an item
-get=$(curl -s -k -i -u "linux001:$token" https://${hostname}:443/mobileapi/1/fs/$filepath | sed -n '/ *X-Size: / {s///;p;}' )
+get=$(curl -s -k -i -u "linux001:$token" https://${hostname}:443/mobileapi/1/fs/$filepath | sed -n '/ *[Xx]-[sS]ize: / {s///;p;}' )
 echo "$get"
