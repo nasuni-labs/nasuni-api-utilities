@@ -13,7 +13,7 @@ Utilities and scripts that use the Nasuni Data API (different from the NMC API) 
 
 # Data API Overview
 
-[Data API Technical Documentation](http://b.link/Nasuni_API_Documentation) is available from Nasuni's documentation site.
+[Data API Technical Documentation](https://b.link/Nasuni_Data_API) is available from Nasuni's documentation site.
 
 "Sync and Mobile Access" must be enabled for a share connected to an Edge Appliance to use the Nasuni Data API. The user-specified for authentication must also have the appropriate NTFS permissions to access the files and folders within the share. Active Directory accounts are supported for authentication. 
 
