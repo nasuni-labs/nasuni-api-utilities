@@ -472,10 +472,10 @@ This script uses the NMC API to disable Global File Lock on the specified path. 
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, path\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: [/Paths/DisableGFL.ps1](/Paths/GFL?DisableGFL.ps1)
+**Name**: [/Paths/GFL/DisableGFL.ps1](/Paths/GFL?DisableGFL.ps1)
 
 
-## Disable Global File Lock on a Multiple Paths
+## Disable Global File Lock on Multiple Paths
 This script disables Global File Lock(GFL) on all the paths provided in a CSV file. The script seeks acknowledgment before disabling GFL, as it also affects subfolders. If GFL status is inherited from a parent directory, GFL won't be disabled on the path. Script requests a snapshot to confirm the change in GFL status on the requested paths. The script outputs a CSV file with details of GFL status for each path pre and post-execution. 
 Note: Disabling GFL can affect end-users. We recommend running this script when there is no end-user activity on the path.\
 **Known Issues**: Global File Acceleration (GFA) can interrupt the script by initiating snapshots. We recommend using GFA enablement window to temporary hault GFA while executing this script.
@@ -488,7 +488,7 @@ Note: Disabling GFL can affect end-users. We recommend running this script when 
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, inputFilePath, outputFilePath\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: [/Paths/DisableGFLOnMultiplePaths.ps1](/Paths/GFL/DisableGFLOnMultiplePaths.ps1)
+**Name**: [/Paths/GFL/DisableGFLOnMultiplePaths.ps1](/Paths/GFL/DisableGFLOnMultiplePaths.ps1)
 
 
 ## Create Folder
