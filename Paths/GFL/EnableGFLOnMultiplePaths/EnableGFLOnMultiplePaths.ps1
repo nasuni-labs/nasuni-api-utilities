@@ -1,5 +1,4 @@
-<# Enhanced SetGFLandMode.ps1 - CSV Input Version
-Sets GFL and Mode for multiple paths from a CSV file
+<# EnableGFLOnMultiplePaths.ps1 - CSV Input with Retries and Delays
 Processes each path serially with retry logic and delays
 Includes comprehensive error handling and logging
 
@@ -10,7 +9,6 @@ Example CSV content:
 Path,Mode
 /folder1/folder2,optimized
 /folder3,advanced
-/folder4/subfolder,asynchronous
 #>
 
 param(
