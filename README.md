@@ -447,15 +447,13 @@ This script uses the NMC API to set Global File Lock and mode for the specified 
 * [Enable GFL on a specified](https://docs.api.nasuni.com/api/nmc/v110/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/)
 
 ## Enable Global File Lock and Mode for Multiple Paths
-This script uses the NMC API to enable Global File Lock with the specified paths. Since GFL cannot be set while snapshots are running, the script includes a retry delay and retry limit that will automatically retry setting GFL. The script will return an error when setting GFL if the path is invalid (paths are case sensitive.\
+This script uses the NMC API to enable Global File Lock with the specified paths in a CSV input file. Since GFL cannot be set while snapshots are running, the script includes a retry delay and retry limit that will automatically retry setting GFL. The script will return an error when setting GFL if the path is invalid (paths are case sensitive.\
 **NMC API Endpoint Used**: 
 * [Refresh Info on Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/post/)
 * [Get Info on a Path](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1path~1%7Bpath%7D/get/)
 * [Enable GFL on a specified](https://docs.api.nasuni.com/api/nmc/v110/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1global-lock-folders~1/post/)
-* [Request a snapshot](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1%7Bvolume_guid%7D~1filers~1%7Bfiler_serial%7D~1snapshots~1/post/)
-* [List snapshot statuses](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Volumes/paths/~1volumes~1filers~1snapshots~1/get/) 
 
-**Required Inputs**: NMC hostname, tokenFile, volume_guid, RetryLimit, RetryDelay.\
+**Required Inputs**: NMC hostname, tokenFile, volume_guid, RetryLimit, RetryDelay, CsvPath.\
 **Compatibility**: Nasuni 8.5 or higher required\
 **Known Issues**: Global File Lock must be licensed, and Remote Access must be enabled for the volume. GFL can only be set when the volume snapshot status is idle, meaning that it is not allowed if any Edge Appliance is running a snapshot for the volume. Global File Acceleration (GFA) can interrupt the script by initiating snapshots. We recommend using GFA enablement window to temporary hault GFA while executing this script.\
 **Name**: [Paths/GFL/EnableGFLOnMultiplePaths/EnableGFLOnMultiplePaths.ps1](Paths/GFL/EnableGFLOnMultiplePaths/EnableGFLOnMultiplePaths.ps1)
