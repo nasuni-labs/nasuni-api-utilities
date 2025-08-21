@@ -472,7 +472,7 @@ This script uses the NMC API to disable Global File Lock on the specified path. 
   
 **Required Inputs**: NMC hostname, tokenFile, volume_guid, filer_serial_number, path\
 **Compatibility**: Nasuni 8.5 or higher required\
-**Name**: [/Paths/GFL/DisableGFL.ps1](/Paths/GFL?DisableGFL.ps1)
+**Name**: [/Paths/GFL/DisableGFL.ps1](/Paths/GFL/DisableGFL.ps1)
 
 
 ## Disable Global File Lock on Multiple Paths
