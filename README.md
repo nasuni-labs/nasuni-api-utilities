@@ -529,22 +529,22 @@ Exports a list of pinned folders to CSV.\
 **Name**: [/Paths/ExportPinnedFoldersToCSV.ps1](/Paths/ExportPinnedFoldersToCSV.ps1)
 
 # Reporting and Chargeback
-Use these NMC API scripts to help with reporting and chargeback.
+You can use these NMC API scripts to facilitate reporting and chargeback processes.
 
 ## Recharge tracking/Volume Details
 This script can be a starting point for billing and recharge reporting. This script example provides a report of all volumes in an account.\
 **Required Inputs**: NMC hostname, tokenFile, reportfile (path to the CSV output file)\
 **Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, provider\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Known Issues**: Does not work correctly if there is a disconnected volume in the account.\
+**Known Issues**: The script may not function correctly if a disconnected volume is present in the account.\
 **Name**: [/Reporting_and_Chargeback/ExportVolumeDetailToCSV.ps1](/Reporting_and_Chargeback/ExportVolumeDetailToCSV.ps1)
 
 ## Show Ingest Progress
-This script can be used to track the progress of data ingestion or data growth. This script provides a report of all volumes in an account and the amount of accessible data alongside unprotected data on each Edge Appliance, the last snapshot time, and the last snapshot version. Run this daily and compare results to get data for ingest trending or data growth.\
+This script can be used to track the progress of data ingestion, data growth, or snapshot status reporting. This script provides a report of all volumes in an account, including the amount of accessible data and unprotected data on each Edge Appliance, the last snapshot time, the last snapshot version, snapshot status, and snapshot completion percentage. Run this daily and compare the results to obtain data for ingest trending or data growth analysis.\
 **Required Inputs**: NMC hostname, tokenFile, reportfile (path to the CSV output file)\
-**Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version\
+**Output CSV content**: volume_name, volume_guid, filer_description, filer_serial_number, accessible data, unprotected data, last_snapshot_time, last_snapshot_version, snapshot_status, snapshot_percent\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Known Issues**: It might not work correctly if there is a disconnected volume in the account. \
+**Known Issues**: The script may not function correctly if a disconnected volume is present in the account. \
 **Name**: [/Reporting_and_Chargeback/ShowIngestProgress.ps1](/Reporting_and_Chargeback/ShowIngestProgress.ps1)
 
 ## Volume Unprotected Data Alert
