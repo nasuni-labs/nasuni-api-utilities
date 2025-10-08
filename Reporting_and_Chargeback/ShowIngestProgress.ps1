@@ -54,11 +54,11 @@ $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
 #List up to the number of volumes set in the limit
-$url="https://"+$hostname+"/api/v1.1/volumes/?limit="+$limit+"&offset=0"
+$url="https://"+$hostname+"/api/v1.2/volumes/?limit="+$limit+"&offset=0"
 $getinfo = Invoke-RestMethod -Uri $url -Method Get -Headers $headers
 
 #Initialize CSV output file
-$csvHeader = "volume_name,volume_guid,filer_description,filer_serial_number,accessible data,unprotected data,last_snapshot_time,last_snapshot_version"
+$csvHeader = "volume_name,volume_guid,filer_description,filer_serial_number,accessible data,unprotected data,last_snapshot_time,last_snapshot_version,snapshot_status,snapshot_percent"
 Out-File -FilePath $reportFile -InputObject $csvHeader -Encoding UTF8
 
 write-host ("Exporting Volume Information to: " + $reportFile)
@@ -66,14 +66,19 @@ write-host ("Exporting Volume Information to: " + $reportFile)
 foreach($i in 0..($getinfo.items.Count-1)){
 
      #call the list filer specific settings for a volume endpoint
-     $volumefilerurl = "https://"+$hostname+"/api/v1.1/volumes/" + $getinfo.items[$i].guid + "/filers/?limit="+$limit+"&offset=0/"
+     $volumefilerurl = "https://"+$hostname+"/api/v1.2/volumes/" + $getinfo.items[$i].guid + "/filers/?limit="+$limit+"&offset=0/"
+
      $volumeinfo = Invoke-RestMethod -Uri $volumefilerurl -Method Get -Headers $headers
      #loop through each item in the volume results
         foreach($j in 0..($volumeinfo.items.Count-1)){
         #get filer info for the owner and each connected filer
-        $filerurl = "https://"+$hostname+"/api/v1.1/filers/" + $($volumeinfo.items[$j].filer_serial_number) + "/"
+        $filerurl = "https://"+$hostname+"/api/v1.2/filers/" + $($volumeinfo.items[$j].filer_serial_number) + "/"
         $filerinfo = Invoke-RestMethod -Uri $filerurl -Method Get -Headers $headers
-        $datastring = "$($getinfo.items[$i].name),$($getinfo.items[$i].guid),$($filerinfo.description),$($filerinfo.serial_number),$($volumeinfo.items[$j].status.accessible_data),$($volumeinfo.items[$j].status.data_not_yet_protected),$($volumeinfo.items[$j].status.last_snapshot),$($volumeinfo.items[$j].status.last_snapshot_version)"
+        #get snapshot status
+        $volumeFilerStatusUrl = "https://"+$hostname+"/api/v1.2/volumes/" + $getinfo.items[$i].guid + "/filers/" + $($volumeinfo.items[$j].filer_serial_number) + "/"
+        $volumeFilerStatus = Invoke-RestMethod -Uri $volumeFilerStatusUrl -Method Get -Headers $headers
+        #build and output results
+        $datastring = "$($getinfo.items[$i].name),$($getinfo.items[$i].guid),$($filerinfo.description),$($filerinfo.serial_number),$($volumeinfo.items[$j].status.accessible_data),$($volumeinfo.items[$j].status.data_not_yet_protected),$($volumeinfo.items[$j].status.last_snapshot),$($volumeinfo.items[$j].status.last_snapshot_version),$($volumeFilerStatus.status.snapshot_status),$($volumeFilerStatus.status.snapshot_percent)"
         Out-File -FilePath $reportFile -InputObject $datastring -Encoding UTF8 -append
         $j++}
 $i++
