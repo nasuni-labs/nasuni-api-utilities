@@ -1,4 +1,4 @@
-#Create a new Nasuni SMB share using the specified parameters
+#Creates Volume with Single or Multiprotocol Support
 
 #populate NMC hostname and credentials
 $hostname = "host.domain.com"
@@ -7,59 +7,59 @@ $hostname = "host.domain.com"
 Tokens expire after 8 hours #>
 $tokenFile = "c:\nasuni\token.txt"
  
-#specify Nasuni volume guid and filer serial number
-$filer_serial = "InsertFilerSerialHere"
-$volume_guid = "InsertVolumeGuidHere"
+#specify the volume name
+$volume_name = "InsertVolumeName"
+#specify Edge Appliance serial number
+$filer_serial_number = "InsertFilerSerialHere"
+
+#cred uuid - lookup using List all cloud credentials endpoint - begins with "customer-"
+$cred_uuid = "InsertCredUuidHere"
+
+#provider name - Amazon S3, Azure, Google, Hitachi Content Platform, EMC VIPR
+$provider_name = "Amazon S3"
+
+#shortname - amazons3, azure, googles3, hcp, vipr
+$shortname = "amazons3"
+
+<#location - AmazonS3: use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
+Google: use Google region codes. Example: us-west1 (Oregon): US-WEST1
+Other S3 compatible cloud providers: use location as None #>
+$location = "us-east-2"
+
+#Storage class - Required for Google volumes. Optional for other storage providers. Examples: STANDARD, NEARLINE, COLDLINE, and ARCHIVE
+$storage_class = "STANDARD"
+
+#volume protocol - for single protocol, enter "CIFS" or "NFS";  for NTFS multiprotocol enter "'CIFS', 'NFS'"
+$volume_protocol = "CIFS"
+
+<# volume permissions policy - USED only for CIFS in the API: NTFSONLY710 (NTFS Exclusive), NTFS60 (NTFS Compatible), PUBLICMODE60 (PUBLIC CIFS), NTFSMP (NTFS Multiprotocol - added in 10.2)  
+NFS: leave blank #>
+$permissions_policy = "NTFS60"
+
+#authenticated access - false for public, true for AD
+$authenticated_access = "true"
+
+#policy - public (no auth), ads (active directory)
+$policy = "ads"
+
+#policy label - Publicly Available,  Active Directory
+$policy_label = "Active Directory"
+
+#Auto Provision Credentials (These are encryption keys even though the API calls it credentials) - use existing cred or create new
+$auto_provision_cred = "false"
+
+#Key Name - specify existing encryption key Name if autoprovision = false, should match key name
+$key_name = "InsertEncryptionKeyName"
+
+#create default access point (creates the default CIFS share or NFS export)
+$create_default_access_point = "true"
+
+#case sensitive - true required for NFS and NTFSMP
+$case_sensitive = "false"
 
 #end variables
- 
-#specify share information
-#share name
-$ShareName = "InsertShareName"
-#share path - path to folder within the volume. Use two "\\" rather than one.
-$path = "\\folder\\path"
-#share comment
-$comment = "InsertShareComment"
-#enable read only access for the share: true/false - default value is "false"
-$readonly = "false"
-#should the share be browsable/visible? true/false - default value is "true"
-$browseable = "true"
-#whether to allow authenticated users full share access. Should be set to "false" if specifying ROUsers, ROGroups, RWUsers, or RWGroups. default is "true"
-$authall = "true"
-#list of read only user(s) separated by commas if more than one entry applies. Format: '"DOMAIN\\sAMAccountName","DOMAIN\\sAMAccountName2"'
-$ROUsers = ''
-#list of read only group(s) separated by commas. 
-$ROGroups = ''
-#list of read write user(s) separated by commas. 
-$RWUsers = ''
-#list of read write groups(s) separated by commas.
-$RWGroups = ''
-#specify lists of allowed hosts. Null value for no restrictions. default is none
-$hosts_allow = ""
-#hide unreadable folders and files - default is "true"
-$hide_unreadable = "true"
-#enable previous versions integration for the share: true/false - default is "false"
-$enable_previous_vers = "false"
-#enable case sensitivity for the share: true/false - default is "false"
-$case_sensitive = "false"
-#enable snapshot directories for the share: true/false - default is "false"
-$enable_snapshot_dirs = "false"
-#enable home directory access for the share: 0/1 - default is "0"
-$homedir_support = "0"
-#enable mobile access for the share: true/false - default is "false"
-$mobile = "false"
-#enable browser access for the share: true/false - default is "false"
-$browser_access = "false"
-#enable Asynchronous I/O - default is "true"
-$aio_enabled = "true"
-#pattern of files to block - default is none
-$veto_files = ""
-#Enable Enhanced Support for Mac OS X Clients - default is "false"
-$fruit_enabled = "false"
-#Require SMB encryption - options are blank, which corresponds to "optional", "desired" or "required" can also be specified.
-$smb_encrypt = ""
 
-#function for error
+#Error Handling function - must appear in the script before it is referenced
 function Failure {
     if ( $PSVersionTable.PSVersion.Major -lt 6) { #PowerShell 5 and earlier
     $global:result = $_.Exception.Response.GetResponseStream()
@@ -73,7 +73,7 @@ $Message =  $_.ErrorDetails.Message;
 Write-Host ("Message: "+ $Message)
 }
 }
- 
+
 #Request token and build connection headers
 # Allow untrusted SSL certs
 if ($PSVersionTable.PSEdition -eq 'Core') #PowerShell Core
@@ -112,41 +112,94 @@ $headers.Add("Content-Type", 'application/json')
 $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
  
-#Create the share
-$url="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/shares/"
+#Create the  volume
+$url = "https://"+$hostname+"/api/v1.2/volumes/"
  
  
-#body for share create
+#Adding storage class to the provider object if the cloud provider is Google
+if($provider_name -ieq "Google"){
+    $provider = @"
+    { 
+        "cred_uuid": "$cred_uuid",
+        "name": "$provider_name",   
+        "shortname": "$shortname",
+        "location": "$location",
+        "storage_class": "$storage_class"
+        }
+"@
+}
+else {
+#Remove location for HCP
+if($provider_name -ieq "Hitachi Content Platform"){
+    $provider = @"
+    { 
+        "cred_uuid": "$cred_uuid",
+        "name": "$provider_name",   
+        "shortname": "$shortname"
+        }
+"@
+}
+else {
+$provider = @"
+{ 
+    "cred_uuid": "$cred_uuid",
+    "name": "$provider_name",   
+    "shortname": "$shortname",
+    "location": "$location"
+    }
+"@
+}}
+
+#build the volume protocol and permissions policy
+#Parse protocol string to handle single or multiple protocols
+$protocolArray = $volume_protocol -split ',' | ForEach-Object { $_.Trim().Trim("'").Trim('"') }
+
+#CIFS (including multiprotocol with CIFS) needs a permissions policy
+if ($protocolArray -contains "CIFS") {
+    $protocolList = ($protocolArray | ForEach-Object { "`"$_`"" }) -join ",`n            "
+    $protocols = @"
+   "protocols": {
+        "permissions_policy": "$permissions_policy",
+        "protocols": [
+            $protocolList
+        ]
+   }
+"@
+}
+else {
+   #NFS only - does not support permissions policy during volume create
+   $protocolList = ($protocolArray | ForEach-Object { "`"$_`"" }) -join ",`n            "
+   $protocols = @"
+   "protocols": {
+    "protocols": [
+        $protocolList
+    ]
+    }
+"@
+}
+ 
+#body for volume create
 $body = @"
 {
-    "name": "$ShareName",
-    "path": "$path",
-    "comment": "$comment",
-    "readonly": "$readonly",
-    "browseable": "$browseable",
-	"auth": {
-		"authall": "$authall",
-        "ro_users": [$ROUsers],
-        "rw_users": [$RWUsers],
-        "ro_groups": [$ROGroups],
-        "rw_groups": [$RWGroups]
-        },
-    "hosts_allow": "$hosts_allow",
-    "hide_unreadable": "$hide_unreadable",
-    "enable_previous_vers": "$enable_previous_vers",
-    "case_sensitive": "$case_sensitive",
-    "enable_snapshot_dirs": "$enable_snapshot_dirs",
-    "homedir_support": "$homedir_support",
-    "mobile": "$mobile",
-    "browser_access": "$browser_access",
-    "aio_enabled": "$aio_enabled",
-    "veto_files": "$veto_files",
-    "fruit_enabled": "$fruit_enabled",
-    "smb_encrypt": "$smb_encrypt"
-
+    "filer_serial_number": "$filer_serial_number",
+    "provider": $provider,
+    "name": "$volume_name",
+    $protocols,
+    "auth": {
+        "authenticated_access": "$authenticated_access",
+        "policy": "$policy",
+        "policy_label": "$policy_label"
+    },
+    "options": {
+        "auto_provision_cred": "$auto_provision_cred",
+        "key_name": "$key_name",
+        "create_default_access_point": "$create_default_access_point"
+    },
+    "case_sensitive": "$case_sensitive"
 }
 "@
 
-#create the share
+
+#create the volume
 try { $response=Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body} catch {Failure}
 write-output $response | ConvertTo-Json
