@@ -24,14 +24,17 @@ $readonly = "false"
 $hostspec = "*"
 #access mode: root_squash (default), no_root_squash (All Users Permitted),all_squash (Anonymize All Users)
 $accessMode = "root_squash"
-#set the perf mode: sync (default), async (Asynchronous Replies), no_wdelay (No Write Delay) 
+<#set the perf mode: sync (default), async (Asynchronous Replies), no_wdelay (No Write Delay)
+- only "sync" is allowed for NFS Ganesha-backed volumes - NTFS Multiprotocol Volumes or NFS on Edges using Ganesha
+#>
 $perfMode = "no_wdelay"
-#configure security options: sys (default), krb5 (Authentication), krb5i (Integrity Protection), krb5p (Privacy Protection)
+<#configure security options: sys (default), krb5 (Authentication), krb5i (Integrity Protection), krb5p (Privacy Protection)
+only "sys" is supported with AD-joined Edges #>
 $secOptions = "sys"
 
 #end variables
 
-#function for error
+#Error Handling function - must appear in the script before it is referenced
 function Failure {
     if ( $PSVersionTable.PSVersion.Major -lt 6) { #PowerShell 5 and earlier
     $global:result = $_.Exception.Response.GetResponseStream()
@@ -86,7 +89,7 @@ $headers.Add("Authorization","Token " + $token)
  
 #Create the export
 #set the create export URL
-$createExportUrl="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/exports/"
+$createExportUrl="https://"+$hostname+"/api/v1.2/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/exports/"
  
 #body for export create
 $body = @"
@@ -106,4 +109,4 @@ $body = @"
 
 #create the export
 try { $response=Invoke-RestMethod -Uri $createExportUrl -Method Post -Headers $headers -Body $body} catch {Failure}
-write-output $response | ConvertTo-Json
+write-output $response | ConvertTo-Json -Depth 3
