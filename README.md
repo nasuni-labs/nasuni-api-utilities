@@ -809,13 +809,13 @@ PowerShell NMC API Scripts for working with volumes.
 Uses PowerShell to create a volume.\
 **Required Inputs**: NMC hostname, tokenFile, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, storage_class(optional), permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
 **Fields and values**: 
-* shortName: amazons3, azure, googles3 (9.0 version of the google connector), vipr (ecs)
+* shortName: amazons3, azure, googles3 (9.0 version of the Google connector), vipr (ecs)
 * location (case-sensitive):
-    * AWS locations: us-east-1, us-east-2, us-west-1 (Refer NMC for a complete list of supported regions)
+    * AWS locations: us-east-1, us-east-2, us-west-1 (Refer to the NMC for a complete list of supported regions)
     * Azure: Not Applicable - location is associated with the cred specified
-    * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, SOUTHAMERICA-EAST1 (Refer NMC for a complete list of supported regions)
+    * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, SOUTHAMERICA-EAST1 (Refer to the NMC for a complete list of supported regions)
     * on-prem object stores: None
-* permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive)
+* permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive), NTFSMP (NTFS Multiprotocol - added in NMC 25.3, Edge 10.2)
 * policy: public (no auth), ads (active directory)
 * storage_class (required for Google): STANDARD, NEARLINE, COLDLINE, and ARCHIVE
   
@@ -823,11 +823,11 @@ Uses PowerShell to create a volume.\
 
 **Compatibility**: NMC API v1.2, NMC 23.2, and Edge Appliance 9.12 or higher required\
 **Known Issues and Notes**:\
-Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating an encryption key, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
+Creating a volume using an existing encryption key: When referencing an existing encryption key rather than creating a new one, you should not include the “create_new_key”: “false” option. This must be omitted until Issue 27807 is fixed.
 
 New AWS regions should be opted-in before using them to create new volumes.
 
-Misleading terminology: The create volume API has an option that misleadingly references “cred” in its **Name**: auto_provision_cred. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (PGP) rather than Nasuni cloud credentials.
+Misleading terminology: The create volume API includes an option, auto_provision_cred, that misleadingly references “cred” in its **Name**. Counterintuitively, auto_provision_cred controls the provisioning of encryption keys (PGP) rather than Nasuni cloud credentials.
 
 Use the List Cloud Credentials NMC API endpoint to obtain the cred_uuid of a credential to use with the create volume NMC API endpoint.\
 **Name**: [/Volumes/CreateVolume.ps1](/Volumes/CreateVolume.ps1)
