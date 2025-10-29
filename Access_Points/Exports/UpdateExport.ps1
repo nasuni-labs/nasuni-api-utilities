@@ -15,15 +15,17 @@ $volume_guid = "InsertVolumeGuid"
 $export_id = "InsertExportID"
 #export comment
 $comment = "InsertComment"
-#enable read only access for the export: true/false - default value is "false"
+#enable read-only access for the export: true/false - default value is "false"
 $readonly = "false"
 #define the default hostspec for the export, the same as allowed hosts in the UI
 $hostspec = "*"
 #access mode: root_squash (default), no_root_squash (All Users Permitted),all_squash (Anonymize All Users)
 $accessMode = "root_squash"
-#set the perf mode: sync (default), async (Asynchronous Replies), no_wdelay (No Write Delay) 
+<#set the perf mode: sync (default), async (Asynchronous Replies), no_wdelay (No Write Delay)
+- only "sync" is allowed for NFS Ganesha-backed volumes - NTFS Multiprotocol Volumes or NFS on Edges using Ganesha #>
 $perfMode = "sync"
-#configure security options: sys (default), krb5 (Authentication), krb5i (Integrity Protection), krb5p (Privacy Protection)
+<#configure security options: sys (default), krb5 (Authentication), krb5i (Integrity Protection), krb5p (Privacy Protection)
+only "sy"s is supported for AD-joined Edges #>
 $secOptions = "sys"
 
 
@@ -66,7 +68,7 @@ $headers.Add("Content-Type", 'application/json')
 $token = Get-Content $tokenFile
 $headers.Add("Authorization","Token " + $token)
 
-#Build json body for export update
+#Build JSON body for export update
 $updateBody = @"
 {
 	"comment": "$comment",
@@ -81,9 +83,9 @@ $updateBody = @"
 "@
  
 #Update the export
-$UpdateExportURL="https://"+$hostname+"/api/v1.1/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/exports/" + $export_id + "/"
+$UpdateExportURL="https://"+$hostname+"/api/v1.2/volumes/" + $volume_guid + "/filers/" + $filer_serial + "/exports/" + $export_id + "/"
 $response=Invoke-RestMethod -Uri $UpdateExportURL -Headers $headers -Method Patch  -Body $UpdateBody
-write-output $response | ConvertTo-Json
+write-output $response | ConvertTo-Json -Depth 3
 
 	
 
