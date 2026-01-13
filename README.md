@@ -9,10 +9,10 @@ Utilities and scripts that use the NMC API ([documentation](https://docs.api.nas
     
 *   Nasuni API and Protocol bugs or feature requests should be communicated to Nasuni Customer Success.
     
-*   GitHub project to-do's, bugs, and feature requests should be submitted as “Issues” in GitHub under its repositories.
+*   GitHub project to-dos, bugs, and feature requests should be submitted as “Issues” in GitHub under its repositories.
 
-# PowerShell REST API Basics
-These NMC API PowerShell scripts provide the building blocks for interacting with the NMC API.
+# REST API Basics
+These NMC API scripts provide the building blocks for interacting with the NMC API.
 
 ## Authentication and Access
 Accessing the NMC API requires a user who is a member of an NMC group that has the "Enable NMC API Access" permission enabled. API users must also have the corresponding NMC permission for the action that they are performing. For example, setting folder quotas with the NMC API requires the "Manage Folder Quotas" NMC permission. Users must first authenticate to the NMC to obtain a token, and then can use that token to access subsequent API endpoints.
@@ -20,10 +20,11 @@ Accessing the NMC API requires a user who is a member of an NMC group that has t
 Both native and domain accounts are supported for NMC API authentication (SSO accounts are not supported using the NMC API). Domain account usernames should be formatted as a UPN (username@emailaddress) for the best compatibility with PowerShell and Bash syntax.
 
 ## Request a Token
-This is a simple script to validate NMC API connectivity and obtain a token that can be used with other NMC API endpoints. The script writes the token to the console if execution is successful and outputs the token to the path specified in the tokenFile variable to be used for authentication for subsequent scripts. Be sure to use single rather than double quotes when entering the password since passwords may contain special characters that need to be treated literally by PowerShell.\
+This is a simple script to validate NMC API connectivity and obtain a token for use with other NMC API endpoints. The script writes the token to the console if execution is successful and outputs it to the path specified by the tokenFile variable for authentication in subsequent scripts. Be sure to use single rather than double quotes when entering the password, since passwords may contain special characters that need to be treated literally.\
 **Required Inputs**: NMC hostname, username, password, tokenFile\
 **Compatibility**: Nasuni 7.10 or higher required\
-**Name**: [/API_Basics/GetToken.ps1](/API_Basics/GetToken.ps1)
+**PowerShell Name**: [/API_Basics/GetToken.ps1](/API_Basics/GetToken.ps1)\
+**Python Name**: [/API_Basics/GetToken.py](/API_Basics/GetToken.py)
 
 ## Request a Token - Prompt for Credentials
 It works the same way as the "Request a Token" script but prompts the user for credentials using PowerShell's Get-Credential cmdlet rather than relying on hardcoded credentials in the script. \
@@ -38,7 +39,7 @@ The code snippet below can be used as an example for modifying the PowerShell co
 **Name**: [/API_Basics/BetterErrorHandling.ps1](/API_Basics/BetterErrorHandling.ps1)
 
 ## Allow Untrusted SSL Certificates
-A valid SSL certificate for the NMC is a best practice, but test/dev or new environments might not have a valid SSL certificate. Fortunately, there's a way to skip SSL certificate checks, which is included in most of our PowerShell examples. You can remove this code block from the provided examples if you have a valid SSL certificate for your NMC.
+A valid SSL certificate for the NMC is a best practice, but test/dev or new environments might not have one. Fortunately, there's a way to skip SSL certificate checks, which is included in most of our PowerShell examples. You can remove this code block from the provided examples if you have a valid SSL certificate for your NMC.
 
 If you are using PowerShell 6 or higher, the Invoke-RestMethod cmdlet natively includes a “-SkipCertificateCheck” option, and this script changes the default for the Invoke-RestMethod cmdlet to skip certificate checks. Versions of PowerShell before version 6 and PowerShell core do not support a “-SkipCertificateCheck” option and must rely on the .Net subsystem to disable certificate checks.\
 **Name**: [/API_Basics/AllowUntrustedSSLCerts.ps1](/API_Basics/AllowUntrustedSSLCerts.ps1)
@@ -66,10 +67,10 @@ Some NMC API endpoints require a specific NMC or Edge Appliance version, and if 
 
 `Current filer version does not support this type of request. Please update your Edge Appliance to use this feature.`
 
-If the Edge Appliance version and NMC match what is documented for the NMC API endpoint and the error is still returned, it's possible that Edge Appliances were updated before upgrading the NMC. If this were to occur, the configurations that the Edge Appliances sent to the NMC would have contained information that the NMC couldn't process, causing the NMC to think the Edge Appliance doesn't meet the version criteria for the particular NMC API endpoint. The fix for this is to have the Edge Appliances resend their configurations once the NMC runs the current version–the "Refresh Managed Filers" button on the NMC overview page will do this.
+If the Edge Appliance version and NMC match what is documented for the NMC API endpoint, and the error is still returned, it's possible that Edge Appliances were updated before upgrading the NMC. If this were to occur, the configurations the Edge Appliances sent to the NMC would have included information the NMC couldn't process, causing the NMC to believe the Edge Appliance doesn't meet the version criteria for the particular NMC API endpoint. The fix for this is to have the Edge Appliances resend their configurations once the NMC runs the current version–the "Refresh Managed Filers" button on the NMC overview page will do this.
 
 ### TLS Handshake Failure
-Beginning with NMC version 22.3, insecure ephemeral Diffie-Hellman ciphers PowerShell uses on older Windows OS versions (Server 2012R2 and older) are disabled. Callers impacted by the change could see the following error messages: `TLS handshake failure` or `The request was aborted: Could not create SSL/TLS secure channel.`  Upgrade to a supported Windows version (Server 2016, Windows 10, or newer) to resolve the issue. Contact Nasuni Customer Support and reference internal KB11989 to have insecure ciphers re-enabled for your NMC if needed to support older Windows versions. Linux and macOS PowerShell versions are not impacted.
+Beginning with NMC version 22.3, insecure ephemeral Diffie-Hellman ciphers that PowerShell uses on older Windows OS versions (Server 2012R2 and older) are disabled. Callers impacted by the change could see the following error messages: `TLS handshake failure` or `The request was aborted: Could not create SSL/TLS secure channel.`  Upgrade to a supported Windows version (Server 2016, Windows 10, or newer) to resolve the issue. Contact Nasuni Customer Support and reference internal KB11989 to have insecure ciphers re-enabled for your NMC if needed to support older Windows versions. Linux and macOS PowerShell versions are not impacted.
 
 ## PowerShell Tools
 Windows includes built-in tools for PowerShell editing and testing, and there is also a good cross-platform, Microsoft-provided option for code editing with native support for PowerShell. 
@@ -141,7 +142,7 @@ Uses PowerShell to export a list of all shares and configured share settings to 
 **Name**: [/Access_Points/Shares/ExportAllSharesToCSV.ps1](/Access_Points/Shares/ExportAllSharesToCSV.ps1)
 
 ### Bulk Share Creation
-These scripts demonstrate how shares can be created, exported, and subsequently updated. The scripts use CSV files for Input and output.\
+These scripts demonstrate how to create, export, and update shares. The scripts use CSV files for Input and output.\
 **Compatibility**: Nasuni 8.0 or higher required; Required PowerShell Version: 7.0 or higher.
 
 #### Step 1 - Create Shares From CSV
@@ -308,7 +309,7 @@ Uses PowerShell to export all FTP directories and configurable settings to CSV.\
 PowerShell NMC API Scripts to manage antivirus violations. 
 
 ### Export Antivirus Violations to CSV
-This script uses the NMC API to export antivirus violations for all volume and Edge Appliances in an Account to a CSV.\
+This script uses the NMC API to export antivirus violations for all volumes and Edge Appliances in an Account to a CSV.\
 **Required Inputs**: NMC hostname, tokenFile, reportFile, limit\
 **Compatibility**: Nasuni 7.10 or higher required\
 **Name**: [/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1](/Cyber_Resilience/Antivirus/ExportAntivirusViolationsToCSV.ps1)
@@ -722,17 +723,18 @@ Export Contents: Description, SerialNumber, GUID, build, cpuCores, cpuModel, cpu
 **Name**: [/Operations/ExportEAStatusToCSV.ps1](/Operations/ExportEAStatusToCSV.ps1)
 
 ## List Cloud Credentials
-Lists cloud credentials for an account and exports results to the PowerShell console. \
+Lists cloud credentials for an account and exports results to the console. \
 **NMC API Endpoint Used**: [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get) \
 **Required Inputs**: NMC hostname, tokenFile\
 **Output**: cred_uuid, name, filer_serial_number, cloud_provider, account, hostname, status, note, in_use\
 **Compatibility**: NMC API v1.2, NMC 22.2, and Edge Appliance 9.8 or higher required\
-**Name**: [/Operations/ListCloudCredentials.ps1](/Operations/ListCloudCredentials.ps1)
+**PowerShell Name**: [/Operations/ListCloudCredentials.ps1](/Operations/ListCloudCredentials.ps1)\
+**Python Name**: [/Operations/ListCloudCredentials.py](/Operations/ListCloudCredentials.py)
 
 ## Update Cloud Credentials
-This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared among multiple Edge Appliances are uniquely identified using the cred_uuid. For a given cred_uuid, the script lists all Edge Appliances sharing the cloud credentials and makes individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
+This script automates updating cloud credentials on Edge Appliances using the NMC API. Cloud credentials shared across multiple Edge Appliances are uniquely identified by cred_uuid. For a given cred_uuid, the script lists all Edge Appliances that share the cloud credentials and sends individual patch requests to each Edge Appliance to update them. If an Edge Appliance is offline, the script seeks confirmation before making patch requests. The script repeatedly checks if the changes have synced up and summarizes the sync status. The number of sync checks and the wait time between them can be adjusted.
 
-Note: Cred_UUID information can be found using the list cloud credential scripts. Only the access key and the secret on the 9.8+ Edge Appliances are updated synchronously. Updating pre-9.8 Edge Appliances or updating other attributes such as name, hostname, and note may take longer to sync. \
+Note: Cred_UUID information can be found using the list cloud credential scripts. Only the access key and the secret on the 9.8+ Edge Appliances are updated synchronously. Updating pre-9.8 Edge Appliances or updating other attributes, such as name, hostname, and note, may take longer to sync. \
 **NMC API Endpoint Used**: 
 * [List Cloud Credentials](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Account/paths/~1account~1cloud-credentials~1/get/#tag/Account/paths/~1account~1cloud-credentials~1/get)
 * [List Edge Appliances](https://docs.api.nasuni.com/api/nmc/v120/reference/tag/Filers/paths/~1filers~1/get/#tag/Filers/paths/~1filers~1/get)
@@ -742,7 +744,8 @@ Note: Cred_UUID information can be found using the list cloud credential scripts
 **Required Inputs**: NMC hostname, tokenFile, cred uuid \
 **Output**: Sync status summary \
 **Compatibility**: NMC API v1.2, NMC 22.2, and Edge Appliance 9.8 or higher required\
-**Name**: [/Operations/UpdateCloudCredentials.ps1](/Operations/UpdateCloudCredentials.ps1)
+**PowerShell Name**: [/Operations/UpdateCloudCredentials.ps1](/Operations/UpdateCloudCredentials.ps1)\
+**Python Name**: [/Operations/UpdateCloudCredentials.py](/Operations/UpdateCloudCredentials.py)
 
 
 ## Get Message
