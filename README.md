@@ -818,7 +818,7 @@ Uses PowerShell to create a volume.\
     * AWS locations: us-east-1, us-east-2, us-west-1 (Refer to the NMC for a complete list of supported regions)
     * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, SOUTHAMERICA-EAST1 (Refer to the NMC for a complete list of supported regions)
     * all others: enter "none"
-* permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive), NTFS60 (UNIX/NFS Permissions Only Mode), NTFSMP (NTFS Multiprotocol - added in NMC 25.3, Edge 10.2)
+* permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive), MODEBITS60 (UNIX/NFS Permissions Only Mode), NTFSMP (NTFS Multiprotocol - added in NMC 25.3, Edge 10.2)
 * policy: public (no auth), ads (active directory)
 * storage_class (required for Google): STANDARD, NEARLINE, COLDLINE, and ARCHIVE
   
