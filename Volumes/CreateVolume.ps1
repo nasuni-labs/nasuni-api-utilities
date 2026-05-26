@@ -9,24 +9,25 @@ $tokenFile = "c:\nasuni\token.txt"
  
 #specify the volume name
 $volume_name = "InsertVolumeName"
+
 #specify Edge Appliance serial number
 $filer_serial_number = "InsertFilerSerialHere"
 
 #cred uuid - lookup using List all cloud credentials endpoint - begins with "customer-"
 $cred_uuid = "InsertCredUuidHere"
 
-#provider name - Amazon S3, Azure, Google, Hitachi Content Platform, EMC VIPR
+#provider name - Amazon S3, Microsoft Azure, Google, Hitachi Content Platform, EMC VIPR
 $provider_name = "Amazon S3"
 
 #shortname - amazons3, azure, googles3, hcp, vipr
 $shortname = "amazons3"
 
-<#location - AmazonS3: use AWS region codes(Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
-Google: use Google region codes. Example: us-west1 (Oregon): US-WEST1
-Other S3 compatible cloud providers: use location as None #>
+<#location - AmazonS3: use AWS region codes (Requires NMC 23.2+ and NEA 9.12+). Example: US East (Ohio): us-east-2
+Google: Use Google region codes. Example: us-west1 (Oregon): US-WEST1
+All others: enter "none" #>
 $location = "us-east-2"
 
-#Storage class - Required for Google volumes. Optional for other storage providers. Examples: STANDARD, NEARLINE, COLDLINE, and ARCHIVE
+#Storage class - Required for Google volumes. Leave blank for other storage providers. Examples: STANDARD, NEARLINE, COLDLINE, and ARCHIVE
 $storage_class = "STANDARD"
 
 #volume protocol - for single protocol, enter "CIFS" or "NFS";  for NTFS multiprotocol enter "'CIFS', 'NFS'"
