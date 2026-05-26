@@ -34,7 +34,7 @@ $storage_class = "STANDARD"
 $volume_protocol = "CIFS"
 
 <# volume permissions policy - USED only for CIFS in the API: NTFSONLY710 (NTFS Exclusive), NTFS60 (NTFS Compatible), PUBLICMODE60 (PUBLIC CIFS),
-NTFSMP (NTFS Multiprotocol - added in 10.2), NFS: leave blank #>
+MODEBITS60 (UNIX/NFS Permissions Only Mode), NTFSMP (NTFS Multiprotocol - added in 10.2), NFS: leave blank #>
 $permissions_policy = "NTFS60"
 
 #authenticated access - false for public, true for AD
