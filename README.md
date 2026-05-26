@@ -812,13 +812,13 @@ PowerShell NMC API Scripts for working with volumes.
 Uses PowerShell to create a volume.\
 **Required Inputs**: NMC hostname, tokenFile, volume_name, filer_serial_number, cred_uuid, provider_name, shortname, location, storage_class(optional), permissions_policy, authenticated_access, policy, policy_label, auto_provision_cred, key_name, create_default_access_point, case_sensitive\
 **Fields and values**: 
-* shortName: amazons3, azure, googles3 (9.0 version of the Google connector), vipr (ecs)
+* Provider Name: Amazon S3, Microsoft Azure, Google, Hitachi Content Platform, EMC VIPR
+* shortName: amazons3, azure, googles3, vipr (ecs)
 * location (case-sensitive):
     * AWS locations: us-east-1, us-east-2, us-west-1 (Refer to the NMC for a complete list of supported regions)
-    * Azure: Not Applicable - location is associated with the cred specified
     * Google: US-EAST1, NORTHAMERICA-NORTHEAST1, SOUTHAMERICA-EAST1 (Refer to the NMC for a complete list of supported regions)
-    * on-prem object stores: None
-* permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive), NTFSMP (NTFS Multiprotocol - added in NMC 25.3, Edge 10.2)
+    * all others: enter "none"
+* permissions_policy: PUBLICMODE60 (PUBLIC), NTFS60 (NTFS Compatible), NTFSONLY710 (NTFS Exclusive), NTFS60 (UNIX/NFS Permissions Only Mode), NTFSMP (NTFS Multiprotocol - added in NMC 25.3, Edge 10.2)
 * policy: public (no auth), ads (active directory)
 * storage_class (required for Google): STANDARD, NEARLINE, COLDLINE, and ARCHIVE
   
