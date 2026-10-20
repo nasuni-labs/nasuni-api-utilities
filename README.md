@@ -170,6 +170,27 @@ This script uses the NMC API to list all shares for an Edge Appliance and update
 **Known Issues**: none\
 **Name**: [/Access_Points/Shares/SetFilerSharesToReadOnly.ps1](/Access_Points/Shares/SetFilerSharesToReadOnly.ps1)
 
+### Set All Shares on an Edge Appliance to Read Write
+This script uses the NMC API to list all shares for an Edge Appliance and update each share's properties to set the shares to Read Write. This was originally developed to assist with quiescing all shares on a specific Edge Appliance to assist with data migration. \
+**Required Inputs**: NMC hostname, tokenFile, Filer Serial, limit (set to 1000 by default)\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
+**Name**: [/Access_Points/Shares/SetFilerSharesToReadWrite.ps1](/Access_Points/Shares/SetFilerSharesToReadWrite.ps1)
+
+### Set All Shares on an Edge Appliance to Read Only - Throttle
+This script uses the NMC API to list all shares on a specified Edge Appliance and update each share’s properties to set it to read-only. To avoid overloading the NMC, it limits the number of outstanding requests to 10 at a time. Each update returns a message ID, and the script polls those message IDs until they are no longer in pending status before sending more requests. It was originally developed to quiesce all shares on a specific Edge Appliance in preparation for a data migration. \
+**Required Inputs**: NMC hostname, tokenFile, Filer Serial, limit (set to 1000 by default)\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
+**Name**: [/Access_Points/Shares/SetFilerSharesToReadOnly-Throttle.ps1](/Access_Points/Shares/SetFilerSharesToReadOnly-Throttle.ps1)
+
+### Set All Shares on an Edge Appliance to Read Write - Throttle
+This script uses the NMC API to list all shares on a specified Edge Appliance and update each share’s properties to set it to read-write. To avoid overloading the NMC, it limits the number of outstanding requests to 10 at a time. Each update returns a message ID, and the script polls those message IDs until they are no longer in pending status before sending more requests. It was originally developed to quiesce all shares on a specific Edge Appliance in preparation for a data migration. \
+**Required Inputs**: NMC hostname, tokenFile, Filer Serial, limit (set to 1000 by default)\
+**Compatibility**: Nasuni 8.0 or higher required\
+**Known Issues**: none\
+**Name**: [/Access_Points/Shares/SetFilerSharesToReadWrite-Throttle.ps1](/Access_Points/Shares/SetFilerSharesToReadWrite-Throttle.ps1)
+
 ### Set Previous Versions for all Shares
 This script uses the NMC API to list all shares, check to see if previous versions are enabled, and update the share properties for each share without previous versions support so that previous versions support is enabled. It can also be used to disable previous versions support for all shares. There is a 1.1-second pause after updating each share to avoid NMC throttling. Based on the pause, the script could take 1110 seconds to complete for 1000 shares. Also, 1100 seconds only reflects the time the script will take to execute--the NMC could take considerably longer to contact each Edge Appliance and update share properties.\
 **Required Inputs**: NMC hostname, tokenFile, PreviousVersions (True/False)\
